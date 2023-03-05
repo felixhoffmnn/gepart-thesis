@@ -1,5 +1,56 @@
 %!TEX root = ../dokumentation.tex
 
-\chapter{Diskussion} \label{ch:discussion}
+\chapter{Trainieren eines Klassifikationsmodells} \label{ch:crispDm_2}
 
-- Bias aufgrund Unterschied zwischen Politiker und Wähler
+\section{Evaluation} \label{sec:evaluation}
+
+% TODO: Test specific domain model with other data (aplly tweets to speeches model)
+
+\begin{table}[H]
+    \centering
+    {\footnotesize
+    \begin{tblr}{width=\textwidth, hlines, vlines}
+        \textbf{Datensatz} & Tweets & Wahlpro\-gramme & Reden \\ 
+
+        Tweets & N/A & \num{0} & \num{0} \\
+        Wahlpro\-gramme & \num{0} & N/A & \num{0} \\
+        Reden & \num{0} & \num{0} & N/A \\
+    \end{tblr}
+    }
+    \caption{Performance von domainspezifischen Modellen auf alternativen Testdaten} \label{tab:comparisonModelDatasets}
+\end{table}
+
+% TODO: Update scores and maybe add more models
+
+\begin{table}[H]
+    \centering
+    {\footnotesize
+    \begin{tblr}{width=\textwidth, hlines, vlines}
+        \textbf{Datensatz} & \textbf{FastText} & \textbf{BERT} & \textbf{Differenz} \\ 
+
+        Tweets & \num{0.59} & \num{0} & \num{0} \\
+        Wahlpro\-gramme & \num{0} & \num{0} & \num{0} \\
+        Reden & \num{0} & \num{0} & \num{0} \\
+
+        \textbf{Kombiniert} & \textbf{\num{0}} & \textbf{\num{0}} & \textbf{\num{0}} \\
+    \end{tblr}
+    }
+    \caption{Vergleich des \(F_1\) Scores zwischen \texttt{fasttext} und \acs{BERT}} \label{tab:comparisonModels}
+\end{table}
+
+\section{Deployment} \label{sec:deployment}
+
+\subsection{Interface}
+
+\begin{itemize}
+    \item Streamlit
+    \item Huggingface
+\end{itemize}
+
+\subsection{Beispielanwendung: Zeitungen}
+
+\begin{itemize}
+    \item Modell auf Zeitungsartikel zwischen 2017 und 2021 anwenden (Bild, Zeit, ...)
+    \item Modell auf Tweets von Zeitungen anwenden
+\end{itemize}
+    

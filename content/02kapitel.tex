@@ -2,6 +2,14 @@
 
 \chapter{Grundlagen} \label{ch:materialsAndMethods}
 
+% -   Politikapparat und Parteienlandschaft
+% -   Erörterung, welche Medienplattformen und Nachrichtenquellen verwendet werden sollen
+% -   Auswahl von Quellen und Sammeln von Daten
+% -   NLP-Pipeline
+% -   Machine Learning / Clustering
+
+\section{Related Work}
+
 \textcite{kalyanam_prediction_2016} untersuchen die Auswirkungen von Events in der realen Wert auf die Social Media Aktivität. Ebenso untersuchen \textcite{tsytsarau_dynamics_2014} diesen Zusammenhang, mit einem Fokus auf die Verbindung der medialen Berichterstattung und dem Sentiment, der durch die Social Media Aktivitäten dargestellt wird.
 \textcite{gimpel_user_2018} nähern sich der Thematik der Social Media Nutzung durch eine Cluster-Analyse zu verschiedenen Rollen in Twitter-Diskussionen.
 Zudem untersucht \textcite{saltzer_bundestagswahl_2022} die Positionen von Bundestagskandidaten auf Twitter und betrachtet diese einerseits im Vergleich innerhalb der Parteien sowie andererseits auf einem allgemeinen politischen Koordinatensystem \autocite{saltzer_bundestagswahl_2022, saltzer_finding_2022}.
@@ -18,11 +26,19 @@ In unserer Studienarbeit wollen wir neue Klassifikationsverfahren nutzen und ver
 Zudem wollen wir nicht nur die Texte von Reden nutzen, sondern auch Social Media Posts und Parteiprogramme als Trainingsdaten für den Klassifikator einbeziehen.
 Für die darauf aufbauenden Analysen wollen wir zusätzlich zu den Social Media Aktivitäten, die mit bestimmten Ereignissen in Verbindung stehen, auch die jeweilige politische Einstellung der Nutzer, bestimmt durch den trainierten Klassifikator, nutzen.
 
--   Politikapparat und Parteienlandschaft
--   Erörterung, welche Medienplattformen und Nachrichtenquellen verwendet werden sollen
--   Auswahl von Quellen und Sammeln von Daten
--   NLP-Pipeline
--   Machine Learning / Clustering
+\subsection{Check-worthy sentence detection}
+
+% TODO: Check if this is even relevant for this paper 
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{images/workflow_of_experiment_design.png}
+%     \caption[Workflow of Experiment Design]{Workflow of Experiment Design \autocite{jha_towards_2023}} \label{fig:workflowExperimentDesign}
+% \end{figure}
+
+Das G2CW Framework von \textcite{jha_towards_2023} ermöglicht es zu prüfen, ob ein englischer Satz einen Fakt enthält. Zusätzlich klassifiziert das Modell, ob dieser Fakt irrelevant ist, oder ob es sich lohnt, die Richtigkeit des Satzes zu überprüfen (F1-Score \num{0.92}).
+
+Für das Training des \ac{ML} Modells werden zwei unterschiedliche Arten von Modellen trainiert. Als Ausgangsmetrik werden herkömmliche Modelle wie Naive Bayes, \ac{SVM} und Random Forest verwendet. Diese werden mit Features aus einzelnen Sätzen und \ac{POS} Features trainiert. Zusätzlich werden Deep Leaarning Modelle wie \ac{LSTM} und \ac{CNN} verwendet. Für das Training von den letzten Modellen verwenden \textcite{jha_towards_2023} Word Embedding Modelle wie GLove, word2vec und Keras.
 
 \section{Deutsche Politik}
 Eine gute Übersicht über die notwendigen politikwissenschaftlichen Hintergründe bieten \textcite{bukow_innerparteiliche_2013}, die die Organisation und Funktion der deutschen Parteien beschreiben.
@@ -37,30 +53,42 @@ Eine gute Übersicht über die notwendigen politikwissenschaftlichen Hintergrün
 
 \subsection{Aktuelle Regierung im Zeitraum 2017 bis 2021}
 
-\section{NLP}
+% \section{NLP}
 
-\subsection{Cleaning Pipeline}
+% \subsection{Cleaning Pipeline}
 
-- Common Sense aus der Literatur
+% - Common Sense aus der Literatur
 
-\section{Modeling}
+\section{Feature Engineering}
 
-\textbf{Bag-of-Words}:
+\subsection{Bag-of-Words}
 
 Lorem Ipsum
 
-\textbf{TF-IDF}:
+\subsection{TF-IDF}
 
 Die Transformation 
 
-\textbf{Check-worthy sentence detection}:
+\subsection{Word Embeddings}
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{images/workflow_of_experiment_design.png}
-%     \caption[Workflow of Experiment Design]{Workflow of Experiment Design \autocite{jha_towards_2023}} \label{fig:workflowExperimentDesign}
-% \end{figure}
+Lorem Ipsum
 
-Das G2CW Framework von \textcite{jha_towards_2023} ermöglicht es zu prüfen, ob ein englischer Satz einen Fakt enthält. Zusätzlich klassifiziert das Modell, ob dieser Fakt irrelevant ist, oder ob es sich lohnt, die Richtigkeit des Satzes zu überprüfen (F1-Score \num{0.92}).
+\subsubsection{FastText}
 
-Für das Training des \ac{ML} Modells werden zwei unterschiedliche Arten von Modellen trainiert. Als Ausgangsmetrik werden herkömmliche Modelle wie Naive Bayes, \ac{SVM} und Random Forest verwendet. Diese werden mit Features aus einzelnen Sätzen und \ac{POS} Features trainiert. Zusätzlich werden Deep Leaarning Modelle wie \ac{LSTM} und \ac{CNN} verwendet. Für das Training von den letzten Modellen verwenden \textcite{jha_towards_2023} Word Embedding Modelle wie GLove, word2vec und Keras.
+Lorem Ipsum
+
+\subsubsection{GloVe}
+
+Lorem Ipsum
+
+\section{Deep Learning}
+
+Lorem Ipsum
+
+\subsection{BERT}
+
+Lorem Ipsum
+
+\subsection{LSTM}
+
+\section{Zusammenfassung}

@@ -2,9 +2,7 @@
 
 \chapter{Introduction} \label{ch:introduction}
 
-% TODO: Move metion of GitHub
-
-Der Quellcode für diese Arbeit ist verfügbar unter \href{https://github.com/felixhoffmnn/studienarbeit}{https://github.com/felixhoffmnn/studienarbeit}.
+% TODO: Add disclaimer about ethis and pupose of this work
 
 Ereignisse wie die Wahl von Donald Trump zum US-Präsidenten, das Brexit-Referendum, als auch der Krieg in der Ukraine werfen die Frage auf, welchen Einfluss die Neuen Medien auf die politische Meinungsbildung haben \autocite{brandon_russia_2022, lee_how_2020}. Plattformen wie Twitter, Facebook und Instagram haben in den vergangenen Jahren die Art und Weise, wie Nachrichten erstellt und verbreitet werden, stark verändert. Unter anderem die Möglichkeit eines Nutzers, seine Meinung zu Themen schnell und direkt zu äußern, rückt den konkreten sprachlichen Ausdruck sowie polarisierende Meinungen von Politikern deutlich stärker in den Fokus.
 
@@ -23,7 +21,27 @@ Mögliche Fragestellungen sind für diese Arbeit sind:
     \item Lässt sich die Parteizugehörigkeit aufgrund einzelner Worte oder Phrasen bestimmen?
 \end{itemize}
 
+\section{Related Work}
+
+\textcite{kalyanam_prediction_2016} untersuchen die Auswirkungen von Events in der realen Welt auf die Social Media Aktivität. Ebenso untersuchen \textcite{tsytsarau_dynamics_2014} diesen Zusammenhang, mit einem Fokus auf die Verbindung der medialen Berichterstattung und dem Sentiment, der durch die Social Media Aktivitäten dargestellt wird.
+\textcite{gimpel_user_2018} nähern sich der Thematik der Social Media Nutzung durch eine Cluster-Analyse zu verschiedenen Rollen in Twitter-Diskussionen.
+Zudem untersucht \textcite{saltzer_bundestagswahl_2022} die Positionen von Bundestagskandidaten auf Twitter und betrachtet diese einerseits im Vergleich innerhalb der Parteien (Flügel/Strömungen) sowie andererseits auf einem allgemeinen politischen Koordinatensystem \autocite{saltzer_bundestagswahl_2022, saltzer_finding_2022}. Für die Analyse verwendete \textcite{saltzer_finding_2022} unter anderem Tweet-Texte, etwaige Zugehörigkeit zu einer Vorfeldorganisation, Merkmale des Politikers, als auch ihr Abstimmungsverhalten.
+
+\textcite{li_survey_2021} sowie \textcite{kowsari_text_2019} bieten je einen umfassenden Überblick sowie Vor- und Nachteile verschiedener Arten von Text-Klassifikation und gehen dabei sowohl auf traditionelle als auch auf Deep-Learning-Ansätze ein.
+\textcite{minaee_deep_2022} untersuchen und vergleichen die Verwendung von Deep-Learning-Modellen für die Aufgabe der Text-Klassifikation.
+
+\textcite{wong_quantifying_2016} bestimmen die politische Ausrichtung aufgrund des Verhaltens von Personen auf Twitter durch die Betrachtung, welche Accounts ähnliche andere Accounts retweeten.
+Zudem vergleichen \textcite{doan_using_2022} verschiedene Sprachmodelle zur Klassifizierung von Reden nach Parteien und führen dies für verschiedene Länder bzw. Sprachen durch.
+Auch \textcite{biessmann_predicting_2016} klassifizieren Reden nach Parteien und nutzen zum Trainieren Parlaments-Debatten des Bundestages. Zudem wenden sie den Klassifikator auf andere Arten von Texten wie Social Media Posts an.
+
 \section{Ziel dieser Arbeit} \label{sec:thesisGoal}
 
-- Transparenz schaffen
-- Analysieren von Zeitungen zur Feststellung von Political Bias
+Die Darstellung der Literatur zeigt, dass sich bereits einige Arbeiten mit der Analyse von Social Media Aktivitäten im Zusammenhang mit realen Events sowie mit dem Problem, Texte nach Parteizugehörigkeit zu klassifizieren, beschäftigen.
+In unserer Studienarbeit wollen wir neue Klassifikationsverfahren nutzen und vergleichen, um eine höhere Performance als vergangene Arbeiten zu erreichen.
+Zudem wollen wir nicht nur die Texte von Reden nutzen, sondern auch Social Media Posts und Parteiprogramme als Trainingsdaten für den Klassifikator einbeziehen.
+Für die darauf aufbauenden Analysen wollen wir zusätzlich zu den Social Media Aktivitäten, die mit bestimmten Ereignissen in Verbindung stehen, auch die jeweilige politische Einstellung der Nutzer, bestimmt durch den trainierten Klassifikator, nutzen.
+
+\begin{itemize}
+    \item Transparenz schaffen
+    \item Analysieren von Zeitungen zur Feststellung von Political Bias
+\end{itemize}

@@ -1,6 +1,6 @@
 %!TEX root = ../dokumentation.tex
 
-\chapter{Grundlagen} \label{ch:materialsAndMethods}
+\chapter{Materialien und Methoden} \label{ch:materialsAndMethods}
 
 % -   Politikapparat und Parteienlandschaft
 % -   Erörterung, welche Medienplattformen und Nachrichtenquellen verwendet werden sollen
@@ -8,42 +8,27 @@
 % -   NLP-Pipeline
 % -   Machine Learning / Clustering
 
-\section{Related Work}
+% \subsection{Check-worthy sentence detection}
 
-\textcite{kalyanam_prediction_2016} untersuchen die Auswirkungen von Events in der realen Wert auf die Social Media Aktivität. Ebenso untersuchen \textcite{tsytsarau_dynamics_2014} diesen Zusammenhang, mit einem Fokus auf die Verbindung der medialen Berichterstattung und dem Sentiment, der durch die Social Media Aktivitäten dargestellt wird.
-\textcite{gimpel_user_2018} nähern sich der Thematik der Social Media Nutzung durch eine Cluster-Analyse zu verschiedenen Rollen in Twitter-Diskussionen.
-Zudem untersucht \textcite{saltzer_bundestagswahl_2022} die Positionen von Bundestagskandidaten auf Twitter und betrachtet diese einerseits im Vergleich innerhalb der Parteien sowie andererseits auf einem allgemeinen politischen Koordinatensystem \autocite{saltzer_bundestagswahl_2022, saltzer_finding_2022}.
+% % TODO: Check if this is even relevant for this paper 
 
-\textcite{li_survey_2021} sowie \textcite{kowsari_text_2019} bieten je einen umfassenden Überblick sowie Vor- und Nachteile verschiedener Arten von Text-Klassifikation und gehen dabei sowohl auf traditionelle als auch auf Deep-Learning-Ansätze ein.
-\textcite{minaee_deep_2022} untersuchen und vergleichen die Verwendung von Deep-Learning-Modellen für die Aufgabe der Text-Klassifikation.
+% % \begin{figure}[H]
+% %     \centering
+% %     \includegraphics[width=0.8\textwidth]{images/workflow_of_experiment_design.png}
+% %     \caption[Workflow of Experiment Design]{Workflow of Experiment Design \autocite{jha_towards_2023}} \label{fig:workflowExperimentDesign}
+% % \end{figure}
 
-\textcite{wong_quantifying_2016} bestimmen die politische Ausrichtung aufgrund des Verhaltens von Personen auf Twitter durch die Betrachtung, welche Accounts ähnliche andere Accounts retweeten.
-Zudem vergleichen \textcite{doan_using_2022} verschiedene Sprachmodelle zur Klassifizierung von Reden nach Parteien und führen dies für verschiedene Länder bzw. Sprachen durch.
-Auch \textcite{biessmann_predicting_2016} klassifizieren Reden nach Parteien und nutzen zum Trainieren Parlaments-Debatten des Bundestages. Zudem wenden sie den Klassifikator auf andere Arten von Texten wie Social Media Posts an.
+% Das G2CW Framework von \textcite{jha_towards_2023} ermöglicht es zu prüfen, ob ein englischer Satz einen Fakt enthält. Zusätzlich klassifiziert das Modell, ob dieser Fakt irrelevant ist, oder ob es sich lohnt, die Richtigkeit des Satzes zu überprüfen (F1-Score \num{0.92}).
 
-Die Darstellung der Literatur zeigt, dass sich bereits einige Arbeiten mit der Analyse von Social Media Aktivitäten im Zusammenhang mit realen Events sowie mit dem Problem, Texte nach Parteizugehörigkeit zu klassifizieren, beschäftigen.
-In unserer Studienarbeit wollen wir neue Klassifikationsverfahren nutzen und vergleichen, um eine höhere Performance als vergangene Arbeiten zu erreichen.
-Zudem wollen wir nicht nur die Texte von Reden nutzen, sondern auch Social Media Posts und Parteiprogramme als Trainingsdaten für den Klassifikator einbeziehen.
-Für die darauf aufbauenden Analysen wollen wir zusätzlich zu den Social Media Aktivitäten, die mit bestimmten Ereignissen in Verbindung stehen, auch die jeweilige politische Einstellung der Nutzer, bestimmt durch den trainierten Klassifikator, nutzen.
+% Für das Training des \ac{ML} Modells werden zwei unterschiedliche Arten von Modellen trainiert. Als Ausgangsmetrik werden herkömmliche Modelle wie Naive Bayes, \ac{SVM} und Random Forest verwendet. Diese werden mit Features aus einzelnen Sätzen und \ac{POS} Features trainiert. Zusätzlich werden Deep Leaarning Modelle wie \ac{LSTM} und \ac{CNN} verwendet. Für das Training von den letzten Modellen verwenden \textcite{jha_towards_2023} Word Embedding Modelle wie GLove, word2vec und Keras.
 
-\subsection{Check-worthy sentence detection}
+\section{Deutsche Politik in der 19. Legislaturperiode}
 
-% TODO: Check if this is even relevant for this paper 
-
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{images/workflow_of_experiment_design.png}
-%     \caption[Workflow of Experiment Design]{Workflow of Experiment Design \autocite{jha_towards_2023}} \label{fig:workflowExperimentDesign}
-% \end{figure}
-
-Das G2CW Framework von \textcite{jha_towards_2023} ermöglicht es zu prüfen, ob ein englischer Satz einen Fakt enthält. Zusätzlich klassifiziert das Modell, ob dieser Fakt irrelevant ist, oder ob es sich lohnt, die Richtigkeit des Satzes zu überprüfen (F1-Score \num{0.92}).
-
-Für das Training des \ac{ML} Modells werden zwei unterschiedliche Arten von Modellen trainiert. Als Ausgangsmetrik werden herkömmliche Modelle wie Naive Bayes, \ac{SVM} und Random Forest verwendet. Diese werden mit Features aus einzelnen Sätzen und \ac{POS} Features trainiert. Zusätzlich werden Deep Leaarning Modelle wie \ac{LSTM} und \ac{CNN} verwendet. Für das Training von den letzten Modellen verwenden \textcite{jha_towards_2023} Word Embedding Modelle wie GLove, word2vec und Keras.
-
-\section{Deutsche Politik}
 Eine gute Übersicht über die notwendigen politikwissenschaftlichen Hintergründe bieten \textcite{bukow_innerparteiliche_2013}, die die Organisation und Funktion der deutschen Parteien beschreiben.
 
-\subsection{Politischer Bias}
+\subsection{Heterogenität der Parteienlandschaft}
+
+Lorem Ipsum
 
 \begin{figure}[H]
     \centering
@@ -51,7 +36,15 @@ Eine gute Übersicht über die notwendigen politikwissenschaftlichen Hintergrün
     \caption[Positionierung ausgewählter Kandidat:innen]{Positionierung ausgewählter Kandidat:innen innerhalb eines zweidimensionalen politischen Raums \autocite{saltzer_bundestagswahl_2022}} \label{fig:positionierungAusgewaehlterKanidaten}
 \end{figure}
 
-\subsection{Aktuelle Regierung im Zeitraum 2017 bis 2021}
+\subsection{Politische Ereignisse im Untersuchungszeitraum}
+
+\subsubsection{Durchgeführte Wahlen}
+
+\subsubsection{Besondere Vorkommnisse} 
+
+% TODO: besseren Titel überlegen
+
+\subsection{Themenschwerpunkte in Debatten}
 
 % TODO: Remove reference
 
@@ -63,40 +56,52 @@ Eine gute Übersicht über die notwendigen politikwissenschaftlichen Hintergrün
 
 % - Common Sense aus der Literatur
 
-\section{Feature Engineering}
+\section{Repräsentationsformen von Text}
 
-\subsection{Bag-of-Words}
+% TODO: Either describe specific models or the underlying architecture (e.g. fasttext or n-gram method)
+
+Die Theorie hinter Word Embeddings wurde erstmals anhand von Wörtern, die in einem ähnlichen Kontext auftreten, festgestellt, da diese häufig auch eine ähnliche Bedeutung besitzen (z. B. Augenarzt und Optiker) \autocite[103]{jurafsky_speech_2023}.
+
+Nach \textcite[103]{jurafsky_speech_2023} unterscheiden sich Embeddings in statische und kontextbasierte Word Embeddings.
+
+Herkömmliche Methoden wie \ac{BoW} und \ac{TF-IDF} generieren unkomprimierte Vektoren und skalieren linear mit der Anzahl an einzigartigen Wörtern. Ein alternativer Ansatz dazu sind sogenannte Word Embeddings. Mittels dieser werden Wörter nicht mehr eins zu eins in einzelne Features encodiert, sondern mittels mehrdimensionalen Vektoren\footnote{Häufig bestehen Word Embeddings aus \num{300} Dimensionen} repräsentiert.
+
+\subsection{\acl{BoW}}
+
+% TODO: Check if formula is correct
+
+\begin{itemize}
+    \item \ac{BoW} führt zu Matrizen mit den Maßen \(n(\{v_i\}_{i\epsilon\{1,\dots,n\}}) \times n(rows)\) (Anzahl an einzigartigen Wörtern x Anzahl an Einträgen)
+\end{itemize}
+
+\subsection{\acl{TF-IDF}}
+
+% TODO: Add function for dimensions
+
+\subsection{FastText}
+
+Lorem Ipsum
+
+\subsection{GloVe}
+
+% TODO: Check if Spacy uses GloVe or not
 
 Lorem Ipsum
 
-\subsection{TF-IDF}
-
-Die Transformation 
-
-\subsection{Word Embeddings}
-
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{data/images/workflow_of_experiment_design.png}
-%     \caption[Workflow of Experiment Design]{Workflow of Experiment Design \autocite{jha_towards_2023}} \label{fig:workflowExperimentDesign}
-% \end{figure}
-
-\subsubsection{FastText}
+\subsection{ELMo}
 
 Lorem Ipsum
 
-\subsubsection{GloVe}
+\section{\acl{ML} Verfahren}
 
-Lorem Ipsum
-
-\section{Deep Learning}
-
-Lorem Ipsum
+% TODO: Add and descripe models used for modeling
 
 \subsection{BERT}
 
 Lorem Ipsum
 
 \subsection{LSTM}
+
+Lorem Ipsum
 
 \section{Zusammenfassung}

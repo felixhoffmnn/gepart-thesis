@@ -1,6 +1,6 @@
 %!TEX root = ../dokumentation.tex
 
-\chapter{Trainieren eines Klassifikationsmodells} \label{ch:crispDm_2}
+\chapter{Evaluierung eines Klassifikationsmodells} \label{ch:crispDm_2}
 
 \section{Evaluation} \label{sec:evaluation}
 
@@ -25,14 +25,14 @@
 \begin{table}[H]
     \centering
     {\footnotesize
-    \begin{tblr}{width=\textwidth, hlines, vlines}
-        \textbf{Datensatz} & \textbf{FastText} & \textbf{BERT} & \textbf{Differenz} \\ 
+    \begin{tblr}{width=\textwidth, hlines, vlines, colspec={l*{3}{Q[si={table-format=1.2},c]}}, row{1}={guard,font=\bfseries,l}, row{5}={font=\bfseries}}
+        Datensatz & Precision & Recall & \(F_1\) Score \\ 
 
-        Tweets & \num{0.59} & \num{0} & \num{0} \\
-        Wahlpro\-gramme & \num{0} & \num{0} & \num{0} \\
-        Reden & \num{0} & \num{0} & \num{0} \\
+        Tweets & 0.59 & 0.59 & 0.59 \\
+        Wahlpro\-gramme & 0 & 0 & 0 \\
+        Reden & 0 & 0 & 0 \\
 
-        \textbf{Kombiniert} & \textbf{\num{0}} & \textbf{\num{0}} & \textbf{\num{0}} \\
+        Kombiniert & 0 & 0 & 0 \\
     \end{tblr}
     }
     \caption{Vergleich des \(F_1\) Scores zwischen \texttt{fasttext} und \acs{BERT}} \label{tab:comparisonModels}

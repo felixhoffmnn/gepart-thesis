@@ -1,6 +1,6 @@
 %!TEX root = ../dokumentation.tex
 
-\chapter{Trainieren eines Klassifikationsmodells} \label{ch:crispDm_1}
+\chapter{Klassifikation anhand von Parteien} \label{ch:crispDm_1}
 
 In dem folgenden Abschnitt wird \ac{CRISP-DM} genutzt, um \ac{ML} Modelle zu trainieren, welche Texte einer der sechs politischen Parteien aus dem Deutschen Bundestag zuordnet. 
 
@@ -22,11 +22,9 @@ Multidomain Daten ermöglichen es, generalisierter \ac{ML} Modelle zu trainieren
 
 \begin{figure}[H]
     \centering
-    \missingfigure
+    \missingfigure{Data Flow 2}
     \caption[Training von Modellen]{Training von Modellen (Modeling)} \label{fig:dataFlow_2}
 \end{figure}
-
-Lorem Ipsum
 
 \section{Sichtung der ausgewählten Datenquellen} \label{sec:dataUnderstanding}
 
@@ -39,20 +37,20 @@ Für das \nameref{sec:modeling} werden Datensätze benötigt, welche neben den F
 \begin{table}[H]
     \centering
     {\footnotesize
-    \begin{tblr}{width=\textwidth, hlines, vlines}
-        \textbf{Datensatz} & \textbf{AfD} & \textbf{Die Grünen} & \textbf{SPD} & \textbf{Union} & \textbf{Die Linke} & \textbf{FDP} & \textbf{Gesamt\-anzahl} \\ 
+    \begin{tblr}{width=\textwidth, hlines, vlines, colspec={Q[l,17mm]*{7}{Q[si={table-format=6},r]}}, row{1}={guard,font=\bfseries,l}, row{5}={font=\bfseries}}
+        Datensatz & AfD & Die Grünen & SPD & Union & Die Linke & FDP & Gesamt\-anzahl \\ 
 
-        Tweets\footnote{Tweets von den aufgeführten Parteien, exklusive parteilose Politiker} & \num{126132} & \num{167060} & \num{167647} & \num{157035} & \num{141738} & \num{112067} & \num{871679} \\
-        Reden\footnote{Reden von den aufgeführten Parteien in dem Zeitraum der 19. Legislaturperiode.} & \num{4437} & \num{3857} & \num{5249} & \num{8007} & \num{3403} & \num{3888} & \num{28841} \\
-        Wahlpro\-gramme & \num{2619} & \num{6399} & \num{4552} & \num{4564} & \num{5204} & \num{4376} & \num{27714} \\
+        Tweets\footnote{Tweets von den aufgeführten Parteien, exklusive parteilose Politiker} & 126132 & 167060 & 167647 & 157035 & 141738 & 112067 & 871679 \\
+        Reden\footnote{Reden von den aufgeführten Parteien in dem Zeitraum der 19. Legislaturperiode.} & 4437 & 3857 & 5249 & 8007 & 3403 & 3888 & 28841 \\
+        Wahlpro\-gramme & 2619 & 6399 & 4552 & 4564 & 5204 & 4376 & 27714 \\
 
-        \textbf{Summe} & \textbf{\num{133188}} & \textbf{\num{176861}} & \textbf{\num{177448}} & \textbf{\num{170246}} & \textbf{\num{150345}} & \textbf{\num{120331}} & \textbf{\num{928234}} \\
+        Summe & 133188 & 176861 & 177448 & 170246 & 150345 & 120331 & 928234 \\
     \end{tblr}
     }
     \caption{Anzahl an Einträgen pro Datensatz und pro Partei vor Bereinigen und Filtern} \label{tab:countPerDataset}
 \end{table}
 
-% TODO: Update number
+% TODO: Update num
 
 Bei den Datensätzen handelt es sich um Tweets, Wahlprogramme (Landtags-, Europa- und Bundestagswahlen) und Reden aus dem Deutschen Bundestag. Wie aus \autoref{tab:countPerDataset} hervorgeht, umfassen die drei Datensätze initial \num{928234} Einträge. 
 
@@ -73,12 +71,12 @@ Die Tweets der Parlamentarier lassen sich folgenden sechs Parteien\footnote{Init
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{data/images/tweets_word_count.png}
-    \caption{Anzahl an Wörtern für Tweets vor Bereinigung} \label{fig:wordCoundTweets}
+    \caption{Anzahl an Wörtern für Tweets vor Bereinigung} \label{fig:wordCountTweets}
 \end{figure}
 
 % TODO: Add reference
 
-\autoref{fig:wordCoundTweets} zeigt eine Dichtefunktion der Wortanzahl der Tweets gruppiert nach den einzelnen Parteien. Diese weisen jeweils zwei Extrema auf. Das Erste befindet sich im Bereich zwischen \num{15} bis \num{25} Wörtern und das Zweite im Bereich zwischen \num{30} bis \num{40} Wörtern. Im Durchschnitt veröffentlichen Politiker der Union vergleichsweise kurze Nachrichten, wohingegen die der \ac{AfD}, der \ac{FDP} und die der Linken vermehrt längere Nachrichten veröffentlichen.
+\autoref{fig:wordCountTweets} zeigt eine Dichtefunktion der Wortanzahl der Tweets gruppiert nach den einzelnen Parteien. Diese weisen jeweils zwei Extrema auf. Das Erste befindet sich im Bereich zwischen \num{15} bis \num{25} Wörtern und das Zweite im Bereich zwischen \num{30} bis \num{40} Wörtern. Im Durchschnitt veröffentlichen Politiker der Union vergleichsweise kurze Nachrichten, wohingegen die der \ac{AfD}, der \ac{FDP} und die der Linken vermehrt längere Nachrichten veröffentlichen.
 
 \subsection*{Reden} \label{subsec:dataUnderstandingReden}
 
@@ -110,9 +108,9 @@ Bei genauerer Betrachtung der Häufung von kurzen Reden rund um das erste Maximu
 
 Zuletzt sollen auch Texte aus Wahlprogrammen der zu untersuchenden Parteien herangezogen werden. Dabei stehen im Untersuchungszeitraum die Bundestagswahlen \num{2017} und \num{2021}, die Europawahl 2019 sowie zahlreiche Landtagswahlen mit den entsprechend veröffentlichten Wahlprogrammen der Parteien zur Verfügung. Eine genaue Auflistung der verwendeten Wahlen inklusive Anmerkungen zu Wahlprogrammen, die nicht verarbeitet werden konnten, kann dem \autoref{subsec:übersichtWP} im Anhang entnommen werden.
 
-So ergibt sich eine Anzahl von insgesamt \num{83} Wahlprogrammen unterschiedlicher Parteien. Damit aus den Wahlprogrammen kohärente, kürzere Texte extrahiert werden können, wird jedes Wahlprogramm nach Absätzen unterteilt, sodass sich eine Gesamtanzahl von \num{28783} Paragraphen als Trainingsdaten vor der Bereinigung ergibt.
+So ergibt sich eine Anzahl von insgesamt \num{83} Wahlprogrammen unterschiedlicher Parteien. Die Wahlprogramme können auf der Website der jeweiligen Partei bzw. des Landesverbandes im Fall einer Landtagswahl im \ac{PDF}-Format heruntergeladen werden. Anschließend wird der Text mittels der Python-Bibliothek \textit{pdfminer} ausgelesen und verarbeitet.
 
-% TODO: kurz beschreiben, wie das Parsing abläuft
+Damit aus den Wahlprogrammen kohärente, kürzere Texte extrahiert werden können, wird jedes Wahlprogramm nach Absätzen unterteilt, sodass sich eine Gesamtanzahl von \num{28783} Paragraphen als Trainingsdaten vor der Bereinigung ergibt.
 
 Neben dem Text des jeweiligen Paragraphen liegen als weitere Informationen, die während des Auslesens der Wahlprogramme gesammelt wurden, die Partei, aus deren Wahlprogramm der Text entnommen wurde (\texttt{party}), die Art der Wahl (\texttt{election\_type})\footnote{Bundestags-, Europa- oder Landtagswahl} und ein Kürzel für die Wahl (\texttt{election})\footnote{Bestehend aus Art der Wahl, gegebenenfalls Bundesland und Jahr} vor.
 
@@ -125,16 +123,15 @@ Neben dem Text des jeweiligen Paragraphen liegen als weitere Informationen, die 
 \autoref{fig:wordCoundPartyPrograms} zeigt die Verteilung der Anzahl an Wörtern der gewonnenen Wahlprogramm-Paragraphen pro Partei. Anders als bei den Reden zeigt sich hier eine rechtsschiefe Dichtefunktion mit nur einem Maximum bei -- je nach Partei -- etwa \num{30} bis \num{70} Wörtern pro Paragraph. Damit sind die Absätze aus Wahlprogrammen durchschnittlich länger als die Tweets, jedoch deutlich kürzer als die Transkripte der Bundestagsreden. 
 
 
-\section{Datenaufbereinigung} \label{sec:dataPreparation}
+\section{Datenaufbereitung} \label{sec:dataPreparation}
 
-% TODO: Check if there are limitations in using Doc2Vec, Sentence2Vec und Word2Vec
+Im nächsten Schritt nach \ac{CRISP-DM} werden die Datensätze aufbereitet. Im Folgenden werden zwei Methoden verwendet, um dies zu erreichen. Zum Ersten, Techniken, die die Integrität der Texte verändert. Dies umfasst regelbasierte Verfahren, die Bildung von Wortstämmen und das Entfernen von Stopwörtern. Anschließend werden Eigenschaften definiert, nach welchen die Texte gefiltert werden. Hierbei wird die Integrität der Text nicht weiter beeinflusst.
 
 \subsection{Datenbereinigungs-Pipeline} \label{subsec:cleaningPipeline}
 
 Stopwörter, Links, Symbole und weitere Unregelmäßigkeiten (Rauschen, zu Englisch \textit{Noise}) beeinflussen die Performance von \ac{ML} Modellen stark \autocite[4]{kowsari_text_2019}. Daher ist es notwendig Texte mittels regelbasierten Verfahren, als auch mit \ac{ML} Verfahren zu bereinigen. 
 
-% TODO: Add more details for "Regelbasiertes Bereinigen" and add tokenizing to stemming
-% TODO: Rename Stemming to Lemmatizing
+% TODO: Add more details for "Regelbasiertes Bereinigen" and add tokenizing to lemmatizing
 
 \begin{figure}[H]
     \centering
@@ -146,9 +143,9 @@ Wie \autoref{fig:cleaningPipeline} zeigt, besteht der Prozess zur Datenbereinigu
 
 \subsubsection{Regelbasierte Verfahren}
 
-Unterschiedliche Schreibweisen, Symbole und Emojis, \acp{URL}, und Gendern stellen ein elementares Problem für herkömmliche \ac{NLP} Methoden und Modelle dar. Im ersten Schritt werden daher regelbasierte Verfahren genutzt, um häufig auftretende Zeichen, Symbole/Emojis, aber auch andere Unregelmäßigkeiten ersetzt oder entfernt.
+Unterschiedliche Schreibweisen, Symbole und Emojis, \acp{URL}, und Gendern stellen ein elementares Problem für herkömmliche \ac{NLP} Methoden und Modelle dar \autocite[4\psq]{kowsari_text_2019}. Im ersten Schritt werden daher regelbasierte Verfahren genutzt, um häufig auftretende Zeichen, Symbole/Emojis, aber auch andere Unregelmäßigkeiten ersetzt oder entfernt.
 
-Speziell bei Tweets werden häufig Symbole wie \euro und \& als Kurzform verwendet. Da diese jedoch nicht in dieser Form interpretiert werden können, werden die Symbole als auch die Zahlen mit ihrem ausgeschriebenen Klartext ersetzt. So wird aus \euro \(\rightarrow\) \textit{euro}, oder aus \(\num{2000} \rightarrow\) \textit{zweitausend}.
+Besonders bei Tweets werden häufig Symbole wie \euro und \& als Kurzform verwendet. Da diese jedoch nicht in dieser Form interpretiert werden können, werden die Symbole als auch die Zahlen mit ihrem ausgeschriebenen Klartext ersetzt. So wird aus \euro \(\rightarrow\) \textit{euro}, oder aus \(\num{2000} \rightarrow\) \textit{zweitausend}.
 
 In den Texten treten vermehrt Unicode, \ac{HTML} Symbole, als auch Emojis auf. In Tweets als auch in Wahlprogrammen werden ebenfalls \acp{URL} verwendet. Tweets nutzen außerdem Referenzen zu Twitternutzern (Mentions wie \textit{@MaxMustermann}). Da es sich bei all diesen Symbolgruppen um nicht vollständige oder nicht interpretierbare Zeichenketten handelt, müssen diese entfernt werden.
 
@@ -156,47 +153,49 @@ Bei allen Textformen verwenden Politiker und Parteien unterschiedliche Arten von
 
 Nachdem die Texte grob bereinigt wurden, werden letztlich noch Satzzeichen, Sonderzeichen und einzelne Buchstaben entfernt. Abschließend werden doppelte Leerzeichen entfernt und alle Buchstaben zu Kleinbuchstaben umgewandelt.
 
-Bei den Redetexten ist zusätzlich zu beachten, dass im Datensatz Zwischenrufe von anderen Politikern im Redetext durch Referenzen -- gekennzeichnet durch eine Zahl innerhalb geschweifter und normaler Klammern -- vorkommen. Da der Text nur den Inhalt der Rede selbst beinhalten soll, werden die Referenzen zu den Zwischenrufen mithilfe eines regulären Ausdrucks entfernt.
-
-% TODO: Zur Bereinigung der Wahlprogramm-Texte \dots
-
 % TODO: Update tweet example
 
 \begin{code}[H]
-    \begin{minipage}{0.45\textwidth}
+    \begin{subcode}{0.45\textwidth}
         \small
         \textcolor{orange}{Ehemalige} \textcolor{red}{@AfD-Vorsitzende} \textcolor{orange}{\#Petry} muss wegen \textcolor{orange}{Meineid} vor \textcolor{orange}{Gericht}\textcolor{red}{.} \textcolor{orange}{Kein Einzelfall}\textcolor{red}{:} gegen circa \textcolor{orange}{\SI{10}{\percent}} aller \textcolor{orange}{AfD-Abgeordneten} bundesweit laufen oder liefen \textcolor{orange}{Strafverfahren}\textcolor{red}{.} \textcolor{orange}{Kriminelle Asylbewerber}\textcolor{red}{?} \textcolor{orange}{Fehlanzeige}\textcolor{red}{.} \textcolor{orange}{Kriminelle AfD-Hetzer} trifft den \textcolor{orange}{Nagel} eher auf den \textcolor{orange}{Kopf} \textcolor{red}{<U+0001F602>} \textcolor{orange}{\#AfD}
-    \end{minipage}\hfill
-    \begin{minipage}{0.45\textwidth}
+        \caption{Tweet vor jeglicher Bereinigung}
+    \end{subcode}\hfill
+    \begin{subcode}{0.45\textwidth}
         \small
         ehemalige petry muss wegen meineid vor gericht kein einzelfall gegen circa zehn prozent aller afd abgeordneten bundesweit laufen oder liefen strafverfahren kriminelle asylbewerber fehlanzeige kriminelle afd hetzer trifft den nagel eher auf den kopf afd
-    \end{minipage}\hfill
-    \caption[Beispiel -- Regelbasierte Bereinigung]{Beispiel für regelbasierte Bereinigung eines Tweets von \textit{victorperli} (links befindet sich der Ausgangstext und rechts der Text nach der regelbasierten Bereinigung)} \label{list:rulebasedCleaning}
+        \caption{Tweet nach regelbasierter Bereinigung}
+    \end{subcode}\hfill
+    \caption[Beispiel -- Regelbasierte Bereinigung]{Beispiel für regelbasierte Bereinigung eines Tweets von \textit{victorperli}} \label{list:rulebasedCleaning}
 \end{code}
 
-\autoref{list:rulebasedCleaning} zeigt die Anwendung der regelbasierten Bereinigung auf einen Beispiel-Tweet. Es lässt sich erkennen, dass die Referenz \textit{@AfD-Vorsitzende} im bereinigten Text nicht mehr vorkommt. Zudem wurde das Hashtag-Symbol vor \textit{Petry} und \textit{AfD} entfernt. Auch die Angabe \textit{10\%} wird durch die Bereinigung ausgeschrieben zu \textit{zehn prozent}. Schließlich enthält der bereinigte Text auf der rechten Seite keine Satzzeichen mehr, das Emoji am Ende fehlt und alle Wörter sind kleingeschrieben, sodass nur noch korrekte Wörter vorkommen.
+\autoref{list:rulebasedCleaning} zeigt die Anwendung der regelbasierten Bereinigung auf einen Beispiel-Tweet. Es kann erkannt werden, dass die Referenz \textit{@AfD-Vorsitzende} im bereinigten Text nicht mehr vorkommt. Zudem wurde das Hashtag-Symbol vor \textit{Petry} und \textit{AfD} entfernt. Auch die Angabe \textit{10\%} wird durch die Bereinigung ausgeschrieben zu \textit{zehn prozent}. Schließlich enthält der bereinigte Text auf der rechten Seite keine Satzzeichen mehr, das Emoji am Ende fehlt und alle Wörter sind kleingeschrieben, sodass nur noch korrekte Wörter vorkommen.
 
-\subsubsection{Stemming}
+Bei den Redetexten ist zusätzlich zu beachten, dass im Datensatz Zwischenrufe von anderen Politikern im Redetext durch Referenzen -- gekennzeichnet durch eine Zahl innerhalb geschweifter und normaler Klammern -- vorkommen. Da der Text nur den Inhalt der Rede selbst beinhalten soll, werden die Referenzen zu den Zwischenrufen mithilfe eines regulären Ausdrucks entfernt.
 
-Lorem Ipsum
+Bei dem Auslesen der Wahlprogramme werden die Paragraphen nach Leerzeilen getrennt, wobei manche Absätze allerdings über das Seitenende hinaus weitergehen. Daher werden Paragraphen, die nicht mit einem Satzzeichen enden, mit darauffolgenden Paragraphen zusammengefügt. Zudem kommt es bei einigen Dokumenten dazu, dass Text aus der Kopf- und Fußzeile sowie von Anmerkungen an der Seite des regulären Textes mit ausgelesen wird. Da dieser folglich ungewollt in den übrigen Abschnitten enthalten ist, muss er im Rahmen der regelbasierten Bereinigung auch entfernt werden.
+
+\subsubsection{Wortstamm}
+
+Der nächste Schritt dient dazu, die Wörter zu vereinheitlichen. Hierfür werden Wörter mit dem dazugehörigen Wortstamm ersetzt (\textit{eng. Lemmatizing}). Für die Umwandelung wurde \href{https://spacy.io/}{\texttt{spacy}} verwendet
 
 % TODO: Update tweet example
 
 \begin{code}[H]
-    \begin{minipage}{0.45\textwidth}
+    \begin{subcode}{0.45\textwidth}
         \small
         \textcolor{orange}{ehemalige} petry muss wegen meineid vor gericht kein einzelfall gegen circa zehn prozent aller afd \textcolor{orange}{abgeordneten} bundesweit laufen oder liefen \textcolor{orange}{strafverfahren} \textcolor{orange}{kriminelle} asylbewerber \textcolor{orange}{fehlanzeige} \textcolor{orange}{kriminelle} afd hetzer \textcolor{orange}{trifft} \textcolor{orange}{den} nagel eher auf den kopf afd
-    \end{minipage}\hfill
-    \begin{minipage}{0.45\textwidth}
+        \caption{Tweet nach regelbasierter Bereinigung}
+    \end{subcode}\hfill
+    \begin{subcode}{0.45\textwidth}
         \small
         ehemalig petry muss wegen meineid vor gericht kein einzelfall gegen circa zehn prozent aller afd abgeordneter bundesweit laufen oder laufen strafverfahr kriminell asylbewerber fehlanzeig kriminell afd hetzer treffen der nagel eher auf der kopf afd
-    \end{minipage}\hfill
-    \caption[Beispiel -- Stemming]{Beispiel für Stemming eines Tweets von \textit{victorperli} (links befindet sich der Text nach der regelbasierten Bereinigung und rechts nach dem Stemming} \label{list:stemming}
+        \caption{Tweet nach dem Bilden der Wortstämme}
+    \end{subcode}\hfill
+    \caption[Bildung von Wortstämmen]{Beispiel für die Bildung von Wortstämmen eines Tweets von \textit{victorperli}} \label{list:lemma}
 \end{code}
 
-Lorem Ipsum
-
-Wenn ein Wort nicht in dem Wortstammwörterbuch enthalten ist, wird dieses exkludiert.
+Wie in \autoref{list:lemma} zu erkennen, werden unter anderem Endungen wie \textit{e} und \textit{en} mit dem jeweiligen Stamm ersetzt. Wenn Wörter nicht in dem Wörterbuch enthalten sind, werden diese exkludiert.
 
 \subsubsection{Stopwörter}
 
@@ -207,22 +206,28 @@ Stopwörter sind Füllwörter, welche keine starke Relevanz für die Bedeutung e
 % TODO: Update tweet example
 
 \begin{code}[H]
-    \begin{minipage}{0.45\textwidth}
+    \begin{subcode}{0.45\textwidth}
         \small
         ehemalig petry \textcolor{red}{muss wegen} meineid \textcolor{red}{vor} gericht \textcolor{red}{kein} einzelfall \textcolor{red}{gegen} circa zehn prozent \textcolor{red}{aller} afd abgeordneter bundesweit laufen \textcolor{red}{oder} laufen strafverfahr kriminell asylbewerber fehlanzeig kriminell afd hetzer treffen \textcolor{red}{der} nagel eher \textcolor{red}{auf der} kopf afd
-    \end{minipage}\hfill
-    \begin{minipage}{0.45\textwidth}
+        \caption{Tweet nach dem Bilden der Wortstämme}
+    \end{subcode}\hfill
+    \begin{subcode}{0.45\textwidth}
         \small
         ehemalig petry wegen meineid gericht einzelfall circa zehn prozent afd abgeordneter bundesweit laufen laufen strafverfahr kriminell asylbewerber fehlanzeig kriminell afd hetzer treffen nagel eher kopf afd
-    \end{minipage}\hfill
-    \caption[Beispiel -- Entfernen von Stopwörtern]{Beispiel für das Entfernen von Stopwörtern eines Tweets von \textit{victorperli} (links befindet sich der Text nach dem Stemming und rechts nach dem Entfernen von Stopwörtern} \label{list:stopwords}
+        \caption{Tweet nach dem Entfernen von Stopwörtern}
+    \end{subcode}\hfill
+    \caption[Beispiel -- Entfernen von Stopwörtern]{Beispiel für das Entfernen von Stopwörtern eines Tweets von \textit{victorperli}} \label{list:stopwords}
 \end{code}
+
+Für das Filtern, wie in \autoref{list:stopwords} gezeigt, wurde das Stopwort-Lexikon von \href{https://www.nltk.org/}{\texttt{nltk}} für die deutsche Sprache verwendet. Wie das Beispiel zeigt, werden häufig auftretende Wörter ohne stärkeren Kontext und ohne Bedeutung für den zentralen Sinn für den Text entfernt.
 
 \subsection{Filtering} \label{subsec:filtering}
 
 Auf Basis der Erkenntnisse aus \nameref{sec:dataUnderstanding} werden im Folgenden die Datensätze gefiltert. Dies ist wichtig, um die Datenqualität zu erhöhen und etwaige Bias zu vermeiden.
 
-\subsubsection*{Tweets}
+\subsubsection*{Tweets} \label{subsubsec:filteringTweets}
+
+% TODO: Add wordcloud
 
 Der Tweet-Datensatz \textcite{saltzer_finding_2022} weist Tweet-Duplikate auf. Diese sind jeweils von dem gleichen Politiker verfasst und weisen den gleichen Text auf. Lediglich das Erstellungsdatum (\texttt{created\_at}) des Eintrages weicht bei den Duplikaten voneinander ab. Da dies auf einen Fehler beim Data-Mining hindeutet, werden lediglich die neusten Einträge dieser Duplikate behalten.
 
@@ -230,7 +235,7 @@ Des Weiteren existieren Einträge, bei denen der Tweet-Text als auch das \texttt
 
 Tweets, welche lediglich von Politikern retweetet werden, lassen sich nicht eindeutig dem Politiker selbst und seinen Ansichten zuordnen. Es könnte also sein, dass ein Politiker einen Tweet entweder retweetet, weil er der Aussage und Meinung zustimmt, oder auch falls er komplett andere Ansichten hat und seine Reichweite nutzen möchte, um Aufmerksamkeit auf den Autor und das Thema zu lenken. Aufgrund dieser Ungewissheit werden Tweets, welche als Retweet gegengezeichnet werden, entfernt.
 
-Wie schon mittels \autoref{fig:wordCoundTweets} festgestellt, werden vermehrt kurze Tweets (\num{15} bis \num{25}) und lange Tweets (\num{30} bis \num{40}) veröffentlicht. Bei Tweets mit weniger als \num{10} Wörtern ist es schwierig, einen tieferen Sinn oder Kontext festzustellen. Daher werden diese Tweets, entfernt (\texttt{stemm\_text >= 10}).
+Wie schon mittels \autoref{fig:wordCountTweets} festgestellt, werden vermehrt kurze Tweets (\num{15} bis \num{25}) und lange Tweets (\num{30} bis \num{40}) veröffentlicht. Bei Tweets mit weniger als \num{10} Wörtern ist es schwierig, einen tieferen Kontext festzustellen. Daher werden diese Tweets, entfernt (\texttt{stemm\_text >= 10}).
 
 \subsubsection*{Reden}
 
@@ -238,50 +243,61 @@ Wie in \autoref{subsec:dataUnderstandingReden} erläutert, enthält der Datensat
 
 Ferner können als Trainingsdaten für das Klassifikationsmodell nur Texte verwendet werden, die einer der sechs Fraktionen im Bundestag zuzuordnen sind. Daher müssen auch Redebeiträge von fraktionslosen Abgeordneten sowie des Präsidiums ausgeschlossen werden.
 
-Bei der Betrachtung der Anzahl an Wörtern in Reden (siehe \autoref{subsec:dataUnderstandingReden}) ist aufgefallen, dass es eine Häufung von vergleichsweise kurzen Texten mit einer Länge von unter 200 Wörtern gibt. Da bei diesen nicht sichergestellt werden kann, dass sie ausreichend politischen Inhalt bieten und der Kontext der Aussagen klar ist, werden im weiteren Verlauf nur noch Reden mit mindestens 200 Wörtern verwendet.
+Bei der Betrachtung der Anzahl an Wörtern in Reden (siehe \autoref{subsec:dataUnderstandingReden}) ist aufgefallen, dass es eine Häufung von vergleichsweise kurzen Texten mit einer Länge von unter \num{200} Wörtern gibt. Da bei diesen nicht sichergestellt werden kann, dass sie ausreichend politischen Inhalt bieten, als auch der Kontext der Aussagen klar wird, werden im weiteren Verlauf nur noch Reden mit mindestens 200 Wörtern berücksichtigt (\texttt{word\_count >= 200}).
 
-Damit die Texte ohne Probleme von vortrainierten Sprachmodellen als Eingabe genutzt werden können, ist es hier erforderlich, lange Reden in mehrere Datenpunkte aufzuteilen, da sonst die maximale Anzahl an Eingabe-Tokens\footnote{Bei BERT-basierten Modellen, die für das Modeling genutzt werden sollen, sind es maximal 512 Tokens.} überschritten werden würde. Dabei wird darauf geachtet, dass eine Rede nur nach einem abgeschlossenen Satz aufgetrennt wird, um die Qualität der Daten nicht zu verringern.
+Damit die Texte ohne Probleme von vortrainierten Sprachmodellen als Eingabe genutzt werden können, ist es erforderlich, lange Reden in mehrere kleinere Textabschnitte aufzuteilen, da sonst die maximale Anzahl an Eingabe-Tokens\footnote{Bei BERT-basierten Modellen, die für das Modeling genutzt werden sollen, sind es maximal 512 Tokens.} überschritten werden würde. Dabei wird darauf geachtet, dass eine Rede nur nach einem abgeschlossenen Satz aufgetrennt wird, um die Qualität der Daten nicht zu verringern.
+
+Der Datensatz enthält außerdem drei Einträge mit dupliziertem Text, die daher ausgeschlossen werden.
 
 \subsubsection*{Wahlprogramme}
+Da die Daten zu den Wahlprogrammen selbst gesammelt und verarbeitet wurden, gibt es keine Einträge aus einem falschen Zeitraum oder von einer nicht zu untersuchenden Partei.
 
+Bereits im Zuge des Auslesens der \ac{PDF}-Dateien der Wahlprogramme wurden nur Absätze mit mindestens \num{150} Zeichen weiterverarbeitet, da es sich ansonsten mehrheitlich um kurze Überschriften handelt. Da die Abschnitte im Vergleich zu den Reden deutlich kürzer sind, ist keine Obergrenze für die Länge nötig, um die weitere korrekte Verarbeitung zu garantieren.
+
+Auch bei den Wahlprogramm-Texten lassen sich einige Duplikate finden, die herausgefiltert werden müssen.
 
 
 \section{Aufbereitete Datensätze} \label{sec:processedDataframes}
 
-% TODO: Add correct numbers
-% TODO: Add describtion for Reden
+Nach Anwendung der Datenbereinigungs-Pipeline bleiben im Gesamt-Datensatz etwa \num{395000} Einträge übrig. Damit hat sich die Größe des Datensatzes stark reduziert, vor allem viele ursprüngliche Tweet-Daten sind nicht mehr enhalten. \autoref{tab:countPerDatasetAfterCleaning} zeigt die Anzahl an Einträgen in den drei Datensätzen sowie pro Partei.
 
+% TODO: Add correct nums
 \begin{table}[H]
     \centering
     {\footnotesize
-    \begin{tblr}{width=\textwidth, hlines, vlines} 
-        \textbf{Datensatz} & \textbf{AfD} & \textbf{Die Grünen} & \textbf{SPD} & \textbf{Union} & \textbf{Die Linke} & \textbf{FDP} & \textbf{Gesamt\-anzahl} \\ 
+    \begin{tblr}{width=\textwidth, hlines, vlines, colspec={l*{7}{Q[si={table-format=5},r]}}, row{1}={guard,font=\bfseries,l}, row{5}={font=\bfseries}}
+        Datensatz & AfD & Die Grünen & SPD & Union & Die Linke & FDP & Gesamt\-anzahl \\ 
 
-        Tweets & \num{39840} & \num{60390} & \num{62227} & \num{54391} & \num{59473} & \num{50304} & \num{326625} \\
-        Reden\footnote{TODO} & \num{6241} & \num{5274} & \num{8351} & \num{12663} & \num{4981} & \num{5409} & \num{42919} \\
-        Wahlpro\-gramme & \num{2619} & \num{6399} & \num{4552} & \num{4564} & \num{5204} & \num{4376} & \num{27714} \\
+        Tweets & 39840 & 60390 & 62227 & 54391 & 59473 & 50304 & 326625 \\
+        Reden & 5750 & 4745 & 8015 & 12209 & 4558 & 4983 & 40260 \\
+        Wahlpro\-gramme & 2618 & 6398 & 4552 & 4560 & 5203 & 4343 & 27674 \\
 
-        \textbf{Summe} & \textbf{\num{48700}} & \textbf{\num{72063}} & \textbf{\num{75130}} & \textbf{\num{71618}} & \textbf{\num{69658}} & \textbf{\num{60089}} & \textbf{\num{397258}} \\
+        Summe & 48208 & 71533 & 74794 & 71160 & 69234 & 59630 & 394559 \\
     \end{tblr}
     }
     \caption{Anzahl an Einträgen pro Datensatz und pro Partei nach Bereinigen und Filtern} \label{tab:countPerDatasetAfterCleaning}
 \end{table}
 
+Im Folgenden werden die Texte und weitere Features der Tweets, Reden und Wahlprogramme genauer untersucht. Im Gegensatz zum Stand vor der Bereinigung ist es an dieser Stelle möglich, die Texte ohne signifikante Beeinflussung durch nicht verarbeitbaren Zeichen oder falsche Einträge zu analysieren, um erste Erkenntnisse und Unterschiede zwischen den Parteien zu identifizieren.
+
+% \begin{itemize}
+    % \item Nach dem Cleaning lassen sich starke Veränderungen in der Anzahl an Wörtern bei den einzelnen Parteien feststellen. Zum Beispiel waren die Tweets der \ac{FDP} im Schnitt am längsten, was nach der Bereinigung nicht mehr der Fall ist. Das bedeutet, dass die \ac{FDP} entweder überdurchschnittlich viele Links und Markierungen anderer Nutzer oder deutlich mehr Füllwörter als andere Parteien verwendet.
+    % \item Anzahl an Politikern/Beiträge pro Partei
+    % \item Durchschnittliche Anzahl an Tweets pro Politiker pro Partei
+    % \item Wordcloud mit häufigsten Wörtern
+    % \item Häufigste n-grams
+    % \item Timeplot Anzahl and Tweets pro monat
+    % \item Stentiment Analysis Ergebnis
+    % \item Wortanzahl nach Bereinigung
+    % \item Geschlechtverteilung pro Partei
+% \end{itemize}
+
 \subsection*{Tweets}
 
-\begin{itemize}
-    \item Nach dem Cleaning lassen sich starke Veränderungen in der Anzahl an Wörtern bei den einzelnen Parteien feststellen. Zum Beispiel waren die Tweets der \ac{FDP} im Schnitt am längsten, was nach der Bereinigung nicht mehr der Fall ist. Das bedeutet, dass die \ac{FDP} entweder überdurchschnittlich viele Links und Markierungen anderer Nutzer oder deutlich mehr Füllwörter als andere Parteien verwendet.
-    \item Anzahl an Politikern pro Partei
-    \item Durchschnittliche Anzahl an Tweets pro Politiker
-    \item Wordcloud mit häufigsten Wörtern
-    \item Häufigste n-grams
-    \item Timeplot Anzahl and Tweets pro monat
-    \item Stentiment Analysis Ergebnis
-    \item Wortanzahl nach Bereinigung
-    \item Geschlechtverteilung pro Partei
-\end{itemize}
+Aus \autoref{tab:countPerDatasetAfterCleaning} geht hervor, dass sich die Anzahl an Tweets nach dem Filtern um \SI{62.53}{\percent} reduziert hat. Wie in \autoref{subsubsec:filteringTweets} beschrieben, wurden Duplikate, Retweets und zu kurze Tweets entfernt.
 
 % TODO: Update figure
+% TODO: Plot before cleaning to check behavior
 
 \begin{figure}[H]
     \centering
@@ -289,30 +305,132 @@ Damit die Texte ohne Probleme von vortrainierten Sprachmodellen als Eingabe genu
     \caption{Anzahl an Tweets pro Monat nach Partei} \label{fig:countTweetsTimeline}
 \end{figure}
 
+Wie aus \autoref{fig:countTweetsTimeline} zu erkennen, weisen besonders zwei Parteien starke Auffälligkeiten auf. Zum einen die \ac{AfD}, bei der besonders am Anfang des Zeitraums verhältnismäßig wenige Tweets gesammelt wurden. Weiterhin ist ebenfalls der Verlauf der \ac{FDP} auffällig. Diese weist einen starken Zuwachs in der Anzahl an Tweets über den gesammelten Zeitraum auf. Bei den Grünen lässt sich eine leichte Zunahme in der Anzahl in der Mitte des Zeitraums feststellen. Die Linke, \ac{SPD} und Union sind nicht weiter auffällig, mit der Ausnahme von einzelnen lokalen Extrema.
+
 % TODO: Check wether to round 2 or 4
 
 \begin{table}[H]
     \centering
     {\footnotesize
-    \begin{tblr}{width=\textwidth, hlines, vlines} 
-        \textbf{Partei} & \textbf{Negative} & \textbf{Neutral} & \textbf{Positive} \\
+    \begin{tblr}{width=\textwidth, hlines, vlines, colspec={l*{3}{Q[si={table-format=1.2},c]}}, row{1}={guard,font=\bfseries,l}} 
+        Partei & Negative & Neutral & Positive \\
         
-        AfD & \num{0.28} & \num{0.68} & \num{0.04} \\
-        DIE GRÜNEN & \num{0.20} & \num{0.74} & \num{0.06} \\
-        DIE LINKE & \num{0.21} & \num{0.75} & \num{0.04} \\
-        FDP & \num{0.22} & \num{0.73} & \num{0.05} \\
-        SPD & \num{0.18} & \num{0.74} & \num{0.09} \\
-        UNION & \num{0.16} & \num{0.78} & \num{0.07} \\
+        AfD & 0.28 & 0.68 & 0.04 \\
+        DIE GRÜNEN & 0.20 & 0.74 & 0.06 \\
+        DIE LINKE & 0.21 & 0.75 & 0.04 \\
+        FDP & 0.22 & 0.73 & 0.05 \\
+        SPD & 0.18 & 0.74 & 0.09 \\
+        UNION & 0.16 & 0.78 & 0.07 \\
     \end{tblr}
     }
     \caption{Prozentuale Sentimentverteilung} \label{tab:sentimentDistributionTweet}
 \end{table}
+
+Auffällig bei den Tweets ist, dass besonders die Regierungsparteien -- Union und \ac{SPD} -- sich weniger negativ äußern als die Oppositionsparteien. Bei den positiven Tweets zeigt sich ein invertiertes Verhalten, wobei allgemein die Rate an positiven Tweets deutlich geringer ist.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{data/images/wortanzahl_pro_partei_nach_bereinigung.png}
     \caption{Wortanzahl pro Partei nach Bereinigung} \label{fig:countPartyCleaned}
 \end{figure}
+
+% TODO: Calculate number
+
+Wie auch schon mittels \autoref{fig:wordCountTweets} gezeigt werden konnte, weisen die Tweets nach der Bereinigung in der Verteilung der Anzahl an Wörtern zwei Maxima auf. Nach der Bereinigung hat sich jedoch die durchschnittliche Länge um \dots im Vergleich zu davor verändert. Die neuen Hochpunkte befinden sich bei circa \num{10} und \num{20} Wörtern. Auffällig ist, dass bei allen Parteien, außer der \ac{AfD}, das erste Maximum stärker ausgeprägt ist. Im Gegensatz dazu überwiegt bei der \ac{AfD} der zweite Hochpunkt.
+
+\subsection*{Reden}
+
+Auf den ersten Blick fällt auf, dass die Anzahl der Reden nach dem Bereinigungs- und Filterprozess deutlich gestiegen ist. Dies lässt sich darauf zurückführen, dass viele der Reden so lang waren und aufgeteilt wurden, um die maximale Anzahl an Tokens nicht zu überschreiten. Daraus resultiert, dass es mehrere Einträge in dem Datensatz gibt, welche auf die gleiche Rede zurückzuführen sind.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{data/images/speeches_num_samples_after_filter.png}
+    \caption{Anzahl an Einträgen für Reden pro Partei nach Bereinigung} \label{fig:speechesNumSamplesAfterFiltering}
+\end{figure}
+
+Wie \autoref{fig:speechesNumSamplesAfterFiltering} zu entnehmen ist, stammt mit Abstand der größte Teil der Reden (\num{12200}) von \acp{MdB} der Union, gefolgt von \ac{SPD} (\num{8000}), \ac{AfD} (\num{5800}), \ac{FDP} (\num{5000}), Grünen (\num{4700}) und Linken (\num{4600}). Diese Reihenfolge und Abstufung lässt sich auf das Wahlergebnis der Bundestagswahl \num{2017} (siehe \autoref{subsec:heterogenitätParteien}) und die daraus abgeleitete Sitzverteilung zurückführen, da die Anzahl an gehaltenen Reden von der Größe der jeweiligen Fraktion im Bundestag abhängt.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{data/images/speeches_word_count_after_filter.png}
+    \caption{Anzahl an Wörtern für Reden nach Bereinigung} \label{fig:speechesWortCountAfterFiltering}
+\end{figure}
+
+\autoref{fig:speechesWortCountAfterFiltering} zeigt die Verteilung der Wortanzahl in den Reden pro Partei nach der Bereinigung und der Filterung. Es lässt sich erkennen, dass es im Vergleich zu vor der Bereinigung (siehe \autoref{fig:wordCoundSpeeches}) keine Häufung von Reden unter \num{200} Wörtern mehr gibt.\footnote{Da die Untergrenze von \num{200} Wörtern vor weiteren -- eventuell kürzenden -- Bereinigungsschritten angewandt wird, ist es möglich, dass es weiterhin Reden mit dieser Länge gibt.} Je nach Partei schwankt der Hochpunkt der Verteilung zwischen \num{250} und \num{300} Wörtern. Da zu lange Reden aufgetrennt worden sind, gibt es kaum noch Redetexte über \num{400} Wörtern. Weiterhin sind die Reden der Union im Durchschnitt am längsten. Während die Redetexte der Grünen vor der Bereinigung am kürzesten waren, sind nun die der \ac{FDP} und der Linken kürzer, wenn auch nur marginal.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{data/images/speeches_wordclouds.png}
+    \caption{Wordclouds mit den meistgenutzten Wörtern in Reden pro Partei} \label{fig:speechesWordclouds}
+\end{figure}
+
+Betrachtet man die meistgenutzten Wörter pro Partei, wie in \autoref{fig:speechesWordclouds} mittels Wordclouds dargestellt, fällt auf, dass jede Partei andere Schwerpunkte setzt und dabei ein anderes Vokabular nutzt. Die \ac{AfD} zeigt durch die häufige Nutzung der Wörter \textit{deutsch} und \textit{deutschland} ihren Fokus auf Nationalität, wobei auch bei der \ac{FDP}, \ac{SPD} sowie Union das Wort \textit{deutschland} zahlreich auftritt. Besonders die Oppositionsparteien nutzen das Wort \textit{bundesregierung}, während die Regierungsparteien -- \ac{SPD} und Union -- dieses nur nachrangig verwenden. Daran lässt sich bestätigen, dass die Oppositionsparteien die Bundesregierung in ihren Reden oft direkt adressieren.
+
+\begin{table}[H]
+    \centering
+    {\footnotesize
+    \begin{tblr}{width=\textwidth, hlines, vlines, colspec={l*{3}{Q[si={table-format=1.2},c]}}, row{1}={guard,font=\bfseries,l}} 
+        Partei & Negativ & Neutral & Positiv \\
+        
+        AfD & 0.45 & 0.54 & 0.01 \\
+        Grüne & 0.48 & 0.50 & 0.02 \\
+        Linke & 0.48 & 0.51 & 0.01 \\
+        FDP & 0.41 & 0.57 & 0.02 \\
+        SPD & 0.22 & 0.75 & 0.03 \\
+        Union & 0.19 & 0.78 & 0.02 \\
+    \end{tblr}
+    }
+    \caption{Prozentuale Sentimentverteilung in Reden pro Partei} \label{tab:sentimentDistributionSpeeches}
+\end{table}
+
+Um einen ersten Eindruck über die Ausrichtung der Reden zu bekommen, wurden die Redetexte pro Partei mit einer Sentiment-Analyse untersucht. \autoref{tab:sentimentDistributionSpeeches} zeigt diesbezüglich die Verteilung der Reden mit negativem, neutralem und positivem Sentiment pro Partei. Es lässt sich ein starkes Gefälle zwischen den Regierungsparteien im Untersuchungszeitraum -- SPD und Union -- und den übrigen Oppositionsparteien erkennen: Während der Anteil mit negativem Sentiment bei den Regierungsparteien \SI{22}{\percent} und \SI{19}{\percent} beträgt, liegt dieser bei den Oppositionsparteien mit \SIrange{41}{48}{\percent} deutlich höher. Dies könnte darauf zurückzuführen sein, dass Redner der Oppositionsparteien eher kritisch den Debatten gegenüberstehen, wohingegen Redner der Regierungsparteien hinter ihren Vorschlägen stehen und diese verteidigen.
+
+\subsection*{Wahlprogramme}
+
+Durch die Bereinigung und Filtern hat sich die Anzahl an Datenpunkten nur marginal reduziert. In dem Prozess wurden einige Duplikate entfernt.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{data/images/party_programs_num_samples_after_filter.png}
+    \caption{Anzahl an Einträgen für Wahlprogramme pro Partei nach Bereinigung} \label{fig:partyProgramsNumSamplesAfterFiltering}
+\end{figure}
+
+Betrachtet man die Anzahl an Einträgen im Wahlprogramm-Datensatz pro Partei, wie in \autoref{fig:partyProgramsNumSamplesAfterFiltering} dargestellt, lässt sich erkennen, dass von den Grünen mit über \num{6000} am meisten vorliegen, gefolgt von gut \num{5000} von der Linken. Union, \ac{SPD} und \ac{FDP} liegen mit ca. \num{4500} gleich auf. Mit Abstand am wenigsten Absätze -- nämlich \num{2600} -- liegen von der \ac{AfD} vor, da es dort bei sechs Wahlen zu Problemen mit dem Auslesen des Wahlprogramm-Textes aus der \ac{PDF}-Datei gekommen ist.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{data/images/party_programs_word_count_after_filter.png}
+    \caption{Anzahl an Wörtern für Wahlprogramme nach Bereinigung} \label{fig:partyProgramsWordCountsAfterFiltering}
+\end{figure}
+
+\autoref{fig:partyProgramsWordCountsAfterFiltering} zeigt die Verteilung der Wortanzahl in den Wahlprogramm-Absätzen pro Partei nach Bereinigung und Filterung. Es ergeben sich keine grundlegenden Unterschiede im Vergleich zur Verteilung vor der Bereinigung. Weiterhin ist eine Häufung von Reden, die etwa \num{50} Wörter umfassen, festzustellen. Dabei liegen die verschiedenen Parteien etwa gleich auf, mit den längsten Paragraphen bei den Grünen und den kürzesten bei der Union.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{data/images/party_programs_wordclouds.png}
+    \caption{Wordclouds mit den meistgenutzten Wörtern in Wahlprogrammen pro Partei} \label{fig:partyProgramsWordclouds}
+\end{figure}
+
+Auch bei den Wahlprogrammen lassen sich einige Erkenntnisse anhand der Wordclouds mit den meist genutzten Wörtern ableiten, die in \autoref{fig:partyProgramsWordclouds} dargestellt sind. Ähnlich wie in den Reden, verwendet die \ac{AfD} je nach Kontext als patriotisch geltende Wörter wie \textit{land}, \textit{deutsch} oder \textit{deutschland}. Anhand viel genutzter Wörter der \ac{FDP} wie \textit{europäisch}, \textit{unternehmen} oder \textit{digital} spiegeln sich Schwerpunkte der Partei wie Wirtschaftsliberalismus und Digitalpolitik sowie eine pro-europäische Haltung wider. Begriffe wie \textit{sozial} und \textit{öffentlich} deuten auf den sozialpolitischen Fokus der Linken hin. Die \ac{SPD} legt einen Fokus auf unter anderem Sozial- und Bildungspolitik (\textit{sozial} sowie \textit{schule}). Grüne und Union nutzen ähnliche Begriffe wie \textit{mensch}, \textit{land} und \textit{unterstützen} am häufigsten. Die Begriffe können je nach Partei unterschiedlich ausgelegt werden.
+
+\begin{table}[H]
+    \centering
+    {\footnotesize
+    \begin{tblr}{width=\textwidth, hlines, vlines, colspec={l*{3}{Q[si={table-format=1.2},c]}}, row{1}={guard,font=\bfseries,l}} 
+        Partei & Negativ & Neutral & Positiv \\
+        
+        AfD & 0.03 & 0.97 & 0.00 \\
+        Grüne & 0.03 & 0.96 & 0.01 \\
+        Linke & 0.05 & 0.95 & 0.00 \\
+        FDP & 0.02 & 0.97 & 0.01 \\
+        SPD & 0.01 & 0.98 & 0.01 \\
+        Union & 0.01 & 0.98 & 0.01 \\
+    \end{tblr}
+    }
+    \caption{Prozentuale Sentimentverteilung in Wahlprogrammen pro Partei} \label{tab:sentimentDistributionPartyPrograms}
+\end{table}
+
+Die Auswertung des Sentiments in den Wahlprogramm-Texten des Datensatzes, die in \autoref{tab:sentimentDistributionPartyPrograms} gezeigt ist, ergibt, dass die Wahlprogramme primär in neutraler Stimmung formuliert sind (bei jeder Partei mindestens \SI{95}{\percent}). Die größte Abweichung davon zeigt die Linke, deren Wahlprogramme zu einem Anteil von \SI{5}{\percent} als negativ kategorisiert werden. Diese Betrachtungen lassen sich anhand der Natur von Wahlprogrammen erklären. Diese verfolgen das Ziel neutral über geplante politische Vorhaben zu informieren, während Reden und Tweets auch emotionale und subjektive Aussagen enthalten. Daher erklärt sich der geringe Anteil an Textabschnitten, denen eine negative oder positive Gesinnung attestiert wird.
 
 \section{Modeling} \label{sec:modeling}
 
@@ -411,14 +529,14 @@ Die bisherigen regelbasierten Ansätze, als auch \ac{ML} Modelle wie \acp{SVM}, 
 \begin{table}[H]
     \centering
     {\footnotesize
-    \begin{tblr}{width=\textwidth, hlines, vlines}
-        \textbf{Datensatz} & \textbf{Precision} & \textbf{Recall} & \textbf{\(F_1\) Score} \\ 
+    \begin{tblr}{width=\textwidth, hlines, vlines, colspec={l*{3}{Q[si={table-format=1.2},c]}}, row{1}={guard,font=\bfseries,l}, row{5}={font=\bfseries}}
+        Datensatz & Precision & Recall & \(F_1\) Score \\ 
 
-        Tweets & \num{0.59} & \num{0.59} & \num{0.59} \\
-        Wahlpro\-gramme & \num{0} & \num{0} & \num{0} \\
-        Reden & \num{0} & \num{0} & \num{0} \\
+        Tweets & 0.59 & 0.59 & 0.59 \\
+        Wahlpro\-gramme & 0 & 0 & 0 \\
+        Reden & 0 & 0 & 0 \\
 
-        \textbf{Kombiniert} & \textbf{\num{0}} & \textbf{\num{0}} & \textbf{\num{0}} \\
+        Kombiniert & 0 & 0 & 0 \\
     \end{tblr}
     }
     \caption{Scores für Supervised Learning mittels \texttt{fasttext} (\texttt{weighted avg})} \label{tab:overviewScoresFastText}
@@ -456,5 +574,5 @@ Parteien, welche ähnliche politische Ideale verfolgen, identische Themenschwerp
 \section{Fazit} \label{sec:crispConclusion}
 
 \begin{itemize}
-    \item Gendern nicht kompatibel mit Lemmatizing und daher problematisch
+    \item Gendern inkompatibel mit Lemmatizing und daher problematisch
 \end{itemize}

@@ -1,31 +1,41 @@
 %!TEX root = ../dokumentation.tex
 
-\chapter{Introduction} \label{ch:introduction}
+\chapter{Einleitung} \label{ch:introduction}
 
 % TODO: Add disclaimer about ethis and pupose of this work
 
-Ereignisse wie die Wahl von Donald Trump zum US-Präsidenten, das Brexit-Referendum, als auch der Krieg in der Ukraine werfen die Frage auf, welchen Einfluss die Neuen Medien auf die politische Meinungsbildung haben \autocite{brandon_russia_2022, lee_how_2020}. Plattformen wie Twitter, Facebook und Instagram haben in den vergangenen Jahren die Art und Weise, wie Nachrichten erstellt und verbreitet werden, stark verändert. Unter anderem die Möglichkeit eines Nutzers, seine Meinung zu Themen schnell und direkt zu äußern, rückt den konkreten sprachlichen Ausdruck sowie polarisierende Meinungen von Politikern deutlich stärker in den Fokus.
+Social-Media-Plattformen, Medienhäuser und Politiker sind maßgeblich daran beteiligt, über Ereignisse zu berichten und diese von ihrer Perspektive wiederzugeben und zu bewerten. Vor allem Politiker neigen dazu, mit ihrem eigenen Stil -- semantisch, syntaktisch und pragmatisch -- ihre Wählerschaft zu beeinflussen. Besonders im Kontext der Wahl von Donald Trump zum US-Präsidenten, des Brexit-Referendums, als auch des Krieges in der Ukraine hat das Thema Fake News stetig an Relevanz und Aufmerksamkeit gewonnen. Dabei scheinen diese Falschnachrichten von einem Großteil der Bevölkerung akzeptiert und für richtig befunden zu werden.
 
-Bisherige Arbeiten beschäftigen sich meist mit englischsprachigen Daten aus den USA oder Großbritannien. Außerdem umfassen Arbeiten wie die von Sältzer und Stier über die Bundestagswahl 2021 lediglich Tweets von Twitter \autocite{saltzer_bundestagswahl_2022}. Dennoch wird in der Arbeit von Sältzer und Stier gezeigt, dass es möglich ist, Trends zu analysieren und die Parteizugehörigkeit eines Politikers anhand seiner Tweets zu klassifizieren.
+In dieser Arbeit stellen wir uns die Frage, ob die Wählerschaft nicht nur den Nachrichten Glauben schenkt, sondern ebenfalls sich von der Semantik, Syntax und Pragmatik beeinflussen lässt und diese zu einem gewissen Teil adaptiert. Außerdem neigen von Natur aus Gruppen mit gleichen Idealen und Werten dazu, sich ähnlich zu artikulieren. Auf Basis dieser Annahmen und Feststellungen wollen wir versuchen, Texte anhand der sechs größten deutschen Parteien zu klassifizieren.
 
-Ziel dieser Arbeit ist es, mittels Natural Language Processing und Machine Learning die Meinung der Bevölkerung zu einem einzelnen Politiker oder Parteien in Deutschland zu analysieren und ein besseres Verständnis in die Reaktionen und Meinungen der Bevölkerung zu bekommen. Dafür sollen im Vergleich zu bisherigen Arbeiten Daten aus mehreren Quellen einbezogen werden.
+% fake news -> wähler und leser inhalte glauben -> these: nicht nur glauben, sondern auch elemente übernehmen -> dies lässt sich klassifizieren und weist potzenziell parteizugehörigkeit oder empathie nach
 
-Mögliche Fragestellungen sind für diese Arbeit sind:
+% Politische Ereignisse wie die Wahl von Donald Trump zum US-Präsidenten, das Brexit-Referendum, als auch der Krieg in der Ukraine werden durch ausführliche mediale Debatten begleitet. Unter anderem Twitter, Facebook und Instagram als soziale Medien haben in den vergangenen Jahren die Art und Weise, wie Nachrichten erstellt und verbreitet werden, stark verändert. Dabei kommt es vor allem bei kontroversen Artikeln dazu, dass die schnell ein großes Publikum erreichen.
 
-\begin{itemize}
-    \item Lassen sich Trends in der Semantik einzelner Politiker feststellen?
-    \item Ist es möglich, auf Basis der Semantik festzustellen, ob ein Politiker zum Flügel einer Partei gehört?
-    \item Können Politiker anhand ihrer Nachrichten und Daten klassifiziert werden?
-    \item Wie stark ist die Übereinstimmung der Klassifikation mit der wahrhaftigen Parteizugehörigkeit?
-    \item Unterstützen Nutzer ebenfalls die Politiker, welche am nächsten an ihrer Meinung sind?
-    \item Lässt sich die Parteizugehörigkeit aufgrund einzelner Worte oder Phrasen bestimmen?
-\end{itemize}
+% Nicht nur Politiker, sondern auch politisch interessierte Personen ohne Parteiamt nutzen die Möglichkeit der niedrigschwelligen Kommunikation und Diskussion in sozialen Medien, um ihre Meinung schnell und direkt zu äußern.
 
-\section{Related Work}
+% Nach \textcite{willeke_soziale_2019} nutzen besonders rechtspopulistische Parteien Social Media dazu, ihre Botschaften -- ob korrekt oder nicht -- auf  zu teilen.
 
-\textcite{kalyanam_prediction_2016} untersuchen die Auswirkungen von Events in der realen Welt auf die Social Media Aktivität. Ebenso untersuchen \textcite{tsytsarau_dynamics_2014} diesen Zusammenhang, mit einem Fokus auf die Verbindung der medialen Berichterstattung und dem Sentiment, der durch die Social Media Aktivitäten dargestellt wird.
-\textcite{gimpel_user_2018} nähern sich der Thematik der Social Media Nutzung durch eine Cluster-Analyse zu verschiedenen Rollen in Twitter-Diskussionen.
-Zudem untersucht \textcite{saltzer_bundestagswahl_2022} die Positionen von Bundestagskandidaten auf Twitter und betrachtet diese einerseits im Vergleich innerhalb der Parteien (Flügel/Strömungen) sowie andererseits auf einem allgemeinen politischen Koordinatensystem \autocite{saltzer_bundestagswahl_2022, saltzer_finding_2022}. Für die Analyse verwendete \textcite{saltzer_finding_2022} unter anderem Tweet-Texte, etwaige Zugehörigkeit zu einer Vorfeldorganisation, Merkmale des Politikers, als auch ihr Abstimmungsverhalten.
+% Aus diesem Anlass beschäftigt sich diese Arbeit mit der Frage: Wie gut lassen sich Politiker und deren Parteien anhand ihrer linguistischen Unterschiede klassifizieren?
+
+% Arbeiten, wie die von \citeauthor{saltzer_bundestagswahl_2022}, zeigen, dass es möglich ist, Trends zu analysieren und die Parteizugehörigkeit eines Politikers anhand seiner Tweets zu erkennen.
+
+% Mögliche Fragestellungen sind für diese Arbeit sind:
+
+% \begin{itemize}
+%     \item Lassen sich Trends in der Semantik einzelner Politiker feststellen?
+%     \item Ist es möglich, auf Basis der Semantik festzustellen, ob ein Politiker zum Flügel einer Partei gehört?
+%     \item Können Politiker anhand ihrer Nachrichten und Daten klassifiziert werden?
+%     \item Wie stark ist die Übereinstimmung der Klassifikation mit der wahrhaftigen Parteizugehörigkeit?
+%     \item Unterstützen Nutzer ebenfalls die Politiker, welche am nächsten an ihrer Meinung sind?
+%     \item Lässt sich die Parteizugehörigkeit aufgrund einzelner Worte oder Phrasen bestimmen?
+% \end{itemize}
+
+\section{Bestandsaufnahme}
+
+Bisherige Arbeiten beschäftigen sich meist mit englischsprachigen Daten aus den USA oder Großbritannien. Außerdem umfassen bisherige Untersuchungen meist einen einzigen Datensatz für politische und sprachliche Analysen.
+
+\textcite{saltzer_bundestagswahl_2022} betrachten die Positionen von Bundestagskandidaten auf Twitter und betrachtet diese einerseits im Vergleich innerhalb der Parteien (Flügel/Strömungen) sowie andererseits auf einem allgemeinen politischen Koordinatensystem \autocite{saltzer_bundestagswahl_2022, saltzer_finding_2022}. Für die Analyse verwendete \textcite{saltzer_finding_2022} unter anderem Tweet-Texte, etwaige Zugehörigkeit zu einer Vorfeldorganisation, Merkmale des Politikers, als auch ihr Abstimmungsverhalten.
 
 \textcite{li_survey_2021} sowie \textcite{kowsari_text_2019} bieten je einen umfassenden Überblick sowie Vor- und Nachteile verschiedener Arten von Text-Klassifikation und gehen dabei sowohl auf traditionelle als auch auf Deep-Learning-Ansätze ein.
 \textcite{minaee_deep_2022} untersuchen und vergleichen die Verwendung von Deep-Learning-Modellen für die Aufgabe der Text-Klassifikation.
@@ -36,12 +46,12 @@ Auch \textcite{biessmann_predicting_2016} klassifizieren Reden nach Parteien und
 
 \section{Ziel dieser Arbeit} \label{sec:thesisGoal}
 
-Die Darstellung der Literatur zeigt, dass sich bereits einige Arbeiten mit der Analyse von Social Media Aktivitäten im Zusammenhang mit realen Events sowie mit dem Problem, Texte nach Parteizugehörigkeit zu klassifizieren, beschäftigen.
-In unserer Studienarbeit wollen wir neue Klassifikationsverfahren nutzen und vergleichen, um eine höhere Performance als vergangene Arbeiten zu erreichen.
-Zudem wollen wir nicht nur die Texte von Reden nutzen, sondern auch Social Media Posts und Parteiprogramme als Trainingsdaten für den Klassifikator einbeziehen.
-Für die darauf aufbauenden Analysen wollen wir zusätzlich zu den Social Media Aktivitäten, die mit bestimmten Ereignissen in Verbindung stehen, auch die jeweilige politische Einstellung der Nutzer, bestimmt durch den trainierten Klassifikator, nutzen.
+Ziel dieser Arbeit ist es, mittels \ac{NLP} und \ac{ML} Texte von Politikern, aber auch von anderen Personen, anhand der relevanten Parteien in Deutschland zu klassifizieren. Dafür sollen im Vergleich zu bisherigen Arbeiten auch Daten aus mehreren Quellen und von unterschiedlicher Art (Multidomain) einbezogen werden. Dadurch soll die Klassifikation möglichst losgelöst von Eigenheiten einer konkreten Textart und primär basierend auf sprachlichen und inhaltlichen Unterschieden zwischen den Parteien funktionieren, um folglich auf sämtlichen politischen Texten eingesetzt werden zu können. 
 
-\begin{itemize}
-    \item Transparenz schaffen
-    \item Analysieren von Zeitungen zur Feststellung von Political Bias
-\end{itemize}
+Mögliche Einsatzgebiete für ein Parteiklassifikationsmodell ist die Determinierung, ob Texte eine starke Zuneigung zu einzelnen Parteien aufweisen. Diese Fähigkeit kann zum Beispiel auf Zeitungen angewandt werden und dabei helfen, Transparenz für Leser zu schaffen, indem über einen möglichen politischen Bias von Artikeln aufgeklärt wird.
+
+\section{Geplantes Vorgehen}
+
+In unserer Studienarbeit wollen wir dafür verschiedenartige Klassifikationsverfahren -- klassische \ac{ML}-Verfahren sowie \ac{DL}-Ansätze -- nutzen und vergleichen, um eine höhere Genauigkeit als vergangene Arbeiten zu erreichen. Für die Klassifikation wollen wir politische Reden, Social Media Posts und Parteiprogramme als Trainingsdaten für den Klassifikator einbeziehen.
+
+Schlussendlich soll das akkurateste Modell mittels eines simplen \acp{ui} dem Nutzer bereitgestellt werden. Zusätzlich zu unserem Klassifikationsmodell sollen ebenfalls die in dieser Arbeit verwendeten \ac{NLP} Analysen bereitgestellt werden.

@@ -4,9 +4,9 @@
 
 % TODO: Add disclaimer about ethis and pupose of this work
 
-Social-Media-Plattformen, Medienhäuser und Politiker sind maßgeblich daran beteiligt, über Ereignisse zu berichten und diese von ihrer Perspektive wiederzugeben und zu bewerten. Vor allem Politiker neigen dazu, mit ihrem eigenen Stil -- semantisch, syntaktisch und pragmatisch -- ihre Wählerschaft zu beeinflussen. Besonders im Kontext der Wahl von Donald Trump zum US-Präsidenten, des Brexit-Referendums, als auch des Krieges in der Ukraine hat das Thema Fake News stetig an Relevanz und Aufmerksamkeit gewonnen. Dabei scheinen diese Falschnachrichten von einem Großteil der Bevölkerung akzeptiert und für richtig befunden zu werden.
+Social-Media-Plattformen, Medienhäuser und Politiker sind maßgeblich daran beteiligt, über Ereignisse zu berichten und diese von ihrer Perspektive wiederzugeben und zu bewerten. Nach \textcite{willeke_soziale_2019} neigen Politiker dazu, mit ihrem eigenen Stil -- semantisch, syntaktisch und pragmatisch -- ihre Wählerschaft zu beeinflussen. Besonders im Kontext der Wahl von Donald Trump zum US-Präsidenten, des Brexit-Referendums, als auch des Krieges in der Ukraine hat das Thema Fake News stetig an Relevanz und Aufmerksamkeit gewonnen. Dabei scheinen diese Falschnachrichten von einem Großteil der Bevölkerung akzeptiert und für richtig befunden zu werden.
 
-In dieser Arbeit stellen wir uns die Frage, ob die Wählerschaft nicht nur den Nachrichten Glauben schenkt, sondern ebenfalls sich von der Semantik, Syntax und Pragmatik beeinflussen lässt und diese zu einem gewissen Teil adaptiert. Außerdem neigen von Natur aus Gruppen mit gleichen Idealen und Werten dazu, sich ähnlich zu artikulieren. Auf Basis dieser Annahmen und Feststellungen wollen wir versuchen, Texte anhand der sechs größten deutschen Parteien zu klassifizieren.
+In dieser Arbeit wird die Auswirkung von Semantik, Syntax und Pragmatik mittels NLP Mechaniken auf eine definierte Zielgruppe am Beispiel politischer Nachrichten, untersucht und bewertet. Außerdem neigen von Natur aus Gruppen mit gleichen Idealen und Werten dazu, sich ähnlich zu artikulieren. Auf Basis dieser Annahmen und Feststellungen wollen wir versuchen, Texte anhand der sechs größten deutschen Parteien zu klassifizieren.
 
 % fake news -> wähler und leser inhalte glauben -> these: nicht nur glauben, sondern auch elemente übernehmen -> dies lässt sich klassifizieren und weist potzenziell parteizugehörigkeit oder empathie nach
 
@@ -31,9 +31,9 @@ In dieser Arbeit stellen wir uns die Frage, ob die Wählerschaft nicht nur den N
 %     \item Lässt sich die Parteizugehörigkeit aufgrund einzelner Worte oder Phrasen bestimmen?
 % \end{itemize}
 
-\section{Bestandsaufnahme}
+\section{Textanalyse in politischer Kommunikation \& Parteienforschung}
 
-Bisherige Arbeiten beschäftigen sich meist mit englischsprachigen Daten aus den USA oder Großbritannien. Außerdem umfassen bisherige Untersuchungen meist einen einzigen Datensatz für politische und sprachliche Analysen.
+Die folgenden Literaturhinweise bieten einen Überblick über verschiedene Methoden und Ansätze zur Text-Klassifikation im politischen Kontext, insbesondere im Hinblick auf die Analyse von Twitter-Texten von Politikern.
 
 \textcite{saltzer_bundestagswahl_2022} betrachten die Positionen von Bundestagskandidaten auf Twitter und betrachtet diese einerseits im Vergleich innerhalb der Parteien (Flügel/Strömungen) sowie andererseits auf einem allgemeinen politischen Koordinatensystem \autocite{saltzer_bundestagswahl_2022, saltzer_finding_2022}. Für die Analyse verwendete \textcite{saltzer_finding_2022} unter anderem Tweet-Texte, etwaige Zugehörigkeit zu einer Vorfeldorganisation, Merkmale des Politikers, als auch ihr Abstimmungsverhalten.
 
@@ -41,17 +41,28 @@ Bisherige Arbeiten beschäftigen sich meist mit englischsprachigen Daten aus den
 \textcite{minaee_deep_2022} untersuchen und vergleichen die Verwendung von Deep-Learning-Modellen für die Aufgabe der Text-Klassifikation.
 
 \textcite{wong_quantifying_2016} bestimmen die politische Ausrichtung aufgrund des Verhaltens von Personen auf Twitter durch die Betrachtung, welche Accounts ähnliche andere Accounts retweeten.
-Zudem vergleichen \textcite{doan_using_2022} verschiedene Sprachmodelle zur Klassifizierung von Reden nach Parteien und führen dies für verschiedene Länder bzw. Sprachen durch.
+Zudem vergleichen \textcite{doan_using_2022} verschiedene Sprachmodelle zur Klassifizierung von Reden nach Parteien und führen das für verschiedene Länder bzw. Sprachen durch.
 Auch \textcite{biessmann_predicting_2016} klassifizieren Reden nach Parteien und nutzen zum Trainieren Parlaments-Debatten des Bundestages. Zudem wenden sie den Klassifikator auf andere Arten von Texten wie Social Media Posts an.
+
+Aus den Quellen geht hervor, dass sich bisherige Arbeiten meist ausschließlich mit englischsprachigen Daten aus den USA oder Großbritannien beschäftigt. Außerdem umfassen bisherige Untersuchungen meist einen einzigen Datensatz für politische und sprachliche Analysen.
 
 \section{Ziel dieser Arbeit} \label{sec:thesisGoal}
 
-Ziel dieser Arbeit ist es, mittels \ac{NLP} und \ac{ML} Texte von Politikern, aber auch von anderen Personen, anhand der relevanten Parteien in Deutschland zu klassifizieren. Dafür sollen im Vergleich zu bisherigen Arbeiten auch Daten aus mehreren Quellen und von unterschiedlicher Art (Multidomain) einbezogen werden. Dadurch soll die Klassifikation möglichst losgelöst von Eigenheiten einer konkreten Textart und primär basierend auf sprachlichen und inhaltlichen Unterschieden zwischen den Parteien funktionieren, um folglich auf sämtlichen politischen Texten eingesetzt werden zu können. 
+Ziel dieser Arbeit ist es, mittels \ac{NLP} und \ac{ML} Texte von Politikern zu nutzen, um ein Modell zu trainieren, das auch bei Texten ohne gegebene politische Zuordnung eine Parteizugehörigkeit klassifiziert. Dafür sollen im Vergleich zu bisherigen Arbeiten auch Daten aus mehreren Quellen und von unterschiedlicher Art einbezogen werden. Dadurch soll die Klassifikation möglichst losgelöst von Eigenheiten einer konkreten Textart und primär basierend auf sprachlichen und inhaltlichen Unterschieden zwischen den Parteien (Multidomain) funktionieren, um folglich auf sämtlichen politischen Texten eingesetzt werden zu können.
 
 Mögliche Einsatzgebiete für ein Parteiklassifikationsmodell ist die Determinierung, ob Texte eine starke Zuneigung zu einzelnen Parteien aufweisen. Diese Fähigkeit kann zum Beispiel auf Zeitungen angewandt werden und dabei helfen, Transparenz für Leser zu schaffen, indem über einen möglichen politischen Bias von Artikeln aufgeklärt wird.
 
 \section{Geplantes Vorgehen}
 
-In unserer Studienarbeit wollen wir dafür verschiedenartige Klassifikationsverfahren -- klassische \ac{ML}-Verfahren sowie \ac{DL}-Ansätze -- nutzen und vergleichen, um eine höhere Genauigkeit als vergangene Arbeiten zu erreichen. Für die Klassifikation wollen wir politische Reden, Social Media Posts und Parteiprogramme als Trainingsdaten für den Klassifikator einbeziehen.
+\ac{CRISP-DM} ist ein weitverbreitetes iteratives Modell, das zur Strukturierung von Data-Mining Projekten genutzt wird \autocite{martinez-plumed_casp-dm_2017, chapman_crisp-dm_2000}. Das Modell besteht aus sechs Schritten: Business Understanding, Data Understanding, Data Preparation, Modeling, Evaluation und Deployment. Die folgende Arbeit wird auf Basis von \ac{CRISP-DM} strukturiert.
+
+In dem ersten Abschnitt dieser Arbeit werden zunächst Datensätze ausgewählt und anschließend gesichtet und bereinigt.
+
+Mit den aufbereiteten Datensätzen werden anschließend verschiedenartige Klassifikationsverfahren -- klassische \ac{ML}-Verfahren sowie \ac{DL}-Ansätze -- genutzt und vergleichen.
 
 Schlussendlich soll das akkurateste Modell mittels eines simplen \acp{ui} dem Nutzer bereitgestellt werden. Zusätzlich zu unserem Klassifikationsmodell sollen ebenfalls die in dieser Arbeit verwendeten \ac{NLP} Analysen bereitgestellt werden.
+
+% TODO: Begründung der Einschränkung auf 19. WP
+% These: Im Laufe der Zeit verschiebt sich die Position von Parteien, sondass es schwer ist, ein für alle Zeiträume geltendes Modell zu entwickeln
+% These: Da der Inhalt von retweets nicht eindeutig dem Nutzer zuordnenbar ist verzerren die die Ergebnisse
+% TODO: Test These

@@ -4,15 +4,8 @@
 
 \iflang{de}{
 	\begin{enumerate}[label=\Alph*.]
-		\item Abbildungen
-		\item Tabellen
-	\end{enumerate}
-}
-
-\iflang{en}{
-	\begin{enumerate}[label=\Alph*.]
-		\item Figures
-		\item Tabels
+		\item Datenquellen
+		% \item Tabellen
 	\end{enumerate}
 }
 
@@ -22,16 +15,40 @@
 \renewcommand{\thesection}{\Alph{section}}
 \counterwithin{figure}{section}
 \counterwithin{table}{section}
+\counterwithin{code}{section}
 
 %\includepdf[pages=-,scale=.9,pagecommand={}]{Aufgabenstellung.pdf} % PDF um 10% verkleinert einbinden --> Kopf- und Fußzeile  werden so korrekt dargestellt. Die Option `pages' ermöglicht es, eine bestimmte Sequenz von Seiten (z.B. 2-10 oder `-' für alle Seiten) auszuwählen.
 %\pagebreak
 
+\section{Datenquellen} \label{ch:dataAppendix}
 
-\section{Figures} \label{ch:figureAppendix}
+\subsection*{Tweets}
 
+\begin{code}[H]
+    \begin{subcode}{0.45\textwidth}
+        \small
+        Kritischer Austausch bei der Diskussion @co2abgabe. Der CO2-Preis im \#Emissionshandel steigt, das Vertrauen in dieses Instrument muss weiter wachsen! https://t.co/hv1VFPBJrv
+        \caption{Beispieltweet von \textit{\_martinneumann}}
+    \end{subcode}\hfill
+    \begin{subcode}{0.45\textwidth}
+        \small
+        Treten Sie zurück, Herr Reul! Bin fassungslos, mit welcher Selbstherrlichkeit die NRW-Landesregierung die Profitinteressen von RWE im \#HambacherForst durchsetzt. Der heutige Polizeieinsatz gegen friedliche Sitzblockierer war brutal, selbst Journalisten sind geschlagen worden(1/3) https://t.co/0A3JbnUMmV
+        \caption{Beispieltweet von \textit{zdebelhubertus}}
+    \end{subcode}\hfill
+    \caption[Beispiel -- Tweets]{Beispiel für Tweets von Politikern auf Tweiiter} \label{list:exampleTweets}
+\end{code}
 
 \pagebreak
 
-\section{Tabels} \label{ch:tableAppendix}
+\subsection*{Wahlprogramme} \label{subsec:overviewWP}
 
-\subsection{Übersicht: Wahlprogramme}\label{subsec:übersichtWP}
+% TODO: mit includegraphics einbinden, damit auch caption da ist
+\subsubsection*{Beispiel 1: Ausschnitt aus dem Wahlprogramm der CDU zur Bundestagswahl 2017}
+\includepdf[pages=32-33,scale=.75,pagecommand={}]{data/examples/party_programs/union_btw17.pdf}
+
+\subsubsection*{Beispiel 2: Ausschnitt aus dem Wahlprogramm der SPD zur Bundestagswahl 2017}
+\includepdf[pages=16-17,scale=.75,pagecommand={}]{data/examples/party_programs/spd_btw17.pdf}
+
+\pagebreak
+
+% \section{Tabels} \label{ch:tableAppendix}

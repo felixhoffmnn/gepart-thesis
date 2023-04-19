@@ -1,23 +1,18 @@
 %!TEX root = ../dokumentation.tex
 
-\chapter{Fazit} \label{ch:conclusion}
+\chapter{Deployment der Klassifikationsmodelle} \label{ch:crispDm_3}
 
-\section{Zusammenfassung}
-
-\begin{itemize}
-    \item Möglicher Bias durch Aufteilung der Parteien in Opposition und Regierung → Modell eventuell für andere Regierungskonstellation ungeeignet
-\end{itemize}
-
-\section{Ausblick}
-
-\subsection{Datensätze}
+\section{Interface}
 
 \begin{itemize}
-    \item Daten welche nicht Politikern zuordenbar sind und manuell gelabelt werden
+    \item Streamlit
+    \item Huggingface
 \end{itemize}
 
-\subsection{Feature Engineering}
+\section{Beispielanwendung: Zeitungen}
 
 \begin{itemize}
-    \item Faktendichte: Mittels \ac{ML} Modellen ist es, für englische Texte möglich, mit einem F1-Score von \num{0.92} zu prüfen, ob ein Text prüfbare Fakten enthält \autocite{jha_towards_2023}.
+    \item Modell auf Zeitungsartikel zwischen 2017 und 2021 anwenden (Bild, Zeit, ...)
+    \item Modell auf Tweets von Zeitungen anwenden
 \end{itemize}
+    

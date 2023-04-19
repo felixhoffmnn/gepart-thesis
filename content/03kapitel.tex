@@ -1,36 +1,30 @@
 %!TEX root = ../dokumentation.tex
 
-\chapter{Klassifikation anhand von Parteien} \label{ch:crispDm_1}
+\chapter{Untersuchung und Aufbereitung der Daten} \label{ch:crispDm_1}
 
-In dem folgenden Abschnitt wird \ac{CRISP-DM} genutzt, um \ac{ML} Modelle zu trainieren, welche Texte einer der sechs politischen Parteien aus dem Deutschen Bundestag zuordnet. 
-
-% TODO: Add missing sections
-
-\ac{CRISP-DM} ist ein weitverbreitetes iteratives Modell, welches zur Strukturierung von Data-Mining Projekten genutzt wird \autocite{martinez-plumed_casp-dm_2017, chapman_crisp-dm_2000}. Das Modell besteht aus sechs Schritten: Business Understanding, Data Understanding, Data Preparation, Modeling, Evaluation und Deployment. 
+Auf der Basis von \ac{CRISP-DM} werden im folgenden Kapitel die Daten gesichtet und bereinigt.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{data/images/data_flow_v2_1.png}
-    \caption[Datenverarbeitungs-Pipeline]{Datenverarbeitungs-Pipeline (Data Understanding, Data Preparation und Zusammenführung der Daten)} \label{fig:dataFlow_1}
+    \caption[Datenverarbeitungs-Pipeline]{Datenverarbeitungs-Pipeline} \label{fig:dataFlow_1}
 \end{figure}
 
-% TODO: Add source for multidomain data
-
-Multidomain Daten ermöglichen es, generalisierter \ac{ML} Modelle zu trainieren. Da die Rohdaten stark voneinander abweichen, ist es notwendig, dass unterschiedliche Datenquellen im Prozess des Data Understandings und Data Preparation individuell verarbeitet werden. Nachdem jeder Datensatz einzeln analysiert und bereinigt wurde, werden die Daten für das Modeling zusammengeführt.
+Multidomain Daten ermöglichen es, generalisierter \ac{ML} Modelle zu trainieren. Es ist notwendig, dass unterschiedliche Datenquellen im Prozess des Data Understandings und Data Preparation individuell verarbeitet werden, da die Rohdaten stark voneinander abweichen.
 
 % TODO: Update image for modeling
 
 \begin{figure}[H]
     \centering
     \missingfigure{Data Flow 2}
-    \caption[Training von Modellen]{Training von Modellen (Modeling)} \label{fig:dataFlow_2}
+    \caption{Training von Modellen} \label{fig:dataFlow_2}
 \end{figure}
 
-\section{Sichtung der ausgewählten Datenquellen} \label{sec:dataUnderstanding}
+\section{Auswahl und Sichtung der Datenquellen} \label{sec:dataUnderstanding}
 
-Wie zuvor beschrieben, werden in dieser Arbeit verschiedene Datensätze genutzt, um die \ac{ML} Modelle zu trainieren. Damit soll vermieden werden, dass ein Modell lediglich die Eigenschaften eines spezifischen Datensatzes trainiert. 
+% TODO: Ausweitung der Auswahl \autocite{biessmann_predicting_2016}
 
-Für das \nameref{sec:modeling} werden Datensätze benötigt, welche neben den Features (z. B. Text, Alter, Geschlecht) auch einer Partei zugeordnet sind. Da in dieser Form noch keine Datensätze vorhanden waren, wurden explizit Daten gewählt, welche von Politikern einer Partei veröffentlicht wurden. Somit kann die Parteizugehörigkeit als Zielvariable für das Training genutzt werden.
+Für das \nameref{sec:modeling} werden Datensätze benötigt, deren Einträge neben den Features (z. B. Text, Alter, Geschlecht) auch eine Parteizuordnung haben. Hierfür werden Datensätze gewählt, die Daten von Politikern einer Partei beinhalten. Somit kann die Parteizugehörigkeit als Zielvariable für das Training genutzt werden.
 
 % TODO: Update values
 
@@ -58,19 +52,19 @@ Bei den Datensätzen handelt es sich um Tweets, Wahlprogramme (Landtags-, Europa
 
 % TODO: Add source
 
-Twitter ist eine amerikanische Kurznachrichten-Plattform, welche den Nutzern ermöglicht, Tweets\footnote{Plattformspezifische Bezeichnung für Kurznachrichten} von einer Länge von bis zu 280 Zeichen zu veröffentlichen. Zusätzlich zum Veröffentlichen von eigenen Tweets, besitzen Nutzer die Möglichkeit Tweets von anderen zu kommentieren, oder zu retweeten\footnote{Einen Tweet eines anderen Nutzers auf seinem eigenen Profil erneut veröffentlichen}.
+Twitter ist eine amerikanische Kurznachrichten-Plattform, die den Nutzern ermöglicht, Tweets\footnote{Plattformspezifische Bezeichnung für Kurznachrichten} von einer Länge von bis zu 280 Zeichen zu veröffentlichen. Zusätzlich zum Veröffentlichen von eigenen Tweets, besitzen Nutzer die Möglichkeit Tweets von anderen zu kommentieren, oder zu retweeten\footnote{Einen Tweet eines anderen Nutzers auf seinem eigenen Profil erneut veröffentlichen}.
 
 Der Tweet-Datensatz\footnote{Aufgrund der Twitter Developer Bedingungen ist der Datensatz nicht öffentlich zugänglich. \citeauthor{saltzer_finding_2022} hat auf Anfrage den Datensatz für diese Arbeit zur Verfügung gestellt.} von \textcite{saltzer_finding_2022} umfasst \num{876118} Tweets von \num{511} Politikern des Deutschen Bundestages zwischen Januar \num{2017} bis Dezember \num{2019}. 
 
 Der Datensatz beinhaltet neben den Tweet-Texten (\texttt{text}) auch noch den Twitternamen (\texttt{screen\_name}), das Erstellungsdatum (\texttt{created\_at}), ob es sich um einen Retweet handelt (\texttt{is\_retweet}), welcher Partei der Politiker angehört (\texttt{party}), das Geburtsdatum (\texttt{birthyear}) und das Geschlecht des Politikers (\texttt{gender}). Initial beinhaltet der Datensatz außerdem noch, ob der Politiker einer Untergruppierung einer Partei angehört und wie dieser bei Abstimmungen im Deutschen Bundestag abgestimmt hat. Diese letzten beiden Informationen werden jedoch im folgenden nicht weiter berücksichtigt.
 
-Die Tweets der Parlamentarier lassen sich folgenden sechs Parteien\footnote{Initial beinhaltete der Datensatz zusätzlich Parteilose, welche jedoch direkt gefiltert wurden.} zuordnen: Die Grünen, \ac{SPD}, Die Linke, \ac{AfD}, \ac{FDP} und Union. Unter den \ac{MdB} befinden sich \num{161} Frauen und \num{350} Männer.
+Die Tweets der Parlamentarier lassen sich folgenden sechs Parteien\footnote{Initial beinhaltete der Datensatz zusätzlich Parteilose, die jedoch direkt gefiltert wurden.} zuordnen: Die Grünen, \ac{SPD}, Die Linke, \ac{AfD}, \ac{FDP} und Union. Unter den \ac{MdB} befinden sich \num{161} Frauen und \num{350} Männer.
 
 % TODO: Update image with correct image (pre-processing)
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{data/images/tweets_word_count.png}
+    \includegraphics[width=0.9\textwidth]{data/images/tweets/wortanzahl_pro_partei_vor_bereinigung.png}
     \caption{Anzahl an Wörtern für Tweets vor Bereinigung} \label{fig:wordCountTweets}
 \end{figure}
 
@@ -86,19 +80,19 @@ Neben den Reden, die im Folgenden als Trainingsdaten genutzt werden sollen, enth
 
 Zusätzlich zum Text (\texttt{speechContent}) liegen für jede Rede unter anderem zusätzlich die Nummer der Sitzung des Bundestages (\texttt{session}), das Datum (\texttt{date}), Vor- und Nachname (\texttt{firstName} bzw. \texttt{lastName}), die Fraktion (\texttt{factionId}) sowie die Position des Redners (\texttt{positionLong}) vor.
 
-Über alle Wahlperioden hinweg enthält der Datensatz insgesamt \num{907644} Reden von \num{4105} Politikern. Da sich das zu trainierende Klassifikationsmodell im Rahmen dieser Arbeit nur auf die 19. Wahlperiode bezieht, werden nur Reden berücksichtigt, die auch in dem genannten Zeitraum gehalten wurden, wodurch noch \num{60958} Reden übrig bleiben. Die übrigen Reden umfassen jedoch auch Beiträge des Präsidiums des Deutschen Bundestages sowie fraktionsloser Abgeordneter, die beide nicht betrachtet werden können, da sie keiner der definierten Parteien zuzuordnen sind. Somit reduziert sich die Zahl an Reden schlussendlich auf \num{28841}.
+Über alle Wahlperioden hinweg enthält der Datensatz insgesamt \num{907644} Reden von \num{4105} Politikern. Im Rahmen dieser Arbeit werden nur Reden aus der 19. Wahlperiode berücksichtigt. Es bleiben dabei noch \num{60958} Reden in der genannten Wahlperiode übrig. Die übrigen Reden umfassen jedoch auch Beiträge des Präsidiums des Deutschen Bundestages sowie fraktionsloser Abgeordneter, die beide nicht betrachtet werden können, da sie keiner der definierten Parteien zuzuordnen sind. Somit reduziert sich die Zahl an Reden schlussendlich auf \num{28841}.
 
 % TODO: Verteilung der Reden nach Partei
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{data/images/speeches_word_count.png}
+    \includegraphics[width=0.9\textwidth]{data/images/speeches/speeches_word_count.png}
     \caption{Anzahl an Wörtern für Reden vor Bereinigung} \label{fig:wordCoundSpeeches}
 \end{figure}
 
 \autoref{fig:wordCoundSpeeches} zeigt die Verteilung der Anzahl an Wörtern, die die Reden im Datensatz umfassen, aufgeschlüsselt nach Partei. Es ergibt sich dabei ein Hochpunkt in der Dichtefunktion bei knapp unter 100 Wörtern, gefolgt von einem Tiefpunkt zwischen \num{200} und \num{300} Wörtern und schließlich einem weiteren Hochpunkt, je nach Partei zwischen 400 und 700 Wörtern.
 
-Dies zeigt, dass die Reden im Durchschnitt etwa um den Faktor zehn länger sind als Tweets, was darauf zurückzuführen ist, dass die Reden im Bundestag oft mehrere Minuten andauern, während Tweets als Kurznachrichten gedacht sind.
+Das zeigt, dass die Reden im Durchschnitt etwa um den Faktor zehn länger sind als Tweets. Reden im Bundestag dauern oft mehrere Minuten an und sollen einen fundierten Beitrag für ein mehrheitlich fachkundiges Publikum zu einer Debatte bieten. Bei Tweets hingegen handelt es sich um Kurznachrichten, die dazu geeignet sind, um pointierte Aussagen an die Allgemeinheit zu richten, ohne lange Aufmerksamkeit vorauszusetzen.
 
 Bei genauerer Betrachtung der Häufung von kurzen Reden rund um das erste Maximum fällt auf, dass dort viele Redebeiträge enthalten sind, die nur beispielsweise Zwischenfragen darstellen und keine vollständigen, inhaltlich relevanten Reden sind.
 
@@ -106,7 +100,7 @@ Bei genauerer Betrachtung der Häufung von kurzen Reden rund um das erste Maximu
 
 \subsection*{Wahlprogramme}
 
-Zuletzt sollen auch Texte aus Wahlprogrammen der zu untersuchenden Parteien herangezogen werden. Dabei stehen im Untersuchungszeitraum die Bundestagswahlen \num{2017} und \num{2021}, die Europawahl 2019 sowie zahlreiche Landtagswahlen mit den entsprechend veröffentlichten Wahlprogrammen der Parteien zur Verfügung. Eine genaue Auflistung der verwendeten Wahlen inklusive Anmerkungen zu Wahlprogrammen, die nicht verarbeitet werden konnten, kann dem \autoref{subsec:übersichtWP} im Anhang entnommen werden.
+Zuletzt sollen auch Texte aus Wahlprogrammen der zu untersuchenden Parteien herangezogen werden. Dabei stehen im Untersuchungszeitraum die Bundestagswahlen \num{2017} und \num{2021}, die Europawahl 2019 sowie zahlreiche Landtagswahlen mit den entsprechend veröffentlichten Wahlprogrammen der Parteien zur Verfügung. Eine genaue Auflistung der verwendeten Wahlen inklusive Anmerkungen zu Wahlprogrammen, die nicht verarbeitet werden konnten, kann dem \autoref{subsec:overviewWP} im Anhang entnommen werden.
 
 So ergibt sich eine Anzahl von insgesamt \num{83} Wahlprogrammen unterschiedlicher Parteien. Die Wahlprogramme können auf der Website der jeweiligen Partei bzw. des Landesverbandes im Fall einer Landtagswahl im \ac{PDF}-Format heruntergeladen werden. Anschließend wird der Text mittels der Python-Bibliothek \textit{pdfminer} ausgelesen und verarbeitet.
 
@@ -116,16 +110,15 @@ Neben dem Text des jeweiligen Paragraphen liegen als weitere Informationen, die 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{data/images/party_programs_word_count.png}
+    \includegraphics[width=0.9\textwidth]{data/images/party_programs/party_programs_word_count.png}
     \caption{Anzahl an Wörtern für Wahlprogramm-Paragraphen vor Bereinigung} \label{fig:wordCoundPartyPrograms}
 \end{figure}
 
-\autoref{fig:wordCoundPartyPrograms} zeigt die Verteilung der Anzahl an Wörtern der gewonnenen Wahlprogramm-Paragraphen pro Partei. Anders als bei den Reden zeigt sich hier eine rechtsschiefe Dichtefunktion mit nur einem Maximum bei -- je nach Partei -- etwa \num{30} bis \num{70} Wörtern pro Paragraph. Damit sind die Absätze aus Wahlprogrammen durchschnittlich länger als die Tweets, jedoch deutlich kürzer als die Transkripte der Bundestagsreden. 
-
+\autoref{fig:wordCoundPartyPrograms} zeigt die Verteilung der Anzahl an Wörtern der gewonnenen Wahlprogramm-Paragraphen pro Partei. Anders als bei den Reden zeigt sich hier eine rechtsschiefe Dichtefunktion mit nur einem Maximum bei -- je nach Partei -- etwa \num{30} bis \num{70} Wörtern pro Paragraph. Die Absätze aus Wahlprogrammen sind durchschnittlich länger als die Tweets, jedoch deutlich kürzer als die Transkripte der Bundestagsreden. 
 
 \section{Datenaufbereitung} \label{sec:dataPreparation}
 
-Im nächsten Schritt nach \ac{CRISP-DM} werden die Datensätze aufbereitet. Im Folgenden werden zwei Methoden verwendet, um dies zu erreichen. Zum Ersten, Techniken, die die Integrität der Texte verändert. Dies umfasst regelbasierte Verfahren, die Bildung von Wortstämmen und das Entfernen von Stopwörtern. Anschließend werden Eigenschaften definiert, nach welchen die Texte gefiltert werden. Hierbei wird die Integrität der Text nicht weiter beeinflusst.
+Im nächsten Schritt nach \ac{CRISP-DM} werden die Datensätze aufbereitet. Im Folgenden werden zwei Methoden verwendet, um das zu erreichen. Zum Ersten, Techniken, die die Integrität der Texte verändert. Das umfasst regelbasierte Verfahren, die Bildung von Wortstämmen und das Entfernen von Stopwörtern. Anschließend werden Eigenschaften definiert, nach welchen die Texte gefiltert werden. Hierbei wird die Integrität der Text nicht weiter beeinflusst.
 
 \subsection{Datenbereinigungs-Pipeline} \label{subsec:cleaningPipeline}
 
@@ -139,17 +132,17 @@ Stopwörter, Links, Symbole und weitere Unregelmäßigkeiten (Rauschen, zu Engli
     \caption{Datenbereinigungsprozess} \label{fig:cleaningPipeline}
 \end{figure}
 
-Wie \autoref{fig:cleaningPipeline} zeigt, besteht der Prozess zur Datenbereinigung aus drei Abschnitten. Zuerst die regelbasierte Bereinigung, welche mittels regulären Ausdrücken und Patterns eine erste Umformung vornimmt. Im nächsten Schritt werden die Wörter auf ihren Wortstamm zurückgeführt. Im letzten Schritt werden Stopwörter entfernt. All diese Schritte verfolgen das Ziel, die Menge an Rauschen zu verringern. 
+Wie \autoref{fig:cleaningPipeline} zeigt, besteht der Prozess zur Datenbereinigung aus drei Abschnitten. Zuerst die regelbasierte Bereinigung, die mittels regulären Ausdrücken und Patterns eine erste Umformung vornimmt. Im nächsten Schritt werden die Wörter auf ihren Wortstamm zurückgeführt. Im letzten Schritt werden Stopwörter entfernt. All diese Schritte verfolgen das Ziel, die Menge an Rauschen zu verringern. 
 
 \subsubsection{Regelbasierte Verfahren}
 
 Unterschiedliche Schreibweisen, Symbole und Emojis, \acp{URL}, und Gendern stellen ein elementares Problem für herkömmliche \ac{NLP} Methoden und Modelle dar \autocite[4\psq]{kowsari_text_2019}. Im ersten Schritt werden daher regelbasierte Verfahren genutzt, um häufig auftretende Zeichen, Symbole/Emojis, aber auch andere Unregelmäßigkeiten ersetzt oder entfernt.
 
-Besonders bei Tweets werden häufig Symbole wie \euro und \& als Kurzform verwendet. Da diese jedoch nicht in dieser Form interpretiert werden können, werden die Symbole als auch die Zahlen mit ihrem ausgeschriebenen Klartext ersetzt. So wird aus \euro \(\rightarrow\) \textit{euro}, oder aus \(\num{2000} \rightarrow\) \textit{zweitausend}.
+Besonders bei Tweets werden häufig Symbole wie \euro und \& als Kurzform verwendet. Die Symbole als auch die Zahlen werden mit ihrem ausgeschriebenen Klartext ersetzt, da sie nicht in dieser Form interpretiert werden können. So wird aus \euro \(\rightarrow\) \textit{euro}, oder aus \(\num{2000} \rightarrow\) \textit{zweitausend}.
 
-In den Texten treten vermehrt Unicode, \ac{HTML} Symbole, als auch Emojis auf. In Tweets als auch in Wahlprogrammen werden ebenfalls \acp{URL} verwendet. Tweets nutzen außerdem Referenzen zu Twitternutzern (Mentions wie \textit{@MaxMustermann}). Da es sich bei all diesen Symbolgruppen um nicht vollständige oder nicht interpretierbare Zeichenketten handelt, müssen diese entfernt werden.
+In den Texten treten vermehrt Unicode, \ac{HTML} Symbole, als auch Emojis auf. In Tweets als auch in Wahlprogrammen werden ebenfalls \acp{URL} verwendet. Tweets nutzen außerdem Referenzen zu Twitternutzern (Mentions wie \textit{@MaxMustermann}). Diese müssen entfernt werden, da sie nicht in dieser Form interpretiert werden können.
 
-Bei allen Textformen verwenden Politiker und Parteien unterschiedliche Arten von inklusiver Sprache als Alternative zum generischen Maskulinum. Beispiele hierfür sind \textit{Politiker*innen} oder auch \textit{Politiker:innen}. Da die Textrepräsentationsformen und Sprachmodelle dies jedoch nur rudimentär oder gar nicht abbilden können, werden alle herkömmlichen Endungen für gendergerechte Sprache entfernt, sodass alle Wörter im Text auf den korrekten Wortstamm reduziert werden können.
+Bei allen Textformen verwenden Politiker und Parteien unterschiedliche Arten von inklusiver Sprache als Alternative zum generischen Maskulinum. Beispiele hierfür sind \textit{Politiker*innen} oder auch \textit{Politiker:innen}. Da die Textrepräsentationsformen und Sprachmodelle das jedoch nur rudimentär oder gar nicht abbilden können, werden alle herkömmlichen Endungen für gendergerechte Sprache entfernt, sodass alle Wörter im Text auf den korrekten Wortstamm reduziert werden können.
 
 Nachdem die Texte grob bereinigt wurden, werden letztlich noch Satzzeichen, Sonderzeichen und einzelne Buchstaben entfernt. Abschließend werden doppelte Leerzeichen entfernt und alle Buchstaben zu Kleinbuchstaben umgewandelt.
 
@@ -159,7 +152,7 @@ Nachdem die Texte grob bereinigt wurden, werden letztlich noch Satzzeichen, Sond
     \begin{subcode}{0.45\textwidth}
         \small
         \textcolor{orange}{Ehemalige} \textcolor{red}{@AfD-Vorsitzende} \textcolor{orange}{\#Petry} muss wegen \textcolor{orange}{Meineid} vor \textcolor{orange}{Gericht}\textcolor{red}{.} \textcolor{orange}{Kein Einzelfall}\textcolor{red}{:} gegen circa \textcolor{orange}{\SI{10}{\percent}} aller \textcolor{orange}{AfD-Abgeordneten} bundesweit laufen oder liefen \textcolor{orange}{Strafverfahren}\textcolor{red}{.} \textcolor{orange}{Kriminelle Asylbewerber}\textcolor{red}{?} \textcolor{orange}{Fehlanzeige}\textcolor{red}{.} \textcolor{orange}{Kriminelle AfD-Hetzer} trifft den \textcolor{orange}{Nagel} eher auf den \textcolor{orange}{Kopf} \textcolor{red}{<U+0001F602>} \textcolor{orange}{\#AfD}
-        \caption{Tweet vor jeglicher Bereinigung}
+        \caption{Tweet vor jeglicher Bereinigung \parencite{saltzer_finding_2022}}
     \end{subcode}\hfill
     \begin{subcode}{0.45\textwidth}
         \small
@@ -171,9 +164,9 @@ Nachdem die Texte grob bereinigt wurden, werden letztlich noch Satzzeichen, Sond
 
 \autoref{list:rulebasedCleaning} zeigt die Anwendung der regelbasierten Bereinigung auf einen Beispiel-Tweet. Es kann erkannt werden, dass die Referenz \textit{@AfD-Vorsitzende} im bereinigten Text nicht mehr vorkommt. Zudem wurde das Hashtag-Symbol vor \textit{Petry} und \textit{AfD} entfernt. Auch die Angabe \textit{10\%} wird durch die Bereinigung ausgeschrieben zu \textit{zehn prozent}. Schließlich enthält der bereinigte Text auf der rechten Seite keine Satzzeichen mehr, das Emoji am Ende fehlt und alle Wörter sind kleingeschrieben, sodass nur noch korrekte Wörter vorkommen.
 
-Bei den Redetexten ist zusätzlich zu beachten, dass im Datensatz Zwischenrufe von anderen Politikern im Redetext durch Referenzen -- gekennzeichnet durch eine Zahl innerhalb geschweifter und normaler Klammern -- vorkommen. Da der Text nur den Inhalt der Rede selbst beinhalten soll, werden die Referenzen zu den Zwischenrufen mithilfe eines regulären Ausdrucks entfernt.
+Bei den Redetexten ist zusätzlich zu beachten, dass im Datensatz Zwischenrufe von anderen Politikern im Redetext durch Referenzen -- gekennzeichnet durch eine Zahl innerhalb geschweifter und normaler Klammern -- vorkommen. Referenzen zu den Zwischenrufen werden mithilfe eines regulären Ausdrucks entfernt, da der Text nur den Inhalt der Rede selbst beinhalten soll.
 
-Bei dem Auslesen der Wahlprogramme werden die Paragraphen nach Leerzeilen getrennt, wobei manche Absätze allerdings über das Seitenende hinaus weitergehen. Daher werden Paragraphen, die nicht mit einem Satzzeichen enden, mit darauffolgenden Paragraphen zusammengefügt. Zudem kommt es bei einigen Dokumenten dazu, dass Text aus der Kopf- und Fußzeile sowie von Anmerkungen an der Seite des regulären Textes mit ausgelesen wird. Da dieser folglich ungewollt in den übrigen Abschnitten enthalten ist, muss er im Rahmen der regelbasierten Bereinigung auch entfernt werden.
+Bei dem Auslesen der Wahlprogramme werden die Paragraphen nach Leerzeilen getrennt, wobei manche Absätze allerdings über das Seitenende hinaus weitergehen. Daher werden Paragraphen, die nicht mit einem Satzzeichen enden, mit darauffolgenden Paragraphen zusammengefügt. Zudem kommt es bei einigen Dokumenten dazu, dass Text aus der Kopf- und Fußzeile sowie von Anmerkungen an der Seite des regulären Textes mit ausgelesen wird. Dieser ist ungewollt in den übrigen Abschnitten enthalten und muss folglich im Rahmen der regelbasierten Bereinigung entfernt werden.
 
 \subsubsection{Wortstamm}
 
@@ -201,7 +194,7 @@ Wie in \autoref{list:lemma} zu erkennen, werden unter anderem Endungen wie \text
 
 % TODO: Add more sources
 
-Stopwörter sind Füllwörter, welche keine starke Relevanz für die Bedeutung eines Satzes haben \autocite[4]{kowsari_text_2019}. Das dadurch entstehende Rauschen kann unterdrückt werden, indem die Stopwörter gefiltert werden.
+Stopwörter sind Füllwörter, die keine starke Relevanz für die Bedeutung eines Satzes haben \autocite[4]{kowsari_text_2019}. Das dadurch entstehende Rauschen kann unterdrückt werden, indem die Stopwörter gefiltert werden.
 
 % TODO: Update tweet example
 
@@ -223,17 +216,17 @@ Für das Filtern, wie in \autoref{list:stopwords} gezeigt, wurde das Stopwort-Le
 
 \subsection{Filtering} \label{subsec:filtering}
 
-Auf Basis der Erkenntnisse aus \nameref{sec:dataUnderstanding} werden im Folgenden die Datensätze gefiltert. Dies ist wichtig, um die Datenqualität zu erhöhen und etwaige Bias zu vermeiden.
+Auf Basis der Erkenntnisse aus \nameref{sec:dataUnderstanding} werden im Folgenden die Datensätze gefiltert. Das ist wichtig, um die Datenqualität zu erhöhen und etwaige Bias zu vermeiden.
 
 \subsubsection*{Tweets} \label{subsubsec:filteringTweets}
 
 % TODO: Add wordcloud
 
-Der Tweet-Datensatz \textcite{saltzer_finding_2022} weist Tweet-Duplikate auf. Diese sind jeweils von dem gleichen Politiker verfasst und weisen den gleichen Text auf. Lediglich das Erstellungsdatum (\texttt{created\_at}) des Eintrages weicht bei den Duplikaten voneinander ab. Da dies auf einen Fehler beim Data-Mining hindeutet, werden lediglich die neusten Einträge dieser Duplikate behalten.
+Der Tweet-Datensatz \textcite{saltzer_finding_2022} weist Tweet-Duplikate auf. Diese sind jeweils von dem gleichen Politiker verfasst und weisen den gleichen Text auf. Lediglich das Erstellungsdatum (\texttt{created\_at}) des Eintrages weicht bei den Duplikaten voneinander ab. Da das auf einen Fehler beim Data-Mining hindeutet, werden lediglich die neusten Einträge dieser Duplikate behalten.
 
 Des Weiteren existieren Einträge, bei denen der Tweet-Text als auch das \texttt{is\_retweet} Label, leer ist. Da beide dieser Datenpunkte benötigt werden, werden diese Einträge ebenfalls komplett entfernt. 
 
-Tweets, welche lediglich von Politikern retweetet werden, lassen sich nicht eindeutig dem Politiker selbst und seinen Ansichten zuordnen. Es könnte also sein, dass ein Politiker einen Tweet entweder retweetet, weil er der Aussage und Meinung zustimmt, oder auch falls er komplett andere Ansichten hat und seine Reichweite nutzen möchte, um Aufmerksamkeit auf den Autor und das Thema zu lenken. Aufgrund dieser Ungewissheit werden Tweets, welche als Retweet gegengezeichnet werden, entfernt.
+Tweets, die lediglich von Politikern erneut geteilt werden, lassen sich nicht eindeutig dem Politiker selbst und seinen Ansichten zuordnen. Es könnte also sein, dass ein Politiker einen Tweet entweder retweetet, weil er der Aussage und Meinung zustimmt, oder auch falls er komplett andere Ansichten hat und seine Reichweite nutzen möchte, um Aufmerksamkeit auf den Autor und das Thema zu lenken. Aufgrund dieser Ungewissheit werden Tweets, die als Retweet gegengezeichnet werden, entfernt.
 
 Wie schon mittels \autoref{fig:wordCountTweets} festgestellt, werden vermehrt kurze Tweets (\num{15} bis \num{25}) und lange Tweets (\num{30} bis \num{40}) veröffentlicht. Bei Tweets mit weniger als \num{10} Wörtern ist es schwierig, einen tieferen Kontext festzustellen. Daher werden diese Tweets, entfernt (\texttt{stemm\_text >= 10}).
 
@@ -243,25 +236,26 @@ Wie in \autoref{subsec:dataUnderstandingReden} erläutert, enthält der Datensat
 
 Ferner können als Trainingsdaten für das Klassifikationsmodell nur Texte verwendet werden, die einer der sechs Fraktionen im Bundestag zuzuordnen sind. Daher müssen auch Redebeiträge von fraktionslosen Abgeordneten sowie des Präsidiums ausgeschlossen werden.
 
-Bei der Betrachtung der Anzahl an Wörtern in Reden (siehe \autoref{subsec:dataUnderstandingReden}) ist aufgefallen, dass es eine Häufung von vergleichsweise kurzen Texten mit einer Länge von unter \num{200} Wörtern gibt. Da bei diesen nicht sichergestellt werden kann, dass sie ausreichend politischen Inhalt bieten, als auch der Kontext der Aussagen klar wird, werden im weiteren Verlauf nur noch Reden mit mindestens 200 Wörtern berücksichtigt (\texttt{word\_count >= 200}).
+Bei der Betrachtung der Anzahl an Wörtern in Reden (siehe \autoref{subsec:dataUnderstandingReden}) ist aufgefallen, dass es eine Häufung von vergleichsweise kurzen Texten mit einer Länge von unter \num{200} Wörtern gibt. Bei diesen kann nicht sichergestellt werden, dass sie ausreichend politischen Inhalt bieten, als auch der Kontext der Aussagen klar wird. Deshalb werden im weiteren Verlauf nur noch Reden mit mindestens 200 Wörtern berücksichtigt (\texttt{word\_count >= 200}).
 
-Damit die Texte ohne Probleme von vortrainierten Sprachmodellen als Eingabe genutzt werden können, ist es erforderlich, lange Reden in mehrere kleinere Textabschnitte aufzuteilen, da sonst die maximale Anzahl an Eingabe-Tokens\footnote{Bei BERT-basierten Modellen, die für das Modeling genutzt werden sollen, sind es maximal 512 Tokens.} überschritten werden würde. Dabei wird darauf geachtet, dass eine Rede nur nach einem abgeschlossenen Satz aufgetrennt wird, um die Qualität der Daten nicht zu verringern.
+Es ist erforderlich, lange Reden in mehrere kleinere Textabschnitte aufzuteilen, damit die Texte ohne Probleme von vortrainierten Sprachmodellen als Eingabe genutzt werden können. Ansonsten besteht die Gefahr, die maximale Anzahl an Eingabe-Tokens\footnote{Bei BERT-basierten Modellen, die für das Modeling genutzt werden sollen, sind es maximal \num{512} Tokens.} zu überschreiten. Dabei wird darauf geachtet, dass eine Rede nur nach einem abgeschlossenen Satz aufgetrennt wird, um die Qualität der Daten nicht zu verringern.
 
 Der Datensatz enthält außerdem drei Einträge mit dupliziertem Text, die daher ausgeschlossen werden.
 
 \subsubsection*{Wahlprogramme}
-Da die Daten zu den Wahlprogrammen selbst gesammelt und verarbeitet wurden, gibt es keine Einträge aus einem falschen Zeitraum oder von einer nicht zu untersuchenden Partei.
+Einträge aus einem falschen Zeitraum oder von einer nicht zu untersuchenden Partei kommen im Wahlprogramm-Datensatz nicht vor, da die Daten zu den Wahlprogrammen selbst gesammelt und verarbeitet wurden.
 
-Bereits im Zuge des Auslesens der \ac{PDF}-Dateien der Wahlprogramme wurden nur Absätze mit mindestens \num{150} Zeichen weiterverarbeitet, da es sich ansonsten mehrheitlich um kurze Überschriften handelt. Da die Abschnitte im Vergleich zu den Reden deutlich kürzer sind, ist keine Obergrenze für die Länge nötig, um die weitere korrekte Verarbeitung zu garantieren.
+Bereits im Zuge des Auslesens der \ac{PDF}-Dateien der Wahlprogramme werden nur Absätze mit mindestens \num{150} Zeichen weiterverarbeitet. Bei Absätzen mit weniger Zeichen handelt es sich mehrheitlich um kurze Überschriften. Die Abschnitte sind im Vergleich zu den Reden deutlich kürzer. Somit ist keine Obergrenze für die Länge nötig, um die weitere korrekte Verarbeitung zu garantieren.
 
 Auch bei den Wahlprogramm-Texten lassen sich einige Duplikate finden, die herausgefiltert werden müssen.
 
 
 \section{Aufbereitete Datensätze} \label{sec:processedDataframes}
 
-Nach Anwendung der Datenbereinigungs-Pipeline bleiben im Gesamt-Datensatz etwa \num{395000} Einträge übrig. Damit hat sich die Größe des Datensatzes stark reduziert, vor allem viele ursprüngliche Tweet-Daten sind nicht mehr enhalten. \autoref{tab:countPerDatasetAfterCleaning} zeigt die Anzahl an Einträgen in den drei Datensätzen sowie pro Partei.
+Nach Anwendung der Datenbereinigungs-Pipeline bleiben im Gesamt-Datensatz etwa \num{395000} Einträge übrig. Damit reduziert sich die Größe des Datensatzes stark, vor allem viele ursprüngliche Tweet-Daten sind nicht mehr enthalten. \autoref{tab:countPerDatasetAfterCleaning} zeigt die Anzahl an Einträgen in den drei Datensätzen sowie pro Partei.
 
 % TODO: Add correct nums
+
 \begin{table}[H]
     \centering
     {\footnotesize
@@ -301,7 +295,7 @@ Aus \autoref{tab:countPerDatasetAfterCleaning} geht hervor, dass sich die Anzahl
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{data/images/anzahl_pro_monat_pro_partei.png}
+    \includegraphics[width=\linewidth]{data/images/tweets/anzahl_pro_monat_nach_partei.png}
     \caption{Anzahl an Tweets pro Monat nach Partei} \label{fig:countTweetsTimeline}
 \end{figure}
 
@@ -330,21 +324,29 @@ Auffällig bei den Tweets ist, dass besonders die Regierungsparteien -- Union un
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{data/images/wortanzahl_pro_partei_nach_bereinigung.png}
+    \includegraphics[width=\linewidth]{data/images/tweets/wortanzahl_pro_partei_nach_bereinigung.png}
     \caption{Wortanzahl pro Partei nach Bereinigung} \label{fig:countPartyCleaned}
 \end{figure}
 
 % TODO: Calculate number
 
-Wie auch schon mittels \autoref{fig:wordCountTweets} gezeigt werden konnte, weisen die Tweets nach der Bereinigung in der Verteilung der Anzahl an Wörtern zwei Maxima auf. Nach der Bereinigung hat sich jedoch die durchschnittliche Länge um \dots im Vergleich zu davor verändert. Die neuen Hochpunkte befinden sich bei circa \num{10} und \num{20} Wörtern. Auffällig ist, dass bei allen Parteien, außer der \ac{AfD}, das erste Maximum stärker ausgeprägt ist. Im Gegensatz dazu überwiegt bei der \ac{AfD} der zweite Hochpunkt.
+Wie mittels \autoref{fig:wordCountTweets} gezeigt werden konnte, weisen die Tweets nach der Bereinigung in der Verteilung der Anzahl an Wörtern zwei Maxima auf. Nach der Bereinigung hat sich jedoch die durchschnittliche Länge um \dots im Vergleich zu davor verändert. Die neuen Hochpunkte befinden sich bei circa \num{10} und \num{20} Wörtern. Auffällig ist, dass bei allen Parteien, außer der \ac{AfD}, das erste Maximum stärker ausgeprägt ist. Im Gegensatz dazu überwiegt bei der \ac{AfD} der zweite Hochpunkt.
 
-\subsection*{Reden}
-
-Auf den ersten Blick fällt auf, dass die Anzahl der Reden nach dem Bereinigungs- und Filterprozess deutlich gestiegen ist. Dies lässt sich darauf zurückführen, dass viele der Reden so lang waren und aufgeteilt wurden, um die maximale Anzahl an Tokens nicht zu überschreiten. Daraus resultiert, dass es mehrere Einträge in dem Datensatz gibt, welche auf die gleiche Rede zurückzuführen sind.
+% TODO: Add evaluation
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{data/images/speeches_num_samples_after_filter.png}
+    \includegraphics[width=\linewidth]{data/images/tweets/wortwolke_pro_partei_vor_bereinigung.png}
+    \caption{Wortwolken mit den häufigsten Wörtern für Tweets} \label{fig:tweetsWordclouds}
+\end{figure}
+
+\subsection*{Reden}
+
+Auf den ersten Blick fällt auf, dass die Anzahl der Reden nach dem Bereinigungs- und Filterprozess deutlich gestiegen ist. Das lässt sich darauf zurückführen, dass viele der Reden so lang waren und aufgeteilt wurden, um die maximale Anzahl an Tokens nicht zu überschreiten. Daraus resultiert, dass es mehrere Einträge in dem Datensatz gibt, die auf die gleiche Rede zurückzuführen sind.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{data/images/speeches/speeches_num_samples_after_filter.png}
     \caption{Anzahl an Einträgen für Reden pro Partei nach Bereinigung} \label{fig:speechesNumSamplesAfterFiltering}
 \end{figure}
 
@@ -352,19 +354,19 @@ Wie \autoref{fig:speechesNumSamplesAfterFiltering} zu entnehmen ist, stammt mit 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{data/images/speeches_word_count_after_filter.png}
+    \includegraphics[width=0.9\textwidth]{data/images/speeches/speeches_word_count_after_filter.png}
     \caption{Anzahl an Wörtern für Reden nach Bereinigung} \label{fig:speechesWortCountAfterFiltering}
 \end{figure}
 
-\autoref{fig:speechesWortCountAfterFiltering} zeigt die Verteilung der Wortanzahl in den Reden pro Partei nach der Bereinigung und der Filterung. Es lässt sich erkennen, dass es im Vergleich zu vor der Bereinigung (siehe \autoref{fig:wordCoundSpeeches}) keine Häufung von Reden unter \num{200} Wörtern mehr gibt.\footnote{Da die Untergrenze von \num{200} Wörtern vor weiteren -- eventuell kürzenden -- Bereinigungsschritten angewandt wird, ist es möglich, dass es weiterhin Reden mit dieser Länge gibt.} Je nach Partei schwankt der Hochpunkt der Verteilung zwischen \num{250} und \num{300} Wörtern. Da zu lange Reden aufgetrennt worden sind, gibt es kaum noch Redetexte über \num{400} Wörtern. Weiterhin sind die Reden der Union im Durchschnitt am längsten. Während die Redetexte der Grünen vor der Bereinigung am kürzesten waren, sind nun die der \ac{FDP} und der Linken kürzer, wenn auch nur marginal.
+\autoref{fig:speechesWortCountAfterFiltering} zeigt die Verteilung der Wortanzahl in den Reden pro Partei nach der Bereinigung und der Filterung. Es lässt sich erkennen, dass es im Vergleich zu vor der Bereinigung (siehe \autoref{fig:wordCoundSpeeches}) keine Häufung von Reden unter \num{200} Wörtern mehr gibt.\footnote{Da die Untergrenze von \num{200} Wörtern vor weiteren -- eventuell kürzenden -- Bereinigungsschritten angewandt wird, ist es möglich, dass es weiterhin Reden mit dieser Länge gibt.} Je nach Partei schwankt der Hochpunkt der Verteilung zwischen \num{250} und \num{300} Wörtern. Es gibt kaum noch Redetexte über \num{400} Wörtern, da zu lange Reden aufgetrennt worden sind. Weiterhin sind die Reden der Union im Durchschnitt am längsten. Während die Redetexte der Grünen vor der Bereinigung am kürzesten waren, sind nun die der \ac{FDP} und der Linken kürzer, wenn auch nur marginal.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{data/images/speeches_wordclouds.png}
-    \caption{Wordclouds mit den meistgenutzten Wörtern in Reden pro Partei} \label{fig:speechesWordclouds}
+    \includegraphics[width=0.9\textwidth]{data/images/speeches/speeches_wordclouds.png}
+    \caption{Wortwolken mit den meistgenutzten Wörtern in Reden pro Partei} \label{fig:speechesWordclouds}
 \end{figure}
 
-Betrachtet man die meistgenutzten Wörter pro Partei, wie in \autoref{fig:speechesWordclouds} mittels Wordclouds dargestellt, fällt auf, dass jede Partei andere Schwerpunkte setzt und dabei ein anderes Vokabular nutzt. Die \ac{AfD} zeigt durch die häufige Nutzung der Wörter \textit{deutsch} und \textit{deutschland} ihren Fokus auf Nationalität, wobei auch bei der \ac{FDP}, \ac{SPD} sowie Union das Wort \textit{deutschland} zahlreich auftritt. Besonders die Oppositionsparteien nutzen das Wort \textit{bundesregierung}, während die Regierungsparteien -- \ac{SPD} und Union -- dieses nur nachrangig verwenden. Daran lässt sich bestätigen, dass die Oppositionsparteien die Bundesregierung in ihren Reden oft direkt adressieren.
+Bei Betrachtung der meistgenutzten Wörter pro Partei, wie in \autoref{fig:speechesWordclouds} mittels Wortwolken dargestellt, fällt auf, dass jede Partei andere Schwerpunkte setzt und dabei ein anderes Vokabular nutzt. Die \ac{AfD} zeigt durch die häufige Nutzung der Wörter \textit{deutsch} und \textit{deutschland} ihren Fokus auf Nationalität, wobei auch bei der \ac{FDP}, \ac{SPD} sowie Union das Wort \textit{deutschland} zahlreich auftritt. Besonders die Oppositionsparteien nutzen das Wort \textit{bundesregierung}, während die Regierungsparteien -- \ac{SPD} und Union -- dieses nur nachrangig verwenden. Daran lässt sich bestätigen, dass die Oppositionsparteien die Bundesregierung in ihren Reden oft direkt adressieren.
 
 \begin{table}[H]
     \centering
@@ -383,7 +385,7 @@ Betrachtet man die meistgenutzten Wörter pro Partei, wie in \autoref{fig:speech
     \caption{Prozentuale Sentimentverteilung in Reden pro Partei} \label{tab:sentimentDistributionSpeeches}
 \end{table}
 
-Um einen ersten Eindruck über die Ausrichtung der Reden zu bekommen, wurden die Redetexte pro Partei mit einer Sentiment-Analyse untersucht. \autoref{tab:sentimentDistributionSpeeches} zeigt diesbezüglich die Verteilung der Reden mit negativem, neutralem und positivem Sentiment pro Partei. Es lässt sich ein starkes Gefälle zwischen den Regierungsparteien im Untersuchungszeitraum -- SPD und Union -- und den übrigen Oppositionsparteien erkennen: Während der Anteil mit negativem Sentiment bei den Regierungsparteien \SI{22}{\percent} und \SI{19}{\percent} beträgt, liegt dieser bei den Oppositionsparteien mit \SIrange{41}{48}{\percent} deutlich höher. Dies könnte darauf zurückzuführen sein, dass Redner der Oppositionsparteien eher kritisch den Debatten gegenüberstehen, wohingegen Redner der Regierungsparteien hinter ihren Vorschlägen stehen und diese verteidigen.
+Um einen ersten Eindruck über die Ausrichtung der Reden zu bekommen, werden die Redetexte pro Partei mit einer Sentiment-Analyse untersucht. \autoref{tab:sentimentDistributionSpeeches} zeigt diesbezüglich die Verteilung der Reden mit negativem, neutralem und positivem Sentiment pro Partei. Es lässt sich ein starkes Gefälle zwischen den Regierungsparteien im Untersuchungszeitraum -- SPD und Union -- und den übrigen Oppositionsparteien erkennen: Während der Anteil mit negativem Sentiment bei den Regierungsparteien \SI{22}{\percent} und \SI{19}{\percent} beträgt, liegt dieser bei den Oppositionsparteien mit \SIrange{41}{48}{\percent} deutlich höher. Das könnte darauf zurückzuführen sein, dass Redner der Oppositionsparteien eher kritisch den Debatten gegenüberstehen, wohingegen Redner der Regierungsparteien hinter ihren Vorschlägen stehen und diese verteidigen.
 
 \subsection*{Wahlprogramme}
 
@@ -391,7 +393,7 @@ Durch die Bereinigung und Filtern hat sich die Anzahl an Datenpunkten nur margin
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{data/images/party_programs_num_samples_after_filter.png}
+    \includegraphics[width=0.9\textwidth]{data/images/party_programs/party_programs_num_samples_after_filter.png}
     \caption{Anzahl an Einträgen für Wahlprogramme pro Partei nach Bereinigung} \label{fig:partyProgramsNumSamplesAfterFiltering}
 \end{figure}
 
@@ -399,7 +401,7 @@ Betrachtet man die Anzahl an Einträgen im Wahlprogramm-Datensatz pro Partei, wi
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{data/images/party_programs_word_count_after_filter.png}
+    \includegraphics[width=0.9\textwidth]{data/images/party_programs/party_programs_word_count_after_filter.png}
     \caption{Anzahl an Wörtern für Wahlprogramme nach Bereinigung} \label{fig:partyProgramsWordCountsAfterFiltering}
 \end{figure}
 
@@ -407,11 +409,11 @@ Betrachtet man die Anzahl an Einträgen im Wahlprogramm-Datensatz pro Partei, wi
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{data/images/party_programs_wordclouds.png}
-    \caption{Wordclouds mit den meistgenutzten Wörtern in Wahlprogrammen pro Partei} \label{fig:partyProgramsWordclouds}
+    \includegraphics[width=0.9\textwidth]{data/images/party_programs/party_programs_wordclouds.png}
+    \caption{Wortwolken mit den meistgenutzten Wörtern in Wahlprogrammen pro Partei} \label{fig:partyProgramsWordclouds}
 \end{figure}
 
-Auch bei den Wahlprogrammen lassen sich einige Erkenntnisse anhand der Wordclouds mit den meist genutzten Wörtern ableiten, die in \autoref{fig:partyProgramsWordclouds} dargestellt sind. Ähnlich wie in den Reden, verwendet die \ac{AfD} je nach Kontext als patriotisch geltende Wörter wie \textit{land}, \textit{deutsch} oder \textit{deutschland}. Anhand viel genutzter Wörter der \ac{FDP} wie \textit{europäisch}, \textit{unternehmen} oder \textit{digital} spiegeln sich Schwerpunkte der Partei wie Wirtschaftsliberalismus und Digitalpolitik sowie eine pro-europäische Haltung wider. Begriffe wie \textit{sozial} und \textit{öffentlich} deuten auf den sozialpolitischen Fokus der Linken hin. Die \ac{SPD} legt einen Fokus auf unter anderem Sozial- und Bildungspolitik (\textit{sozial} sowie \textit{schule}). Grüne und Union nutzen ähnliche Begriffe wie \textit{mensch}, \textit{land} und \textit{unterstützen} am häufigsten. Die Begriffe können je nach Partei unterschiedlich ausgelegt werden.
+Auch bei den Wahlprogrammen lassen sich einige Erkenntnisse anhand der Wortwolken mit den meistgenutzten Wörtern ableiten, die in \autoref{fig:partyProgramsWordclouds} dargestellt sind. Ähnlich wie in den Reden, verwendet die \ac{AfD} je nach Kontext als patriotisch geltende Wörter wie \textit{land}, \textit{deutsch} oder \textit{deutschland}. Anhand viel genutzter Wörter der \ac{FDP} wie \textit{europäisch}, \textit{unternehmen} oder \textit{digital} spiegeln sich Schwerpunkte der Partei wie Wirtschaftsliberalismus und Digitalpolitik sowie eine proeuropäische Haltung wider. Begriffe wie \textit{sozial} und \textit{öffentlich} deuten auf den sozialpolitischen Fokus der Linken hin. Die \ac{SPD} legt einen Fokus auf unter anderem Sozial- und Bildungspolitik (\textit{sozial} sowie \textit{schule}). Grüne und Union nutzen ähnliche Begriffe wie \textit{mensch}, \textit{land} und \textit{unterstützen} am häufigsten. Die Begriffe können je nach Partei unterschiedlich ausgelegt werden.
 
 \begin{table}[H]
     \centering
@@ -430,148 +432,9 @@ Auch bei den Wahlprogrammen lassen sich einige Erkenntnisse anhand der Wordcloud
     \caption{Prozentuale Sentimentverteilung in Wahlprogrammen pro Partei} \label{tab:sentimentDistributionPartyPrograms}
 \end{table}
 
-Die Auswertung des Sentiments in den Wahlprogramm-Texten des Datensatzes, die in \autoref{tab:sentimentDistributionPartyPrograms} gezeigt ist, ergibt, dass die Wahlprogramme primär in neutraler Stimmung formuliert sind (bei jeder Partei mindestens \SI{95}{\percent}). Die größte Abweichung davon zeigt die Linke, deren Wahlprogramme zu einem Anteil von \SI{5}{\percent} als negativ kategorisiert werden. Diese Betrachtungen lassen sich anhand der Natur von Wahlprogrammen erklären. Diese verfolgen das Ziel neutral über geplante politische Vorhaben zu informieren, während Reden und Tweets auch emotionale und subjektive Aussagen enthalten. Daher erklärt sich der geringe Anteil an Textabschnitten, denen eine negative oder positive Gesinnung attestiert wird.
+Die Auswertung des Sentiments in den Wahlprogramm-Texten des Datensatzes, die in \autoref{tab:sentimentDistributionPartyPrograms} gezeigt ist, ergibt, dass die Wahlprogramme primär in neutraler Stimmung formuliert sind (bei jeder Partei mindestens \SI{95}{\percent}). Die größte Abweichung davon zeigt die Linke, deren Wahlprogramme zu einem Anteil von \SI{5}{\percent} als negativ kategorisiert werden. Diese Betrachtungen lassen sich anhand der Natur von Wahlprogrammen erklären. Diese verfolgen das Ziel, neutral über geplante politische Vorhaben zu informieren, während Reden und Tweets auch emotionale und subjektive Aussagen enthalten. Daher erklärt sich der geringe Anteil an Textabschnitten, denen eine negative oder positive Gesinnung attestiert wird.
 
-\section{Modeling} \label{sec:modeling}
-
-% TODO: Review and add ideas for modeling
-
-\begin{itemize}
-    \item Datenquellen erst einzeln trainieren
-    \item Datenquellen in verschiedenen Kombinationen trainieren
-    \item Undersampling nach Partei 
-\end{itemize}
-
-\subsection{Feature Engineering} \label{subsec:featureEngineering}
-
-% TODO: This are only ideas and options for additional features 
-% TODO: Evaluate the features
-
-\subsubsection{Sentiment}
-
-Eine Limitation von den herkömmlichen \ac{ML} Modellen ist die Klassifikation von Polysemie \autocite[48\psq]{kowsari_text_2019}. 
-
-% TODO: Find source
-
-Ein Ansatz, um diese Limitation zu mindern, ist es, den Sentiment eines Textes zu berechnen. Ziel dieser Technik ist es nicht nur festzustellen, ob sich ein Politiker zum Beispiel zur \ac{AfD} äußert oder nicht, sondern ebenfalls, ob seine Äußerungen positiv, neutral oder negativ sind.
-
-% TODO: Add timeline for ML Models
-
-Die einfachste Methode, um den Sentiment von deutschen Texten zu ermitteln, sind Sentiment-Wörterbücher wie \textit{SentiWS}, \textit{BAWL-R} und \textit{GermanPolarityClues} \autocite[1627\psq]{guhr_training_2020}. CNN, SVM, Bi-LSTM, \dots
-
-Die bisherigen regelbasierten Ansätze, als auch \ac{ML} Modelle wie \acp{SVM}, \acp{CNN} und \acp{LSTM} erreichen einen F1-Score von bis zu \num{74.9}. Alternativ zu diesen Ansätzen stellen \textcite{guhr_training_2020} ein \ac{BERT}-basiertes \ac{ML} Modell bereit. Dieses wurde mittels der folgenden Datensätze trainiert: \textit{PotTS}, \textit{SB10k}, \textit{GermEval-2017}, \textit{Scare}, \textit{Filmstarts}, \textit{holidaycheck}, \textit{leipzig-wikipedia} und \textit{Emotions}. Das Modell erreicht einen F1-Score von \num{0.9636} und ist somit den vorherigen Modellen deutlich überlegen \autocite[1631]{guhr_training_2020}.
-
-\subsubsection{Gendern}
-
-- Verhältnis Wörter/Gendersterne oder True/False
-- Check mit RegEx ob gegendert wird und setze variable
-
-\subsubsection{Dokumenttyp}
-
-- Tweet, Speech, \dots
-
-\subsection{Baseline Models}
-
-% TODO: Update scores
-
-\begin{table}[H]
-    \centering
-    {\footnotesize
-    \begin{tblr}{width=\textwidth, hlines, vlines}
-        \textbf{Modell} & \textbf{Datensatz} & \textbf{Precision} & \textbf{Recall} & \textbf{\(F_1\) Score} \\ 
-
-        \textbf{SVM + \acs{BoW}} & Tweets & \num{0.59} & \num{0.59} & \num{0.59} \\
-        \textbf{SVM + \acs{BoW}} & Wahlpro\-gramme & \num{0} & \num{0} & \num{0} \\
-        \textbf{SVM + \acs{BoW}} & Reden & \num{0} & \num{0} & \num{0} \\
-
-        \textbf{Kombiniert} & \textbf{\num{0}} & \textbf{\num{0}} & \textbf{\num{0}} \\
-    \end{tblr}
-    }
-    \caption{Scores für Baseline Modelle auf Basis von \ac{BoW} und \ac{TF-IDF}} \label{tab:overviewScoresBaseline}
-\end{table}
-
-\subsection{Advanced Models}
-
-\subsubsection{FastText}
-
-% TODO: Update and add plots for other datasets
-
-\begin{figure}[H]
-    \begin{subfigure}{.5\textwidth}
-      \centering
-      \includegraphics[width=0.9\linewidth]{data/images/fasttext_tweets_confusion.png}
-      \caption{Tweets von \acs{MdB}} \label{sfig:confusionMatrixFastTextTweets}
-    \end{subfigure}
-    \begin{subfigure}{.5\textwidth}
-      \centering
-      \missingfigure{Wahlprogramme}
-      \caption{Wahlprogramme} \label{sfig:confusionMatrixFastTextManifest}
-    \end{subfigure}
-    \begin{subfigure}{.5\textwidth}
-      \centering
-      \missingfigure{Reden}
-      \caption{Reden im Deutschen Bundestag} \label{sfig:confusionMatrixFastTextSpeeches}
-    \end{subfigure}
-    \begin{subfigure}{.5\textwidth}
-      \centering
-      \missingfigure{Kombiniert}
-      \caption{Kombinierten Datensatz} \label{sfig:confusionMatrixFastTextAll}
-    \end{subfigure}
-    \caption{Konfusion Matritzen für \texttt{fasttext}} \label{fig:confusionMatrixFastText}
-\end{figure}
-
-\begin{itemize}
-    \item Parteien, welche politisch näher beieinander liegen, lassen sich schlechter Klassifizieren
-\end{itemize}
-
-% TODO: Update scores
-
-\begin{table}[H]
-    \centering
-    {\footnotesize
-    \begin{tblr}{width=\textwidth, hlines, vlines, colspec={l*{3}{Q[si={table-format=1.2},c]}}, row{1}={guard,font=\bfseries,l}, row{5}={font=\bfseries}}
-        Datensatz & Precision & Recall & \(F_1\) Score \\ 
-
-        Tweets & 0.59 & 0.59 & 0.59 \\
-        Wahlpro\-gramme & 0 & 0 & 0 \\
-        Reden & 0 & 0 & 0 \\
-
-        Kombiniert & 0 & 0 & 0 \\
-    \end{tblr}
-    }
-    \caption{Scores für Supervised Learning mittels \texttt{fasttext} (\texttt{weighted avg})} \label{tab:overviewScoresFastText}
-\end{table}
-
-\subsubsection{BERT}
-
-Lorem Ipsum
-
-\subsubsection{ELMo}
-
-Lorem Ipsum
-
-\subsection{Limitationen}
-
-\subsubsection{Feature Engineering}
-
-% TODO: Add example for polysemy
-
-Durch Methoden wie \ac{BoW} und \ac{TF-IDF} gehen syntaktische, als auch semantische Zusammenhänge verloren \autocite[48\psq]{kowsari_text_2019}. Dies führt dazu, dass Modelle wie \ac{SVM} und Random Forest ausschließlich die verwendeten Wörter und deren Anzahl in Betracht zieht, aber nicht die tiefere Bedeutung im Kontext des Satzes. Nach \textcite{kowsari_text_2019} versuchen Modelle wie Word2Vec, GloVe und \texttt{fasttext} zumindest syntaktische und semantische Zusammenhänge zu berücksichtigen, jedoch haben selbst diese Modelle Schwierigkeiten, Polysemie\footnote{Sätze mit mehreren Bedeutungen} zu klassifizieren.
-
-\subsubsection{Sprache}
-
-% TODO: Add sources and examples
-
-Des Weiteren ergibt sich aus der Wahl der Datenquellen (Wahlprogramme, Reden und Tweets) eine Annahme/Voraussetzung/Bias geben über der verwendeten Sprache. Wahlprogramme, Reden und Tweets von Politikern weisen zwar parteispezifische Wörter auf, jedoch ist die semantische und syntaktische Komplexität der Sätze überdurchschnittlich hoch. Ebenfalls ist die Menge an Rechtschreibfehlern und verwendetem Slang geringer als bei anderen Textarten. Daraus folgt, dass die Performance der trainierten Modelle voraussichtlich signifikant schlechter ist, wenn Texte sprachlich (semantisch und syntaktisch) stark von den Trainingsdaten abweichen.
-
-\subsubsection{Politische Nähe}
-
-% TODO: Add sources and image
-% TODO: Reason --> Politisches Viereck (links -- rechts, ...)
-
-Parteien, welche ähnliche politische Ideale verfolgen, identische Themenschwerpunkte haben, lassen sich schlechter klassifizieren.
-
-\section{Fazit} \label{sec:crispConclusion}
+\section{Fazit} \label{sec:crispConclusion_1}
 
 \begin{itemize}
     \item Gendern inkompatibel mit Lemmatizing und daher problematisch

@@ -22,9 +22,7 @@
 \begin{document}
 
 % Deckblatt
-\begin{spacing}{1.5}
-	\input{ads/deckblatt}
-\end{spacing}
+\input{ads/deckblatt}
 \newpage
 
 \pagenumbering{Roman}
@@ -43,7 +41,7 @@
 
 \pagestyle{plain}		% nur Seitenzahlen im Fuß
 
-\RedeclareSectionCommand[beforeskip=\kapitelabstand         ]{chapter} % stellt Abstand vor Kapitelüberschriften ein
+\RedeclareSectionCommand[beforeskip=\kapitelabstand]{chapter} % stellt Abstand vor Kapitelüberschriften ein
 
 % Inhaltsverzeichnis
 \begin{spacing}{1.1}
@@ -52,7 +50,6 @@
 	% auskommentieren für Seitenzahlen unter Inhaltsverzeichnis
 	\renewcommand*{\chapterpagestyle}{empty}
 	\pagestyle{empty}
-
 
 	\setcounter{tocdepth}{2}
 	%für die Anzeige von Unterkapiteln im Inhaltsverzeichnis

@@ -17,7 +17,7 @@
   headsepline,		% Linie nach Kopfzeile.
   footsepline,		% Linie vor Fusszeile.
   footheight = 16pt,	% Höhe der Fusszeile
-  abstracton,		% Abstract Überschriften
+  abstract,		% Abstract Überschriften
   DIV=calc,		% Satzspiegel berechnen
   BCOR=8mm,		% Bindekorrektur links: 8mm
   headinclude=false,	% Kopfzeile nicht in den Satzspiegel einbeziehen
@@ -108,17 +108,18 @@
 \date{\datum}
 
 % PDF Einstellungen
-\usepackage[%
-  pdftitle={\titel},
-  pdfauthor={\autor},
-  pdfsubject={\arbeit},
-  pdfcreator={pdflatex, LaTeX with KOMA-Script},
-  pdfpagemode=UseOutlines, 		% Beim Oeffnen Inhaltsverzeichnis anzeigen
-  pdfdisplaydoctitle=true, 		% Dokumenttitel statt Dateiname anzeigen.
-  pdflang={\sprache}, 			% Sprache des Dokuments.
-]{hyperref}
+% \usepackage[%
+%   pdftitle={\titel},
+%   pdfauthor={\autor},
+%   pdfsubject={\arbeit},
+%   pdfcreator={pdflatex, LaTeX with KOMA-Script},
+%   pdfpagemode=UseOutlines, 		% Beim Oeffnen Inhaltsverzeichnis anzeigen
+%   pdfdisplaydoctitle=true, 		% Dokumenttitel statt Dateiname anzeigen.
+%   pdflang={\sprache}, 			% Sprache des Dokuments.
+% ]{hyperref}
+\usepackage{pdfcomment}
 
-% (Farb-)einstellungen für die Links im PDF
+% % (Farb-)einstellungen für die Links im PDF
 \hypersetup{%
   colorlinks=true, 		% Aktivieren von farbigen Links im Dokument
   linkcolor=LinkColor, 	% Farbe festlegen
@@ -129,7 +130,7 @@
   linktocpage=true, 		% Nicht der Text sondern die Seitenzahlen in Verzeichnissen klickbar
   bookmarksnumbered=true 	% Überschriftsnummerierung im PDF Inhalt anzeigen.
 }
-% Workaround um Fehler in Hyperref, muss hier stehen bleiben
+% % Workaround um Fehler in Hyperref, muss hier stehen bleiben
 \usepackage{bookmark} %nur ein latex-Durchlauf für die Aktualisierung von Verzeichnissen nötig
 
 % Schriftart in Captions etwas kleiner
@@ -207,7 +208,6 @@
 \renewcommand{\arraystretch}{\zeilenabstand}
 \usepackage{subcaption}
 \usepackage{cleveref}
-\usepackage{pdfcomment}
 
 % APA-Style
 % Abstände für "Caption" von Bilder und Tabellen

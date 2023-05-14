@@ -33,6 +33,8 @@ In dieser Arbeit wird die Auswirkung von Semantik, Syntax und Pragmatik mittels 
 
 \section{Textanalyse in politischer Kommunikation \& Parteienforschung}
 
+% TODO: Darauf eingehen welche Quellen unterschiedlicher Textsorten zum trainieren verwenden
+
 Die folgenden Literaturhinweise bieten einen Überblick über verschiedene Methoden und Ansätze zur Text-Klassifikation im politischen Kontext, insbesondere im Hinblick auf die Analyse von Twitter-Texten von Politikern.
 
 \textcite{saltzer_bundestagswahl_2022} betrachten die Positionen von Bundestagskandidaten auf Twitter und betrachtet diese einerseits im Vergleich innerhalb der Parteien (Flügel/Strömungen) sowie andererseits auf einem allgemeinen politischen Koordinatensystem \autocite{saltzer_bundestagswahl_2022, saltzer_finding_2022}. Für die Analyse verwendete \textcite{saltzer_finding_2022} unter anderem Tweet-Texte, etwaige Zugehörigkeit zu einer Vorfeldorganisation, Merkmale des Politikers, als auch ihr Abstimmungsverhalten.
@@ -48,21 +50,22 @@ Aus den Quellen geht hervor, dass sich bisherige Arbeiten meist ausschließlich 
 
 \section{Ziel dieser Arbeit} \label{sec:thesisGoal}
 
-Ziel dieser Arbeit ist es, mittels \ac{NLP} und \ac{ML} Texte von Politikern zu nutzen, um ein Modell zu trainieren, das auch bei Texten ohne gegebene politische Zuordnung eine Parteizugehörigkeit klassifiziert. Dafür sollen im Vergleich zu bisherigen Arbeiten auch Daten aus mehreren Quellen und von unterschiedlicher Art einbezogen werden. Dadurch soll die Klassifikation möglichst losgelöst von Eigenheiten einer konkreten Textart und primär basierend auf sprachlichen und inhaltlichen Unterschieden zwischen den Parteien (Multidomain) funktionieren, um folglich auf sämtlichen politischen Texten eingesetzt werden zu können.
+% These: Im Laufe der Zeit verschiebt sich die Position von Parteien, sondass es schwer ist, ein für alle Zeiträume geltendes Modell zu entwickeln
+% TODO: Test These
 
-Mögliche Einsatzgebiete für ein Parteiklassifikationsmodell ist die Determinierung, ob Texte eine starke Zuneigung zu einzelnen Parteien aufweisen. Diese Fähigkeit kann zum Beispiel auf Zeitungen angewandt werden und dabei helfen, Transparenz für Leser zu schaffen, indem über einen möglichen politischen Bias von Artikeln aufgeklärt wird.
+Ziel dieser Arbeit ist es, mittels \ac{NLP} und \ac{ML} Texte von Politikern zu nutzen, um ein Modell zu trainieren, das auch bei Texten ohne gegebene politische Zuordnung eine Parteizugehörigkeit klassifiziert. 
+
+% Wie in ... gezeigt ist ein weit verbreitetes Verfahren ist die verwendung von Datensätzen aus unterschiedlichen Domänen. Neben dem Vergleich von In-Domain und Out-Of-Domain Datenquellen werden in dieser Arbeit ebenfalls alle Datensätze kombiniert trainiert. --> Wenn kominiertes Training schon existiert, dann abgrenzen und neuheut aufzeigen.
+% Ziel ist es durch die kombination der unterschiedlichen Domänen ein generalisiertes Modell trainieren zu können.
+
+Dafür sollen im Vergleich zu bisherigen Arbeiten auch Daten aus mehreren Domänen\footnote{Themenbereichen} und Textsorten\footnote{Texte, die mittels regelbasierten Verfahren klassifiziert werden können (z. B. Gespräch, Erzählung, Werbespruch).} einbezogen werden. Dadurch soll die Klassifikation möglichst losgelöst von Eigenheiten einer konkreten Textart und primär basierend auf sprachlichen und inhaltlichen Unterschieden zwischen den Parteien funktionieren, um folglich auf sämtlichen politischen Texten eingesetzt werden zu können.
+
+% TODO: Revisit paragraph below
+
+Mittels eines Parteiklassifikationsmodells könnte überprüft werden, ob Texte eine starke Zuneigung zu einzelnen Parteien des Deutschen Bundestages aufweist. Zeitungsartikel sollen ihren Lesern eine neutrale Berichterstattung bieten. Leser würden dadurch die Möglichkeit erhalten, selbstständig Text wie Zeitungsartikel auf ihre Parteizugehörigkeit und damit Neutralität zu überprüfen. Dies ermöglicht Lesern eine neue Art der Transparenz.
 
 \section{Geplantes Vorgehen}
 
 \ac{CRISP-DM} ist ein weitverbreitetes iteratives Modell, das zur Strukturierung von Data-Mining Projekten genutzt wird \autocite{martinez-plumed_casp-dm_2017, chapman_crisp-dm_2000}. Das Modell besteht aus sechs Schritten: Business Understanding, Data Understanding, Data Preparation, Modeling, Evaluation und Deployment. Die folgende Arbeit wird auf Basis von \ac{CRISP-DM} strukturiert.
 
-In dem ersten Abschnitt dieser Arbeit werden zunächst Datensätze ausgewählt und anschließend gesichtet und bereinigt.
-
-Mit den aufbereiteten Datensätzen werden anschließend verschiedenartige Klassifikationsverfahren -- klassische \ac{ML}-Verfahren sowie \ac{DL}-Ansätze -- genutzt und vergleichen.
-
-Schlussendlich soll das akkurateste Modell mittels eines simplen \acp{ui} dem Nutzer bereitgestellt werden. Zusätzlich zu unserem Klassifikationsmodell sollen ebenfalls die in dieser Arbeit verwendeten \ac{NLP} Analysen bereitgestellt werden.
-
-% TODO: Begründung der Einschränkung auf 19. WP
-% These: Im Laufe der Zeit verschiebt sich die Position von Parteien, sondass es schwer ist, ein für alle Zeiträume geltendes Modell zu entwickeln
-% These: Da der Inhalt von retweets nicht eindeutig dem Nutzer zuordnenbar ist verzerren die die Ergebnisse
-% TODO: Test These
+In dem \autoref{ch:crispDm_1} werden zunächst Datensätze ausgewählt, gesichtet und bereinigt. Mit den aufbereiteten Datensätzen werden anschließend in \autoref{ch:crispDm_2} verschiedenartige Klassifikationsverfahren -- klassische \ac{ML}-Verfahren sowie \ac{DL}-Ansätze -- angewandt und evaluiert. Schlussendlich soll in \autoref{ch:crispDm_3} das akkurateste Modell mittels eines simplen \acp{ui} dem Nutzer bereitgestellt werden. Zusätzlich zu unserem Klassifikationsmodell sollen ebenfalls die in dieser Arbeit verwendeten \ac{NLP} Analysen bereitgestellt werden.

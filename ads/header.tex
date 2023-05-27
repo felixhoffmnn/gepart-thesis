@@ -211,10 +211,10 @@
 
 % APA-Style
 % Abstände für "Caption" von Bilder und Tabellen
-% \DeclareCaptionLabelSeparator*{spaced}{\\[2ex]}
-% \captionsetup[table]{labelfont=bf,textfont=it,format=plain,justification=justified,singlelinecheck=false,labelsep=spaced,skip=0pt}
-% \captionsetup[figure]{labelfont=bf,textfont=it,format=plain,justification=justified,singlelinecheck=false,labelsep=spaced,skip=0pt}
-% \setlength{\belowcaptionskip}{\parskip}
+\DeclareCaptionLabelSeparator*{spaced}{:\enskip}
+\captionsetup[table]{labelfont=bf,format=plain,justification=centering,singlelinecheck=false,labelsep=spaced,skip=0pt}
+\captionsetup[figure]{labelfont=bf,format=plain,justification=centering,singlelinecheck=false,labelsep=spaced}
+\setlength{\belowcaptionskip}{\parskip}
 
 % Buchstaben für Anhang
 \def\appendix{%

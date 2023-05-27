@@ -133,5 +133,8 @@
 \DeclareFloatingEnvironment[placement={H},listname=Quellcodeverzeichnis,name=Code]{code}
 \UseTblrLibrary{siunitx}
 
+\DefTblrTemplate{caption-tag}{default}{\small\textbf{Table\hspace{0.25em}\thetable}}
+\DefTblrTemplate{caption-sep}{default}{\small:\enskip}
+\DefTblrTemplate{caption-text}{default}{\small\InsertTblrText{caption}}
 
-% \newcommand{\ea}{(eigene Abbildung)}
+\newcommand{\ft}{\texttt{fastText }}

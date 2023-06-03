@@ -51,4 +51,48 @@
 
 \pagebreak
 
-% \section{Tabels} \label{ch:tableAppendix}
+\section{Training} \label{ch:trainingAppendix}
+
+\subsection*{Baseline}
+
+% TODO
+
+\subsection*{fastText}
+
+\begin{figure}[H]
+    \begin{subfigure}{0.5\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{data/images/modeling/fasttext/none/tweets_confusion_matrix.png}
+      \caption{Tweets (\(N = \num{326625}\))} \label{sfig:confusionMatrixFastTextTweetsUnbalanced}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.5\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{data/images/modeling/fasttext/none/party_programs_confusion_matrix.png}
+      \caption{Wahlprogramme (\(N = \num{27674}\))} \label{sfig:confusionMatrixFastTextManifestUnbalanced}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.5\textwidth}
+      \centering
+      \includegraphics[width=0.9\textwidth]{data/images/modeling/fasttext/none/speeches_confusion_matrix.png}
+      \caption{Reden (\(N = \num{38475}\))} \label{sfig:confusionMatrixFastTextSpeechesUnbalanced}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.49\textwidth}
+      \includegraphics[width=\textwidth]{data/images/modeling/fasttext/none/all_confusion_matrix.png}
+      \caption{Kombiniert (\(N = \num{392774}\))} \label{sfig:confusionMatrixFastTextAllUnbalanced}
+    \end{subfigure}
+    \caption[Konfusionsmatrizen für \ft mit Bigrammen (\(n = \num{2}\)) auf unausgeglichenen Datensätzen]{Konfusionsmatrizen für \ft mit Bigrammen (\(n = \num{2}\)) auf unausgeglichenen Datensätzen. \(N\) repräsentiert die summierte Anzahl an Trainings- und Testdaten.} \label{fig:unbalancedConfusionMatrixFastText}
+\end{figure}
+
+\subsection*{Multi-Layer Perceptron}
+
+% TODO
+
+\subsection*{CNN}
+
+% TODO
+
+\subsection*{BERT}
+
+% TODO

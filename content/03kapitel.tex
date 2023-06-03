@@ -2,7 +2,7 @@
 
 \chapter{Untersuchung und Aufbereitung der Daten} \label{ch:crispDm_1}
 
-Daten aus unterschiedlichen Textsorten ermöglichen es, generalisierter \ac{ML} Modelle zu trainieren. In diesem Kapitel sollen zunächst Datensätze ausgewählt werden, die es ermöglichen, Modelle zur politischen Klassifikation zu trainieren. Im ersten Abschnitt werden dafür Bedingungen festgelegt, welche die Datensätze erfüllen müssen. Anschließend werden die Datensätze mittels explorativen Analysen gesichtet und bereinigt. Dieser Prozess folgt den Schritten Data Understandings und Data Preparation nach \ac{CRISP-DM}.
+Daten aus unterschiedlichen Textsorten ermöglichen es, generalisierter \ac{ML} Modelle zu trainieren. In diesem Kapitel sollen zunächst Datensätze ausgewählt werden, die es ermöglichen, Modelle zur politischen Klassifikation zu trainieren. Im ersten Abschnitt werden dafür Bedingungen festgelegt, welche die Datensätze erfüllen müssen. Anschließend werden die Datensätze mittels explorativen Analysen gesichtet und bereinigt. Dieser Prozess folgt den Schritten Data Understanding und Data Preparation nach \ac{CRISP-DM}.
 
 \begin{figure}[H]
     \centering
@@ -10,35 +10,24 @@ Daten aus unterschiedlichen Textsorten ermöglichen es, generalisierter \ac{ML} 
     \caption[Datenverarbeitungs-Pipeline]{Datenverarbeitungs-Pipeline} \label{fig:dataFlow_1}
 \end{figure}
 
-% TODO: Describe the image
+Wie mittels \autoref{fig:dataFlow_1} verdeutlicht wird, werden die Datensätze in diesem Kapitel gesondert betrachtet und verarbeitet. Nachdem die Daten aufbereitet wurden, können diese in \autoref{ch:crispDm_2} einzeln oder im Verbund verwendet werden.
 
 \section{Auswahl und Sichtung der Datenquellen} \label{sec:dataUnderstanding}
-
-% TODO: Ausweitung der Auswahl \autocite{biessmann_predicting_2016}
-
-% Anforderungen:
-% Anzahl
-% Eindeutige Parteizugehörigkeit (Biessmann et al.)
-% Qualität
-% Lizenzen & Datenschutz
-
-% Anhand der Kriterien (außerdem die Paper nennen, in welchen ebenfalls die Quellen verwendet wurden):
-% Reden aus dem Bundestag
-% Parteiprogramme
-% Tweets (Social Media)
 
 % Einschränkungen und weitere Experimente
 % TODO: Begründung der Einschränkung auf 19. WP
 
-Bevor näher auf die genutzten Datensätze eingegangen wird, soll umrissen werden, welche Anforderungen an die Auswahl dieser gelten. Im Rahmen dieser Arbeit werden ausschließlich Daten verwendet, die eindeutig entweder einer Partei oder einem Politiker aus einer Partei zugeordnet werden können. Dies ermöglicht das Trainieren von Methoden, welche das Training überwachen (engl. Supervised Learning) in \autoref{ch:crispDm_3}. Ein weiteres Kriterium ist die Größe der Datensätze. Die in \autoref{sec:introductionTextanalysis} beschriebenen Arbeiten verwenden Datensätze mit \dots bis \dots Einträgen. Des Weiteren ist darauf zu achten, dass sie die Datensätze aus einer vertraulichen Quelle stammen und eine grundlegende Datenqualität aufweisen. Ferner ist es wichtig, dass die Lizenzen und Datenschutzbestimmungen die Nutzung der Datensätze im Rahmen dieser Arbeit erlauben.
+Bevor näher auf die genutzten Datensätze eingegangen wird, soll umrissen werden, welche Anforderungen an die Auswahl dieser gelten. Im Rahmen dieser Arbeit werden ausschließlich Daten verwendet, die eindeutig Politikern aus einer der sechs Parteien zugeordnet werden können. Dies ermöglicht das Trainieren von Modellen, die das Training überwachen (engl. Supervised Learning) in \autoref{ch:crispDm_2}. Ein weiteres Kriterium ist die Größe der Datensätze. Aus der Literaturrecherche in \autoref{sec:introductionTextanalysis} geht hervor, dass vergleichbare Arbeiten Datensätze mit \dots bis \dots Einträgen verwenden. Des Weiteren ist darauf zu achten, dass sie die Datensätze aus einer vertraulichen Quelle stammen und eine gute Datenqualität aufweisen. Ferner ist es wichtig, dass die Lizenzen und Datenschutzbestimmungen die Nutzung der Datensätze im Rahmen dieser Arbeit erlauben.
+
+Auf Basis der Bedingungen werden drei Datensätze, bestehend aus unterschiedlichen Textsorten, gewählt. 
 
 Bei den  gewählten Datensätzen handelt es sich um Tweets\footnote{Tweets werden von \textcite{saltzer_bundestagswahl_2022, saltzer_finding_2022, guhr_training_2020, wong_quantifying_2016} als Datensatz verwendet.}, Wahlprogramme\footnote{Wahlprogramme werden ebenfalls von \textcite{biessmann_predicting_2016} verwendet.} (Landtags-, Europa- und Bundestagswahlen) und Reden\footnote{\textcite{doan_using_2022, biessmann_predicting_2016, simoes_fine-tuned_2020} nutzen politische Reden als Datenquelle.} aus dem Deutschen Bundestag.
 
-Die Datensätze entstammen der 19. Legislaturperiode des Deutschen Bundestages oder werden auf diesen beschränkt. Das hat den Hintergrund, dass die vorkommenden Themen und Debatten in allen Datensätzen übereinstimmen sollen, damit es zu keinen Störfaktoren beim Trainieren von Klassifikatoren auf dem zusammengefügten Datensatz kommt. Wie durch \textcite{open_discourse_diskursanalyse_nodate} gezeigt, ist zu erwarten, dass Parteien über einen längeren Zeitraum ihren politischen Schwerpunkt ändern. Das führt dazu, dass die Erkennung von Strukturen in Texten erschwert wird. Diese These soll in \autoref{subsec:furtherExperiments} überprüft werden.
+Die Datensätze entstammen der 19. Legislaturperiode des Deutschen Bundestages oder werden auf diesen beschränkt. Das hat den Hintergrund, dass die vorkommenden Themen und Debatten in allen Datensätzen übereinstimmen sollen, damit es zu keinen Störfaktoren beim Trainieren von Klassifikatoren auf dem zusammengefügten Datensatz kommt. Wie durch \textcite{richter_open_2021} gezeigt, ist zu erwarten, dass Parteien über einen längeren Zeitraum ihren politischen Schwerpunkt ändern. Das führt dazu, dass die Erkennung von Strukturen in Texten erschwert wird. Diese These soll in \autoref{subsec:furtherExperiments} überprüft werden.
 
 {\footnotesize
 \begin{longtblr}[caption={Anzahl an Einträgen pro Datensatz und pro Partei vor Bereinigen und Filtern}, label={tab:countPerDataset}, note{1} = {Tweets von den aufgeführten Parteien, exklusive parteilose Politiker}, note{2} = {Reden von den aufgeführten Parteien in dem Zeitraum der 19. Legislaturperiode.},]{rowhead=1, rowfoot=1, hline{1-2, Y-Z} = {1pt}, colspec={Q[l,17mm]*{7}{Q[si={table-format=6},r]}}, row{1}={guard,font=\bfseries,l}, row{5}={font=\bfseries}}
-    Datensatz & AfD & Die Grünen & SPD & Union & Die Linke & FDP & Gesamt\-anzahl \\ 
+    Datensatz & AfD & Grüne & SPD & Union & Linke & FDP & Gesamt\-anzahl \\ 
 
     Tweets\TblrNote{1} & 126132 & 167060 & 167647 & 157035 & 141738 & 112067 & 871679 \\
     Reden\TblrNote{2} & 4437 & 3857 & 5249 & 8007 & 3403 & 3888 & 28841 \\
@@ -55,8 +44,9 @@ Wie aus \autoref{tab:countPerDataset} hervorgeht, umfassen die drei Datensätze 
 \subsection*{Tweets}
 
 % TODO: Add source
+% \footnote{Plattformspezifische Bezeichnung für Kurznachrichten}
 
-Twitter ist eine amerikanische Kurznachrichten-Plattform, die den Nutzern ermöglicht, Tweets\footnote{Plattformspezifische Bezeichnung für Kurznachrichten} von einer Länge von bis zu 280 Zeichen zu veröffentlichen. Zusätzlich zum Veröffentlichen von eigenen Tweets, besitzen Nutzer die Möglichkeit Tweets von anderen zu kommentieren, oder zu retweeten\footnote{Einen Tweet eines anderen Nutzers auf seinem eigenen Profil erneut veröffentlichen}.
+Twitter ist eine amerikanische Kurznachrichten-Plattform, die den Nutzern ermöglicht, Tweets von einer Länge von bis zu 280 Zeichen zu veröffentlichen. Zusätzlich zum Veröffentlichen von eigenen Tweets, besitzen Nutzer die Möglichkeit Tweets von anderen zu kommentieren, oder zu retweeten\footnote{Einen Tweet eines anderen Nutzers auf seinem eigenen Profil erneut veröffentlichen}.
 
 Der Tweet-Datensatz von \textcite{saltzer_finding_2022} umfasst \num{876118} Tweets von \num{511} Politikern des Deutschen Bundestages zwischen Januar \num{2017} bis Dezember \num{2019}. Aufgrund der \href{https://developer.twitter.com/en/developer-terms/agreement}{Entwicklerrichtlinien} von Twitter ist der Datensatz nicht öffentlich zugänglich. \textcite{saltzer_finding_2022} hat auf Anfrage den Datensatz für diese Arbeit zur Verfügung gestellt. Dennoch erlaubt die Richtlinie die Verwendung der Daten für wissenschaftliche Analysen.
 
@@ -234,7 +224,7 @@ Des Weiteren existieren Einträge, bei denen der Tweet-Text als auch das \texttt
 
 Tweets, die lediglich von Politikern erneut geteilt werden, lassen sich nicht eindeutig dem Politiker selbst und seinen Ansichten zuordnen. Es könnte also sein, dass ein Politiker einen Tweet entweder retweetet, weil er der Aussage und Meinung zustimmt, oder auch falls er komplett andere Ansichten hat und seine Reichweite nutzen möchte, um Aufmerksamkeit auf den Autor und das Thema zu lenken. Aufgrund dieser Ungewissheit werden Tweets, die als Retweet gegengezeichnet werden, entfernt.
 
-Wie schon mittels \autoref{fig:wordCountTweets} festgestellt, werden vermehrt kurze Tweets (\num{15} bis \num{25}) und lange Tweets (\num{30} bis \num{40}) veröffentlicht. Bei Tweets mit weniger als \num{10} Wörtern ist es schwierig, einen tieferen Kontext festzustellen. Daher werden diese Tweets, entfernt (\texttt{stemm\_text >= 10}).
+Wie schon mittels \autoref{fig:wordCountTweets} festgestellt, werden vermehrt kurze Tweets (\numrange{15}{25}) und lange Tweets (\numrange{30}{40}) veröffentlicht. Bei Tweets mit weniger als \num{10} Wörtern ist es schwierig, einen tieferen Kontext festzustellen. Daher werden diese Tweets, entfernt (\texttt{stemm\_text >= 10}).
 
 \subsubsection*{Reden}
 
@@ -244,7 +234,7 @@ Ferner können als Trainingsdaten für das Klassifikationsmodell nur Texte verwe
 
 Bei der Betrachtung der Anzahl an Wörtern in Reden (siehe \autoref{subsec:dataUnderstandingReden}) ist aufgefallen, dass es eine Häufung von vergleichsweise kurzen Texten mit einer Länge von unter \num{200} Wörtern gibt. Bei diesen kann nicht sichergestellt werden, dass sie ausreichend politischen Inhalt bieten, als auch der Kontext der Aussagen klar wird. Deshalb werden im weiteren Verlauf nur noch Reden mit mindestens 200 Wörtern berücksichtigt (\texttt{word\_count >= 200}).
 
-Es ist erforderlich, lange Reden in mehrere kleinere Textabschnitte aufzuteilen, damit die Texte ohne Probleme von vortrainierten Sprachmodellen als Eingabe genutzt werden können. Ansonsten besteht die Gefahr, die maximale Anzahl an Eingabe-Tokens\footnote{Bei BERT-basierten Modellen, die für das Modeling genutzt werden sollen, sind es maximal \num{512} Tokens.} zu überschreiten. Dabei wird darauf geachtet, dass eine Rede nur nach einem abgeschlossenen Satz aufgetrennt wird, um die Qualität der Daten nicht zu verringern.
+Es ist erforderlich, lange Reden in mehrere kleinere Textabschnitte aufzuteilen, damit die Texte ohne Probleme von vortrainierten Sprachmodellen als Eingabe genutzt werden können. Ansonsten besteht die Gefahr, die maximale Anzahl an Eingabe-Tokens\footnote{Bei \ac{BERT}-basierten Modellen, die für das Modeling genutzt werden sollen, sind es maximal \num{512} Tokens.} zu überschreiten. Dabei wird darauf geachtet, dass eine Rede nur nach einem abgeschlossenen Satz aufgetrennt wird, um die Qualität der Daten nicht zu verringern.
 
 Der Datensatz enthält außerdem drei Einträge mit dupliziertem Text, die daher ausgeschlossen werden.
 

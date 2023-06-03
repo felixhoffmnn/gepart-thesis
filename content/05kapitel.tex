@@ -1,18 +1,36 @@
 %!TEX root = ../dokumentation.tex
 
-\chapter{Deployment der Klassifikationsmodelle} \label{ch:crispDm_3}
+\chapter{Fazit} \label{ch:conclusion}
 
-\section{Interface}
+\section{Zusammenfassung}
 
-\begin{itemize}
-    \item Streamlit
-    \item Huggingface
-\end{itemize}
+Möglicher Bias durch Aufteilung der Parteien in Opposition und Regierung → Modell eventuell für andere Regierungskonstellation ungeeignet
 
-\section{Beispielanwendung: Zeitungen}
+Ähnliche Beobachtung wie bei \textcite{biessmann_predicting_2016} -> Kürzere Dokumente lassen sich signifikant schlechter Klassifizieren (Vergleich Sentence- und Document-Level).
 
-\begin{itemize}
-    \item Modell auf Zeitungsartikel zwischen 2017 und 2021 anwenden (Bild, Zeit, ...)
-    \item Modell auf Tweets von Zeitungen anwenden
-\end{itemize}
-    
+\section{Reflektion}
+
+Was sagt unsere Klassifikation am Ende aus? Geht es primär um sprachliche Eigenheiten -- wie Vokabular oder Rhetorik -- oder schließen wir anhand der Themenschwerpunkte auf eine Ideologie?
+
+FORSCHUNGSFRAGE BEANTWORTEN
+
+\section{Ausblick}
+
+\textbf{Weitere Untersuchungen}
+
+Alle Tweets (auch Retweets) nutzen und validieren -- bzw. bei allen daten das filtering lockern/abwandeln
+
+\textbf{Erweiterung der Datensätze}
+
+Neutrale Klasse: 7. Klasse: neutrale Texte (beispielsweise über Wikipedia beziehen)
+
+Datenqualität: Mittels \ac{ML} Modellen ist es, für englische Texte möglich, mit einem F1-Score von \num{0.92} zu prüfen, ob ein Text prüfbare Fakten enthält \autocite{jha_towards_2023} KOMBINIEREN MIT Sentiment -> Daten zu filtern
+
+Manuelle Datenaquise: Daten, die nicht Politikern zuordenbar sind und manuell gelabelt werden (Andere Methoden zur gewinnung von Datensatzen)
+
+\textbf{Feature Engineering}
+
+\href{https://github.com/jianzhnie/MultimodalTransformers}{Multimodal Transformers} -> Sentiment und Faktendichte als Feature nutzen
+
+% - Verhältnis Wörter/Gendersterne oder True/False
+% - Check mit RegEx ob gegendert wird und setze variable

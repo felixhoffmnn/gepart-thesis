@@ -2,38 +2,11 @@
 
 \chapter{Einleitung} \label{ch:introduction}
 
-% TODO: Add disclaimer about ethis and pupose of this work
+Social-Media-Plattformen, Medienhäuser und Politiker sind maßgeblich daran beteiligt, über Ereignisse zu berichten und diese von ihrer Perspektive wiederzugeben und zu bewerten. Nach \textcite{willeke_soziale_2019} neigen Politiker dazu, mit ihrem eigenen Stil -- semantisch, syntaktisch und pragmatisch -- ihre Wählerschaft zu beeinflussen. Nicht nur Politiker, sondern auch politisch interessierte Personen ohne Parteiamt nutzen die Möglichkeit der niedrigschwelligen Kommunikation und Diskussion in sozialen Medien, um ihre Meinung schnell und direkt zu äußern. Dabei ist häufig unklar, welchen politischen Hintergrund eine Person oder auch ein Medium wie eine Zeitung hat.
 
-Social-Media-Plattformen, Medienhäuser und Politiker sind maßgeblich daran beteiligt, über Ereignisse zu berichten und diese von ihrer Perspektive wiederzugeben und zu bewerten. Nach \textcite{willeke_soziale_2019} neigen Politiker dazu, mit ihrem eigenen Stil -- semantisch, syntaktisch und pragmatisch -- ihre Wählerschaft zu beeinflussen. Besonders im Kontext der Wahl von Donald Trump zum US-Präsidenten, des Brexit-Referendums, als auch des Krieges in der Ukraine hat das Thema Fake News stetig an Relevanz und Aufmerksamkeit gewonnen. Dabei scheinen diese Falschnachrichten von einem Großteil der Bevölkerung akzeptiert und für richtig befunden zu werden.
-
-In dieser Arbeit wird die Auswirkung von Semantik, Syntax und Pragmatik mittels NLP Mechaniken auf eine definierte Zielgruppe am Beispiel politischer Nachrichten, untersucht und bewertet. Außerdem neigen von Natur aus Gruppen mit gleichen Idealen und Werten dazu, sich ähnlich zu artikulieren. Auf Basis dieser Annahmen und Feststellungen wollen wir versuchen, Texte anhand der sechs größten deutschen Parteien zu klassifizieren.
-
-% fake news -> wähler und leser inhalte glauben -> these: nicht nur glauben, sondern auch elemente übernehmen -> dies lässt sich klassifizieren und weist potzenziell parteizugehörigkeit oder empathie nach
-
-% Politische Ereignisse wie die Wahl von Donald Trump zum US-Präsidenten, das Brexit-Referendum, als auch der Krieg in der Ukraine werden durch ausführliche mediale Debatten begleitet. Unter anderem Twitter, Facebook und Instagram als soziale Medien haben in den vergangenen Jahren die Art und Weise, wie Nachrichten erstellt und verbreitet werden, stark verändert. Dabei kommt es vor allem bei kontroversen Artikeln dazu, dass die schnell ein großes Publikum erreichen.
-
-% Nicht nur Politiker, sondern auch politisch interessierte Personen ohne Parteiamt nutzen die Möglichkeit der niedrigschwelligen Kommunikation und Diskussion in sozialen Medien, um ihre Meinung schnell und direkt zu äußern.
-
-% Nach \textcite{willeke_soziale_2019} nutzen besonders rechtspopulistische Parteien Social Media dazu, ihre Botschaften -- ob korrekt oder nicht -- auf  zu teilen.
-
-% Aus diesem Anlass beschäftigt sich diese Arbeit mit der Frage: Wie gut lassen sich Politiker und deren Parteien anhand ihrer linguistischen Unterschiede klassifizieren?
-
-% Arbeiten, wie die von \citeauthor{saltzer_bundestagswahl_2022}, zeigen, dass es möglich ist, Trends zu analysieren und die Parteizugehörigkeit eines Politikers anhand seiner Tweets zu erkennen.
-
-% Mögliche Fragestellungen sind für diese Arbeit sind:
-
-% \begin{itemize}
-%     \item Lassen sich Trends in der Semantik einzelner Politiker feststellen?
-%     \item Ist es möglich, auf Basis der Semantik festzustellen, ob ein Politiker zum Flügel einer Partei gehört?
-%     \item Können Politiker anhand ihrer Nachrichten und Daten klassifiziert werden?
-%     \item Wie stark ist die Übereinstimmung der Klassifikation mit der wahrhaftigen Parteizugehörigkeit?
-%     \item Unterstützen Nutzer ebenfalls die Politiker, welche am nächsten an ihrer Meinung sind?
-%     \item Lässt sich die Parteizugehörigkeit aufgrund einzelner Worte oder Phrasen bestimmen?
-% \end{itemize}
+In dieser Arbeit werden \ac{NLP}-Methoden zur Analyse und Klassifikation politischer Texte untersucht und bewertet. Ein Klassifikationsmodell, das überprüft, ob ein Text eine starke Zuneigung zu einzelnen Parteien des Deutschen Bundestages aufweist, könnte dazu genutzt werden, um Zeitungsartikel zu klassifizieren. Das würde Lesern mehr Transparenz über politische Zuneigungen von Medienhäusern und anderweitigen Texten geben.
 
 \section{Textanalyse in politischer Kommunikation \& Parteienforschung} \label{sec:introductionTextanalysis}
-
-% TODO: Darauf eingehen welche Quellen unterschiedlicher Textsorten zum trainieren verwenden
 
 Die folgenden Literaturhinweise bieten einen Überblick über verschiedene Methoden und Ansätze zur Text-Klassifikation im politischen Kontext, insbesondere im Hinblick auf die Analyse von Twitter-Texten von Politikern.
 
@@ -50,22 +23,14 @@ Aus den Quellen geht hervor, dass sich bisherige Arbeiten meist ausschließlich 
 
 \section{Ziel dieser Arbeit} \label{sec:thesisGoal}
 
-% These: Im Laufe der Zeit verschiebt sich die Position von Parteien, sondass es schwer ist, ein für alle Zeiträume geltendes Modell zu entwickeln
-% TODO: Test These
+Ziel dieser Arbeit ist es, mittels \ac{NLP} und \ac{ML} eine Methode zu entwickeln, mit der es möglich ist, Texte von Politikern nach Parteizugehörigkeit zu klassifizieren. Ein solches Modell könnte im Anschluss genutzt werden, um auch Texte ohne gegebene Zuordnung zu klassifizieren.
 
-Ziel dieser Arbeit ist es, mittels \ac{NLP} und \ac{ML} Texte von Politikern zu nutzen, um ein Modell zu trainieren, das auch bei Texten ohne gegebene politische Zuordnung eine Parteizugehörigkeit klassifiziert. 
+Im Vergleich zu bisherigen Arbeiten sollen auch Daten aus verschiedenen Themenbereichen und Textsorten\footnote{Texte, die mittels regelbasierten Verfahren klassifiziert werden können (z. B. Gespräch, Erzählung, Werbespruch).} einbezogen werden. Dadurch soll die Klassifikation möglichst losgelöst von Eigenheiten einer konkreten Textart und primär basierend auf sprachlichen und inhaltlichen Unterschieden zwischen den Parteien funktionieren, um folglich auf sämtlichen politischen Texten eingesetzt werden zu können.
 
-% Wie in ... gezeigt ist ein weit verbreitetes Verfahren ist die verwendung von Datensätzen aus unterschiedlichen Domänen. Neben dem Vergleich von In-Domain und Out-Of-Domain Datenquellen werden in dieser Arbeit ebenfalls alle Datensätze kombiniert trainiert. --> Wenn kominiertes Training schon existiert, dann abgrenzen und neuheut aufzeigen.
-% Ziel ist es durch die kombination der unterschiedlichen Domänen ein generalisiertes Modell trainieren zu können.
-
-Dafür sollen im Vergleich zu bisherigen Arbeiten auch Daten aus verschiedenen Themenbereichen und Textsorten\footnote{Texte, die mittels regelbasierten Verfahren klassifiziert werden können (z. B. Gespräch, Erzählung, Werbespruch).} einbezogen werden. Dadurch soll die Klassifikation möglichst losgelöst von Eigenheiten einer konkreten Textart und primär basierend auf sprachlichen und inhaltlichen Unterschieden zwischen den Parteien funktionieren, um folglich auf sämtlichen politischen Texten eingesetzt werden zu können.
-
-% TODO: Revisit paragraph below
-
-Mittels eines Parteiklassifikationsmodells könnte überprüft werden, ob Texte eine starke Zuneigung zu einzelnen Parteien des Deutschen Bundestages aufweist. Zeitungsartikel sollen ihren Lesern eine neutrale Berichterstattung bieten. Leser würden dadurch die Möglichkeit erhalten, selbstständig Text wie Zeitungsartikel auf ihre Parteizugehörigkeit und damit Neutralität zu überprüfen. Dies ermöglicht Lesern eine neue Form der Transparenz.
+Der Name dieser Arbeit, \textit{GePart} (für \enquote{German Party Classification}), steht mit der Anlehnung an das Tier Gepard -- das schnellste Landtier der Erde -- für den Anspruch, dass das resultierende Modell möglichst schnell trainierbar und nutzbar sein soll.
 
 \section{Geplantes Vorgehen}
 
 \ac{CRISP-DM} ist ein weitverbreitetes iteratives Modell, das zur Strukturierung von Data-Mining Projekten genutzt wird \autocite{martinez-plumed_casp-dm_2017, chapman_crisp-dm_2000}. Das Modell besteht aus sechs Schritten: Business Understanding, Data Understanding, Data Preparation, Modeling, Evaluation und Deployment. Die folgende Arbeit wird auf Basis von \ac{CRISP-DM} strukturiert.
 
-In dem \autoref{ch:crispDm_1} werden zunächst Datensätze ausgewählt, gesichtet und bereinigt. Mit den aufbereiteten Datensätzen werden anschließend in \autoref{ch:crispDm_2} verschiedenartige Klassifikationsverfahren -- klassische \ac{ML}-Verfahren sowie \ac{DL}-Ansätze -- angewandt und evaluiert. Schlussendlich wird in \autoref{sec:crispDm_3} das akkurateste Modell öffentlich zur Verfügung gestellt.
+In \autoref{ch:crispDm_1} werden zunächst Datensätze ausgewählt, gesichtet und bereinigt. Mit den aufbereiteten Datensätzen werden anschließend in \autoref{ch:crispDm_2} verschiedenartige Klassifikationsverfahren -- klassische \ac{ML}-Verfahren sowie Deep Learning Ansätze -- angewandt. In \autoref{ch:crispDm_3} werden die unterschiedlichen Schritte von dieser Arbeit evaluiert. Außerdem werden weitere Experimente durchgeführt, die an offene Fragestellungen in den durchgeführten Schritten anknüpfen. Schlussendlich wird in \autoref{sec:crispDm_4} das akkurateste Modell öffentlich zur Verfügung gestellt.

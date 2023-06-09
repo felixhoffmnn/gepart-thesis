@@ -25,7 +25,7 @@
 \setzekurs{STG-TINF20A}
 \setzetitel{GePart: Modell zur Textklassifikation nach Bundestagsparteien}
 % \setzeuntertitel{Parteiklassifikationsmodell zur 19. Legislaturperiode des deutschen Bundestages}
-\setzedatumAbgabe{8. Juni 2023}
+\setzedatumAbgabe{9. Juni 2023}
 \setzefirma{Lorem Ipsum}
 \setzefirmenort{Lorem Ipsum}
 \setzeabgabeort{Stuttgart}
@@ -36,7 +36,7 @@
 \setzegutachter{Lorem Ipsum}
 \setzezeitraum{Oktober 2022 - Juni 2023}
 \setzearbeit{Studienarbeit}
-\setzeautor{Leopold Fuchs und Felix Hoffmann}
+\setzeautor{Felix Hoffmann und Leopold Fuchs}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% Literaturverzeichnis %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -82,7 +82,8 @@
   \definecolor{ListingBackground}{HTML}{FCF7DE}
 }
 %% Mathematikpakete benutzen (Pakete aktivieren)
-% \usepackage{amsmath}
+\usepackage{sfmath}
+\usepackage{amsmath}
 % \usepackage{amssymb}
 
 %% Programmiersprachen Highlighting (Listings)
@@ -130,12 +131,13 @@
 	per-mode = symbol,
 	detect-all = true,
 }
-\DeclareFloatingEnvironment[placement={H},listname=Quellcodeverzeichnis,name=Code]{code}
 \UseTblrLibrary{siunitx}
+
+\DeclareFloatingEnvironment[placement={H},listname=Beispiele,name=Beispiel]{example}
 
 \DefTblrTemplate{caption-tag}{default}{\small\textbf{Table\hspace{0.25em}\thetable}}
 \DefTblrTemplate{caption-sep}{default}{\small:\enskip}
 \DefTblrTemplate{caption-text}{default}{\small\InsertTblrText{caption}}
 
 \newcommand{\ft}{\texttt{fastText} }
-\newcommand{\sk}{\texttt{scikit-learn} }
+\newcommand{\sk}{\texttt{scikit-learn}}

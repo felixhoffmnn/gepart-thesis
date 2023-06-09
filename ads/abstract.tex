@@ -5,16 +5,13 @@
 \renewcommand{\abstractname}{\langabstract} % Text für Überschrift
 
 \begin{abstract}
+    Nachrichten wie Zeitungsartikel oder Social-Media-Posts weisen diverse Biases auf. Besonders bei politischen Themen ist es nicht immer direkt ersichtlich, ob und zu welcher politischen Partei ein Text geneigt ist. Um in diesem Feld für mehr Transparenz zu sorgen, wird in dieser Arbeit ein Parteiklassifikationsmodell trainiert.
 
-    \textit{EN:}
-    
-    Enim incididunt exercitation occaecat non excepteur. Duis occaecat ex tempor duis aute veniam incididunt eiusmod eiusmod commodo pariatur aliquip sit. Irure ea cupidatat nulla sunt consequat Lorem laboris magna tempor elit magna consequat commodo proident. Excepteur laboris eiusmod nostrud quis nisi deserunt ullamco ipsum tempor.
-    
-    The source code for this paper is available on GitHub\footnote{\href{https://github.com/felixhoffmnn/gepart}{https://github.com/felixhoffmnn/gepart}}. 
+    Anhand von explorativen Analysen ist festzustellen, dass die verwendeten Textsorten -- Tweets, Wahlprogramme und Reden -- individuelle Muster aufweisen. Dennoch lassen sich mit Wortwolken und einer Analyse des Sentiments klassifizierbare Eigenschaften für alle Parteien, die in den Texten enthalten sind, feststellen. Zur Klassifikation werden sowohl klassische \ac{ML}-Verfahren als auch neuronale Netze verwendet.
 
-    \textit{DE:}
+    Die besten Ergebnisse bei der Klassifikation erreichen \ft und die Transformer-Modelle (\acs{BERT} und DistilBERT). Im Vergleich lässt sich \ft deutlich schneller trainieren, wobei die Transformer-Modelle mehr Kontext und Komplexität erfassen können.
 
-    Lorem
+    Der Quellcode für diese Arbeit ist auf GitHub\footnote{\href{https://github.com/felixhoffmnn/gepart}{https://github.com/felixhoffmnn/gepart}} verfügbar. Weiterhin wird das DistilBERT Modell auf Hugging Face unter \texttt{felixhoffmnn/GePart}\footnote{\href{https://huggingface.co/felixhoffmnn/GePart}{https://huggingface.co/felixhoffmnn/GePart}} bereitgestellt.
 
-    \textbf{\textit{Stichwörter:}} NLP, Political Analysis, Deutscher Bundestag
+    \textbf{\textit{Stichwörter:}} NLP, Politische Analyse, Parteienklassifikation
 \end{abstract}

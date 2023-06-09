@@ -2,13 +2,9 @@
 
 \chapter{Materialien und Methoden} \label{ch:materialsAndMethods}
 
-% TODO: Linguistische Begriffe (Semantik, Syntax, Pragmatik) erklären
+Die deutsche Politik in der 19. Legislaturperiode war geprägt von der Bundestagswahl 2017, die als Ausgangspunkt für die politischen Entwicklungen in diesem Zeitraum diente. Die Heterogenität der Parteilandschaft und besondere Ereignisse während dieser Legislaturperiode trugen zur Vielfalt der politischen Strömungen und Dynamiken bei. Die politischen Akteure setzten verschiedene Themenschwerpunkte, um politische Agenden zu gestalten und Herausforderungen anzugehen.
 
-% -   Politikapparat und Parteienlandschaft
-% -   Erörterung, welche Medienplattformen und Nachrichtenquellen verwendet werden sollen
-% -   Auswahl von Quellen und Sammeln von Daten
-% -   NLP-Pipeline
-% -   Machine Learning / Clustering
+Im Bereich der Textanalyse wurden verschiedene Repräsentationsformen von Text wie N-Grams, \ac{BoW}, \ac{TF-IDF}, \ac{GloVe}, \ac{CNN}-Embedding-Schicht, \ft und \ac{BERT} untersucht. Jede Methode hat ihre eigenen Vor- und Nachteile bei der Verarbeitung und Darstellung von Textdaten. Zusätzlich wird ein Modell zur Sentimentanalyse für die deutsche Sprache vorgestellt. Dies soll dazu genutzt werden, um die Datensätze in \autoref{ch:crispDm_1} zu analysieren.
 
 \section{Deutsche Politik in der 19. Legislaturperiode}
 
@@ -34,7 +30,7 @@ Im Anschluss an die Wahl begonnen Sondierungsverhandlungen für eine mögliche \
 
 Nach \textcite{niedermayer_entwicklung_2020} weist das deutsche Parteisystem einen Wandel, weg von den alten zwei Volksparteien (\ac{CDU} und \ac{SPD}), hinzu \enquote{einem pluralistischen System an der Grenze zum hochfragmentierten System} auf. Dabei sei besonders bei den Volksparteien ein schrittweiser Verlust der Zustimmung festzustellen, wohingegen sich die Grünen als zweitstärkste Kraft etabliert haben. Zudem habe sich auch die \ac{AfD} fest verankert. Bei der \ac{FDP} und der Linken sei wenig Dynamik zu erkennen.
 
-\textcite{engler_wettbewerb_2022} heben hervor, dass bei vielen Themen die Oppositionsparteien divergente Meinungen entgegen der Regierung und auch untereinander vertreten. Während die Grünen und Linke für konsequentere Klimamaßnahmen plädieren, positioniert sich die \ac{AfD} entgegengesetzt. In der Debatte um \ac{COVID-19}-Maßnahmen ergebe sich ein ähnliches Bild, in der sich auch die \ac{FDP} kritisch gegen einige Maßnahmen positioniert habe.
+\textcite{engler_wettbewerb_2022} heben hervor, dass bei vielen Themen die Oppositionsparteien divergente Meinungen entgegen der Regierung und auch untereinander vertreten. Während die Grünen und Linke für konsequentere Klimamaßnahmen plädieren, positioniert sich die \ac{AfD} entgegengesetzt. In der Debatte um Corona-Maßnahmen ergebe sich ein ähnliches Bild, in der sich auch die \ac{FDP} kritisch gegen einige Maßnahmen positioniert habe.
 
 Die politischen Parteien in Deutschland grundlegend in zwei Lager eingeteilt werden: Ein \enquote{links-liberales} bestehend aus \ac{SPD}, Grünen und Linken, sowie ein \enquote{rechts-konservatives} oder \enquote{bürgerliches} bestehend aus der Union und \ac{AfD} \autocite{thomeczek_politische_2019}. Der \ac{FDP} wird als gesellschaftspolitisch liberale, aber wirtschaftspolitisch rechte Partei eine Sonderrolle zugeschrieben. Zudem beobachten \textcite{thomeczek_politische_2019}, dass die Parteien eine unterschiedliche interne Kohärenz aufweisen. Die beiden Volksparteien, \ac{SPD} und \ac{CDU}, weisen dabei durchschnittlich weniger hohe Agreement-Index-Werte -- ein Maßstab, wie stark die Positionen der Mitglieder übereinstimmen -- auf als die anderen Parteien.
 
@@ -54,7 +50,7 @@ Auffällig ist, dass die Verteilung der \ac{AfD}-Kandidaten auf der Links-Rechts
 
 \subsection{Besondere Ereignisse im Untersuchungszeitraum} \label{subsec:besondereEreignisse}
 
-\textcite{schmid_deutscher_2021} gibt wichtige öffentlichkeitswirksame Ereignisse während der \num{19}. Wahlperiode des deutschen Bundestages wieder. Darunter fällt zunächst die \ac{COVID-19}-Pandemie, der Auswirkungen und der Umgang mit diesen nach den ersten Ansteckungsfällen Anfang 2020 zu einem zentralen Thema in Politik und Gesellschaft wurden. Im Juli 2021 kam es in Teilen von Nordrhein-Westfalen und Rheinland-Pfalz zu einer schweren Flutkatastrophe. Kurz vor Ende der Legislaturperiode wurde zudem der Einsatz der Bundeswehr in Afghanistan beendet, nachdem eine Machtübernahme der Taliban erfolgt war.
+\textcite{schmid_deutscher_2021} gibt wichtige öffentlichkeitswirksame Ereignisse während der \num{19}. Wahlperiode des deutschen Bundestages wieder. Darunter fällt zunächst die Corona-Pandemie, der Auswirkungen und der Umgang mit diesen nach den ersten Ansteckungsfällen Anfang 2020 zu einem zentralen Thema in Politik und Gesellschaft wurden. Im Juli 2021 kam es in Teilen von Nordrhein-Westfalen und Rheinland-Pfalz zu einer schweren Flutkatastrophe. Kurz vor Ende der Legislaturperiode wurde zudem der Einsatz der Bundeswehr in Afghanistan beendet, nachdem eine Machtübernahme der Taliban erfolgt war.
 
 Neben der Bundestagswahl \num{2017} fand am 29. Mai 2019 die Wahl des Europäischen Parlaments statt. Zudem wurden in der Periode \num{13} Landtagswahlen ausgerichtet.
 
@@ -76,97 +72,77 @@ Nach \textcite{niedermayer_entwicklung_2020} waren im Betrachtungszeitraum vorwi
 
 % TODO: Either describe specific models or the underlying architecture (e.g. fasttext or n-gram method)
 
-Um Analysen und \ac{ML} auf Text anwenden zu können, ist es notwendig diesen Vektoren umzuwandeln, die durch Maschinen interpretierbar sind. Abhängig von der Methodik wird dabei die Integrität der syntaktischen und semantischen Beziehungen beeinflusst \autocite{kowsari_text_2019, jurafsky_speech_2023}.
+Um Analysen und \ac{ML} auf Text anwenden zu können, ist es notwendig diesen in Vektoren umzuwandeln, die durch Maschinen interpretierbar sind. Dafür gibt es unterschiedliche Verfahren, die mitunter den Kontext und komplexe semantische Beziehungen berücksichtigen \autocite{kowsari_text_2019, jurafsky_speech_2023}.
 
-Methoden wie \ac{BoW} und \ac{TF-IDF} generieren unkomprimierte Vektoren und skalieren linear mit der Anzahl an einzigartigen Wörtern. Diese Verfahren können jedoch nicht den Kontext innerhalb eines Satzes abbilden. Ein alternativer Ansatz ist die Repräsentation mittels kontextabhängigen Verfahren. Mittels neuronalen Netzen können Zusammenhänge innerhalb eines Satzes erkannt werden. Beispielhafte Implementierungen sind \ac{LSTM}-Netzwerke, als auch \ac{ELMo}.
+Kontextunabhängige Methoden wie \ac{BoW} und \ac{TF-IDF} extrahieren Informationen über die Häufigkeit einzelner Wörter. \ac{GloVe} ist eine komprimierte Worteinbettungsmethode, die auf der Basis von Kookkurrenzstatistiken und der Verteilung der Wörter im Korpus beruht. Mit diesen Verfahren lässt sich meist nur rudimentär die Semantik eines Satzes abbilden, da jegliche Informationen über den aktuellen Kontext fehlt. Ein alternativer Ansatz ist die Repräsentation mittels kontextabhängigen Verfahren. Neuronale Netze, unter anderem \ac{LSTM}-Netzwerke und Transformer-basierte Modelle, können Zusammenhänge innerhalb eines Satzes erkennen. \ft berücksichtigt Subwort-Informationen, weswegen es kontextabhängig ist. Außerdem ermöglicht es einfache semantische Zusammenhänge abzubilden.
 
 % TODO: Transformer Modelle
 
-Worteinbettungen (engl. Word Embeddings) repräsentieren eine zentrale Rolle, bei der Analyse und dem Training von \ac{NLP} Modellen. Diese bilden einzigartige Wörter mittels mehrdimensionalen Vektoren\footnote{Häufig bestehen Word Embeddings aus \num{300} Dimensionen} ab. Abhängig vom Verfahren sind die resultierenden Vektoren komprimiert oder unkomprimiert. Worteinbettungen ermöglichen es, Wörter mit einer ähnlichen Bedeutung im mehrdimensionalen Raum nah beieinander zu gruppieren.
+Worteinbettungen (engl. Word Embeddings) spielen eine zentrale Rolle bei der Analyse und dem Training von \ac{NLP}-Modellen. Diese bilden einzigartige Wörter mittels mehrdimensionalen Vektoren\footnote{Häufig bestehen Word Embeddings aus \num{300} Dimensionen} ab. Abhängig vom Verfahren sind die resultierenden Vektoren komprimiert oder unkomprimiert. Worteinbettungen ermöglichen es, Wörter mit einer ähnlichen Bedeutung im mehrdimensionalen Raum zu gruppieren.
 
 Die unterschiedlichen Verfahren können auf Wort-, Satz- oder Dokumentebene angewendet werden.
 
-\subsection{Kontextunabhängig}
-
-\ac{BoW} und \ac{TF-IDF} extrahieren Informationen über die Häufigkeit einzelner Wörter. Beide Verfahren geben somit Aufschluss über den Inhalt und Themen einzelner Texte. Jedoch ermöglichen die Verfahren nicht, den genauen Kontext, Grammatik und Satzbau zu analysieren. 
-
-% TODO: Beide Verfahren zu einer großen Anzahl an Features (unkompromiert)
-
-\subsubsection*{N-Gram}
+\subsection*{N-Gram}
 
 N-Grams sind die Grundlage für Verfahren wie \ac{BoW} und \ft. Bei dieser Methode werden Zeichen (Wortebene) oder Wörter (Satzebene) in Fragmente mit der Länge \texttt{n} unterteilt \autocite[5]{kowsari_text_2019}. Die Reihenfolge der Elemente bleibt dabei unverändert.
 
-\subsubsection*{\acl{BoW}} 
+\subsection*{\acl{BoW}} 
 
 \ac{BoW} ist eine simple Repräsentationsform, die lediglich die Häufigkeit von einzigartigen Wörtern berechnet \autocite[6]{kowsari_text_2019}. Im ersten Schritt des Verfahrens, wird ein Satz oder Dokument in eine Menge an 1-Grams (einzelne Wörter) transformiert. Anschließend wird die Liste auf die einzigartigen Wörter reduziert und gezählt, wie häufig die einzigartigen Wörter (engl. Features) auftreten. Die daraus entstehende Tabelle wird auch \ac{BoF} genannt.
 
-Um zu demonstrieren, wie \ac{BoW} funktioniert, nennt \textcite[6]{kowsari_text_2019} folgendes Beispiel: \enquote{As the home to UVA’s recognized undergraduate and graduate degree programs in systems engineering. In the UVA Department of Systems and Information Engineering, our students are exposed to a wide range of range.} Aus dem Text resultiert die folgende \ac{BoF} Tablle: \enquote{\{1,1,1,3,2,1,2,1,2,3,1,1,1,2,1,1,1,1,1,1\}}.
+Um zu demonstrieren, wie \ac{BoW} funktioniert, nennt \textcite[6]{kowsari_text_2019} folgendes Beispiel: \enquote{As the home to UVA’s recognized undergraduate and graduate degree programs in systems engineering. In the UVA Department of Systems and Information Engineering, our students are exposed to a wide range of range.} Aus dem Text resultiert die folgende \ac{BoF}-Tabelle: \enquote{\{1,1,1,3,2,1,2,1,2,3,1,1,1,2,1,1,1,1,1,1\}}.
 
-Da \ac{BoW} ein Verfahren ist, welche die Reihenfolge von Wörtern nicht berücksichtigt, kann es zum Beispiel nicht zwischen \textit{\enquote{Das ist gut}} und \textit{\enquote{Ist das gut}} unterscheiden \autocite[6]{kowsari_text_2019}.
+Da \ac{BoW} ein Verfahren ist, das die Reihenfolge von Wörtern nicht berücksichtigt, kann es zum Beispiel nicht zwischen \textit{\enquote{Das ist gut}} und \textit{\enquote{Ist das gut}} unterscheiden \autocite[6]{kowsari_text_2019}.
 
-\subsubsection*{\acl{TF-IDF}}
+\subsection*{\acl{TF-IDF}}
 
-Neben der reinen Häufigkeit berücksichtigt \ac{TF-IDF} außerdem die Häufigkeit eines Wortes für eine Sammlung an Dokumenten \autocite[7]{kowsari_text_2019}. Damit ist es möglich Wörter, aus Wortgruppen wie Artikeln, Präpositionen, Konjunktionen von relevanten Wörtern (meist Adjektive, Verben und Nomen) zu trennen.
+Neben der reinen Häufigkeit berücksichtigt \ac{TF-IDF} außerdem die Häufigkeit eines Wortes für eine Sammlung an Dokumenten \autocite[7]{kowsari_text_2019}. Damit ist es möglich, Wörter aus Wortgruppen wie Artikeln, Präpositionen, Konjunktionen von relevanten Wörtern (meist Adjektive, Verben und Nomen) zu trennen.
 
 \[\mathrm{tfidf}(t,d,D) = \frac{f_{t,d}}{{\sum_{t' \in d}{f_{t',d}}}} \cdot \log \frac{N}{|\{d \in D: t \in d\}|}\]
 
 Dafür wird zunächst die relative oder absolute Häufigkeit eines Wortes innerhalb eines Dokumentes berechnet. Außerdem wird die Häufigkeit in anderen Dokumenten berechnet. Der sich daraus ergebene Wert gibt Auskunft darüber, ob es sich um ein generell häufiges Wort oder nicht handelt.
 
-% \subsubsection*{CBOW und Skip-Gram}
+\subsection*{GloVe}
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.6\textwidth]{data/images/materials_and_methods/cbow_skip_gram.png}
-%     \caption{\autocite[8]{kowsari_text_2019}}
-%     \label{fig:cbow_skip_gram}
-% \end{figure}
+\ac{GloVe} repräsentiert jedes Wort durch ein hochdimensionaler Vektor \autocite[8\psq]{kowsari_text_2019}. Aufgrund der großen Menge an benötigten Daten zum Trainieren, ist es üblich, vortrainierte Worteinbettungen zu verwenden. Laut \citeauthor{kowsari_text_2019} werden hierfür Datensätze wie Wikipedia und Gigaword \num{5} verwendet. Die erzeugten Worteinbettungen sind anschließend in der Lage, mittels der Euklidischen Distanz sprachliche oder semantische Ähnlichkeiten festzustellen \autocite{pennington_glove_2014}. Zusätzlich weisen die Wortvektoren lineare Unterstrukturen auf.
 
-% TODO: Entfernen -> Für weitere Informationen verweisen wir auf ...
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{data/images/materials_and_methods/man_woman.jpg}
+  \caption{Mann - Frau Beispiel \acs{GloVe} \autocite{pennington_glove_2014}} \label{fig:gloveExample}
+\end{figure}
 
-\subsubsection*{Word2Vec, GloVe}
+Das in \autoref{fig:gloveExample} gezeigte Beispiel ist eine der am häufigsten verwendeten Veranschaulichungen von \ac{GloVe}. Die Grafik zeig diverse Wörter in einem zweidimensionalen Raum. Auf dieser Basis der linearen Unterstrukturen lassen sich Wörter addieren und subtrahieren. So zum Beispiel ergibt sich aus \(king - man + woman = queen\). Negativ anzumerken ist jedoch, dass \ac{GloVe} ausschließlich auf Wörtern funktioniert, auf den es auch trainiert wurde.
 
-% TODO: Beispiel -> König - Mann + Frau = Königin
-% TODO: Problem -> Bank liefert Vektor zwischen Parkbank und Geldinstitut
-% TODO: Möglicher Bias -> Arzt - Mann + Frau = Krankenschwester
-% TODO: Nur nahestehende Stymbolde werden als Kontext interpretiert
+\subsection*{Embedding-Schicht in neuronalen Netzwerken}
 
-CBOW und Skip-Gram -> siehe ...
+Um Worteinbettungen in neuronalen Netzwerken zu nutzen, muss eine Embedding-Schicht den Eingabetext in eine Sequenz von Wortvektoren umwandeln. Diesen Prozess stellt \autoref{fig:embeddingLayer} dar.
 
-\subsubsection*{fastText}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{data/images/embedding_layer.png}
+  \caption{Funktionsweise der Embedding-Schicht \autocite{google_prepare_2022}} \label{fig:embeddingLayer}
+\end{figure}
+
+Zunächst muss ein Wort-Index basierend auf allen Trainings-Texten erstellt werden, der jedem im Datensatz vorkommenden Wort einen eindeutigen Index zuweist. Mit diesem kann jeder Text in eine Abfolge von Indices umgewandelt werden. In der Embedding-Schicht wird jeder Index durch den Vektor, der das entsprechende Wort darstellt, ersetzt. Die Länge des Vektors ist abhängig davon, welche Dimensionen die Worteinbettungen bereitstellen. Als Endresultat entsteht pro Text eine Liste aus den Wordvektoren für jedes Wort in dem Eingabetext, die an die weiteren Schichten des Netzes weitergegeben wird.
+
+\subsection*{fastText}
 
 Anstelle von ganzen Wörtern, verwendet \ft zum Trainieren und Klassifizieren n-grams bestehend aus \textit{n} Zeichen \autocite{kowsari_text_2019, joulin_fasttextzip_2016}. Ein Beispiel ist das Wort \textit{Tischtennis}, welches mit \(n = 3\) in \textit{<Ti,Tis,isc,sch,cht,hte,ten,enn,nni,nis,is>} zerlegt wird. Wörter, die in ähnliche n-grams zerlegt werden können, resultieren in Vektoren, welche nah im Vektorraum beieinanderliegen. Die Optimierung während des Trainings und Klassifikation erfolgt mittels der Softmax-Funktion. Zusätzlich wird bag-of-n-grams genutzt, um Zusammenhänge in einem Text zu erkennen \autocite[2]{joulin_bag_2016}. Aufgrund der n-gram Methodik und der niedrigen Komplexität von \(O(h \log_{2}(k))\) des Optimierungs- und Klassifikationsverfahren, eignet sich \ft für die Klassifikation von großen Mengen an Text \autocite[2\psqq]{joulin_bag_2016}.
 
-Im Vergleich zu Word2Vec lassen sich mittels \ft auch Wörter klassifizieren, die nicht Teil des Trainings waren. Dies ist besonders bei komplexen Sprachen, welche zusammengesetzte Wörter verwendet\footnote{Beispiel: Tischtennis lautet im Englischem \textit{table tennis}.}, hilfreich.
+Im Vergleich zu \ac{GloVe} lassen sich mittels \ft auch Wörter klassifizieren, die im Datensatz enthalten sind \autocite{guhr_training_2020, bojanowski_enriching_2017}. Dies ist besonders bei komplexen Sprachen wie Deutsch, welche zusammengesetzte Wörter verwendet\footnote{Beispiel: Tischtennis lautet im Englischem \textit{table tennis}.}, hilfreich.
 
-Skip-Gram -> siehe ...
+\subsection*{BERT}
 
-\subsection{Kontextabhängig}
+Bei \ac{BERT} handelt es sich um ein tiefes neuronales Netz. Das Modell beruht auf der Transformer-Architektur \autocite[3]{devlin_bert_2019}. Durch den bidirektionalen Ansatz ist es möglich, deutlich besser den Kontext eines Satzes zu verstehen. Dies liegt daran, dass vorherige Modelle ausschließlich von vorn nach hinten oder umgekehrt einen Satz verarbeiten konnten. \ac{BERT} hingegen verarbeitet den gesamten Satz auf einmal. Im Trainingsprozess werden zufällig Wörter maskiert \autocite[4]{devlin_bert_2019}. Die Autoren beschreiben außerdem, dass das Modell den nächsten Satz vorhersagt und abgleicht. Beide Methoden helfen dabei, gezielt Eigenschaften der Trainingsdaten zu erlernen.
 
-Um syntaktische und semantische Beziehungen zu erkennen, ist es notwendig, nicht nur den Satzbau, sondern auch die Bedeutung einzelner Wörter schon mittels der Methodik zur Transformation zu berücksichtigen. Kontextabhängige Worteinbettungen verwenden meist einen Speicher an vorherigen Wörtern, um den Kontext zu darauffolgenden Wörtern herzustellen.
-
-% \subsubsection*{LSTM}
-
-% Lorem Ipsum
-
-% \subsubsection*{ELMo}
-
-% Lorem Ipsum
-
-\subsection{Transformer}
-
-% TODO: Add and describe models used for modeling
-
-\subsubsection*{BERT}
-
-% Lorem Ipsum
+Neben englischsprachigen Modellen lassen sich ebenfalls deutsche finden. Weiterhin existieren reduzierte Modelle, wie DistilBERT, die weniger Ressourcen benötigten ohne größere Performance-Einbußen. 
 
 \section{Sentimentanalyse} \label{sec:sentimentanalysis}
 
-Eine Limitation von herkömmlichen \ac{ML} Modellen ist die Klassifikation von Polysemie \autocite[48\psq]{kowsari_text_2019}. Ein Ansatz, um diese Limitation zu mindern, ist es, den Sentiment eines Textes zu berechnen. Ziel dieser Technik ist es nicht nur festzustellen, ob sich beispielsweise ein Politiker zu einem gewissen Thema äußert oder nicht, sondern ebenfalls, ob seine Äußerungen positiv, neutral oder negativ sind.
+Herkömmliche Methoden zur Bestimmung des Sentiments von deutschen Texten sind Sentiment-Wörterbücher und \ac{ML}-Modellen wie \ac{SVM}, \ac{CNN} und \ac{LSTM} \autocite[1627\psq]{guhr_training_2020}. Alle genannten Methoden erreichen einen $F_1$ Score von \numrange{46.5}{74.9}.
 
-Herkömmliche Methoden zur Bestimmung des Sentiments von deutschen Texten sind \textcite[1627\psq]{guhr_training_2020} zufolge Sentiment-Wörterbücher und Machine Learning Modellen wie \ac{SVM}, \ac{CNN} und \ac{Bi-LSTM}. Alle genannten Methoden erreichen einen $F_1$ Score von \numrange{46.5}{74.9}
-
-Die Arbeit von \textcite{guhr_training_2020} zeigt, wie sich Texte anhand ihres Sentiments -- positiv, neutral, oder negativ -- durch \ac{BERT} klassifizieren lassen. Für das Training nutzen die Autoren acht unterschiedliche Datensätze, die insgesamt \num{5.3} Millionen Einträge umfassen. Neben einem \ac{BERT} Modell wurde ebenfalls ein Modell mittels \ft trainiert. Dieses erreicht jedoch einen leicht schlechteren $F_1$ Score\footnote{Mit dem unbalancierten Datensatz erreicht \ac{BERT} einen $F_1$ Score von \num{97.44} und \ft \num{95.73}. Bei dem balanciertem Datensatz erreicht \ac{BERT} einen $F_1$ Score von \num{96.36} und \ft \num{94.05}.} als das \ac{BERT} Modell \autocite[\psq 1630]{guhr_training_2020}.
+Die Arbeit von \textcite{guhr_training_2020} zeigt, wie sich Texte anhand ihres Sentiments -- positiv, neutral, oder negativ -- durch \ac{BERT} klassifizieren lassen. Für das Training nutzen die Autoren acht unterschiedliche Datensätze, die insgesamt \num{5.3} Millionen Einträge umfassen. Neben einem \ac{BERT}-Modell wurde ebenfalls ein Modell mittels \ft trainiert. Dieses erreicht jedoch einen leicht schlechteren $F_1$ Score\footnote{Mit dem unbalancierten Datensatz erreicht \ac{BERT} einen $F_1$ Score von \num{97.44} und \ft \num{95.73}. Bei dem balanciertem Datensatz erreicht \ac{BERT} einen $F_1$ Score von \num{96.36} und \ft \num{94.05}.} als das \ac{BERT}-Modell \autocite[\psq 1630]{guhr_training_2020}.
 
 Auffällig ist, dass das Modell einen signifikant schlechteren $F_1$ Score erreichen, wenn der Datensatz Tweets oder andere Social Media Posts inkludiert. Dies zeigt sich bei den Datensätzen PlotTS, SB10k und GermEval-2017. Bei der Klassifikation dieser erreicht das Modell lediglich einen $F_1$ Score von \numrange{0.6423}{0.7885} \autocite[1631]{guhr_training_2020}.
 

@@ -1,6 +1,3 @@
 {
-  "recommendations": [
-    "streetsidesoftware.code-spell-checker",
-    "james-yu.latex-workshop"
-  ]
+  "recommendations": ["james-yu.latex-workshop"]
 }

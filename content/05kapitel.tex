@@ -23,9 +23,9 @@ Bei dem \nameref{ch:crispDm_2} und der Betrachtung der Ergebnisse fällt auf, da
 % TODO: Add section about out-of-domain
 
 \begin{figure}[H]
-  \centering
-  \includegraphics[width=0.7\textwidth]{data/images/tree.png}
-  \caption{Übersicht über State-of-the-Art von großsprachigen Sprachmodellen \autocite{yang_harnessing_2023}} \label{fig:stateOfTheArt}
+    \centering
+    \includegraphics[width=0.7\textwidth]{data/images/tree.png}
+    \caption{Übersicht über State-of-the-Art von großsprachigen Sprachmodellen \autocite{yang_harnessing_2023}} \label{fig:stateOfTheArt}
 \end{figure}
 
 Mithilfe der \autoref{fig:stateOfTheArt} lässt sich verdeutlichen, dass in dieser Arbeit ausschließlich ältere Methoden werden, verglichen mit Encoder-Decoder und Decoder-Only Modellen. So wurden seit \num{2021} keine neuen Encoder-Only Modelle mehr veröffentlicht, aber im Gegenzug sehr viele Decoder-Only Modelle. Der erste Grund ist, dass viele der neueren, größeren Modelle nicht öffentlich sind und sich daher nicht verwenden lassen. Weiterhin sind viele \ac{NLP} Modelle ausschließlich in englischer Sprache verfügbar, da sie universell ist und bei Weitem mehr Datensätze existieren. Es gibt zwar multilinguale Modelle, jedoch erreichen diese meist nicht so gute Ergebnisse wie sprachspezifische Modelle. Hinzukommt, dass sowohl multilinguale als auch neuere, öffentlich zugängliche, deutsche Modelle deutlich mehr \ac{GDDR5} Speicher benötigen, der im Rahmen dieser Arbeit nicht zur Verfügung steht. Die in dieser Arbeit verwendeten Methoden sind demzufolge nicht State-of-the-Art. Es ist zu erwarten, dass neuere, leistungsstärkere Modelle einen signifikanten Effekt auf die in \autoref{ch:crispDm_2} gemessene Modellperformance haben würden.
@@ -42,20 +42,20 @@ Bei jeglicher Form von \ac{ML}-Modellen stellt sich die Frage, wie allgemeingül
 
 Das Training wird mit \ft durchgeführt, da es eine geringe Trainingsdauer bei dennoch hoher Genauigkeit hat. Für das Training werden dieselben Parameter wie in \autoref{sec:trainingFastText} verwendet. Als Bewertungsmetrik wird der Makro \(F_{1}\) Score verwendet. \autoref{tab:overviewScoresOutDomain} zeigt die Ergebnisse für die unterschiedlichen Durchläufe und Kombinationen.
 
-{\footnotesize
-\begin{longtblr}[caption={Out-of-domain Makro \(F_1\) Score für \ft Modelle}, label={tab:overviewScoresOutDomain}, remark{Anmerkung}={Training und Testing erfolgt jeweils auf den gesamten Datensätzen}, remark{Parameter} = {\(E = \num{20}\), \(LR_{init} = \num{0.1}\)}, note{1}={In-domain (Ergebnisse aus \autoref{sec:trainingFastText})}, note{2}={Zieldatensatz in \SI{80}{\percent} Trainings- und \SI{20}{\percent} Testdaten aufgeteilt}]{width=0.75\textwidth, hline{1, 3, Z} = {0.75pt}, rowhead = 2, colspec={cX*{3}{Q[si={table-format=1.2},c]}}, row{1-2}={guard,font=\bfseries,l}}
-     & & \SetCell[c=3]{c} Test & & \\ 
-    \cline{3-5}
-     & Datensatz & Tweets & Wahlprogramme & Reden \\ 
+    {\footnotesize
+        \begin{longtblr}[caption={Out-of-domain Makro \(F_1\) Score für \ft Modelle}, label={tab:overviewScoresOutDomain}, remark{Anmerkung}={Training und Testing erfolgt jeweils auf den gesamten Datensätzen}, remark{Parameter} = {\(E = \num{20}\), \(LR_{init} = \num{0.1}\)}, note{1}={In-domain (Ergebnisse aus \autoref{sec:trainingFastText})}, note{2}={Zieldatensatz in \SI{80}{\percent} Trainings- und \SI{20}{\percent} Testdaten aufgeteilt}]{width=0.75\textwidth, hline{1, 3, Z} = {0.75pt}, rowhead = 2, colspec={cX*{3}{Q[si={table-format=1.2},c]}}, row{1-2}={guard,font=\bfseries,l}}
+                                                                      &                          & \SetCell[c=3]{c} Test &                    &                    \\
+            \cline{3-5}
+                                                                      & Datensatz                & Tweets                & Wahlprogramme      & Reden              \\
 
-    \SetCell[r=5]{c} \rotatebox[origin=c]{90}{\textbf{Train}} & Tweets & 0.58\TblrNote{$1$} & 0.36 & 0.44 \\*
-     & Wahlprogramm & 0.23 & 0.54\TblrNote{$1$} & 0.25 \\*
-     & Reden & 0.22 & 0.31 & 0.65\TblrNote{$1$} \\*
-     \cline{2-5}
-     & \num{2} von \num{3} & 0.27 & 0.36 & 0.43 \\*
-     & Kombiniert\TblrNote{$2$} & 0.56 & 0.49 & 0.68 \\
-\end{longtblr}
-}
+            \SetCell[r=5]{c} \rotatebox[origin=c]{90}{\textbf{Train}} & Tweets                   & 0.58\TblrNote{$1$}    & 0.36               & 0.44               \\*
+                                                                      & Wahlprogramm             & 0.23                  & 0.54\TblrNote{$1$} & 0.25               \\*
+                                                                      & Reden                    & 0.22                  & 0.31               & 0.65\TblrNote{$1$} \\*
+            \cline{2-5}
+                                                                      & \num{2} von \num{3}      & 0.27                  & 0.36               & 0.43               \\*
+                                                                      & Kombiniert\TblrNote{$2$} & 0.56                  & 0.49               & 0.68               \\
+        \end{longtblr}
+    }
 
 Als Erstes wird die out-of-domain Performance für das Training auf einzelnen Datensätzen evaluiert. In \autoref{tab:overviewScoresOutDomain} zeigt sich, dass die Modelle trainiert auf den Wahlprogrammen und Reden bei der Anwendung auf die jeweils anderen Datensätze mit \numrange{0.22}{0.31} schlechte Ergebnisse liefern. Im Vergleich lässt sich in-domain auf den Datensätzen ein gut doppelt so hoher \(F_1\) Score erreichen. Das Modell ausschließlich auf den Tweets schneidet im Vergleich besser ab. Dieses erreicht \(F_1\) Scores von \numrange{0.36}{0.44} auf den Wahlprogrammen und Reden. Die naheliegendste Ursache für diese Unterschiede ist die Korrelation zwischen der Performance und der Anzahl an Einträgen für das Training. Alternativ, ist es denkbar, dass die Trainingstextsorte einen Einfluss auf die Allgemeingültigkeit eines Modells hat.
 
@@ -73,14 +73,14 @@ Die These, dass eine Eingrenzung des Untersuchungszeitraums für eine gute Perfo
     \centering
     \caption{Makro \(F_1\) Score für Reden verschiedener Zeiträume} \label{tab:overviewScoresExtendedPeriod}
     {\footnotesize
-    \begin{tblr}{width=\textwidth, hline{1-2, Z} = {0.75pt}, colspec={c*{2}{Q[si={table-format=1.2},c]}}, row{1}={guard,font=\bfseries,l}}
-        Wahlperiode(n) & \ft & Lineare SVC \\ 
+        \begin{tblr}{width=\textwidth, hline{1-2, Z} = {0.75pt}, colspec={c*{2}{Q[si={table-format=1.2},c]}}, row{1}={guard,font=\bfseries,l}}
+            Wahlperiode(n)    & \ft                 & Lineare SVC         \\
 
-        \num{19} & \textbf{\num{0.68}} & \textbf{\num{0.66}} \\
-        \numrange{18}{19} & 0.65 & 0.61 \\ 
-        \numrange{17}{19} & 0.61 & 0.59 \\ 
-        \numrange{16}{19} & 0.60 & 0.57 \\ 
-    \end{tblr}
+            \num{19}          & \textbf{\num{0.68}} & \textbf{\num{0.66}} \\
+            \numrange{18}{19} & 0.65                & 0.61                \\
+            \numrange{17}{19} & 0.61                & 0.59                \\
+            \numrange{16}{19} & 0.60                & 0.57                \\
+        \end{tblr}
     }
 \end{table}
 
@@ -96,14 +96,14 @@ Um zu überprüfen, welchen Einfluss Daten auf Satz- statt auf Dokument-Ebene ha
     \centering
     \caption{Makro \(F_1\) Score für Sentence-Level Daten} \label{tab:overviewScoresSentenceLevel}
     {\footnotesize
-    \begin{tblr}{width=\textwidth, hline{1-2, 4, Z} = {0.75pt}, colspec={c*{2}{Q[si={table-format=1.2},c]}}, row{1}={guard,font=\bfseries,l}}
-        Datensatz & \ft & CNN \\ 
+        \begin{tblr}{width=\textwidth, hline{1-2, 4, Z} = {0.75pt}, colspec={c*{2}{Q[si={table-format=1.2},c]}}, row{1}={guard,font=\bfseries,l}}
+            Datensatz     & \ft  & CNN  \\
 
-        Wahlprogramme & 0.36 & 0.31 \\*
-        Reden & 0.31 & 0.27 \\*
+            Wahlprogramme & 0.36 & 0.31 \\*
+            Reden         & 0.31 & 0.27 \\*
 
-        Kombiniert & 0.38 & 0.29 \\
-    \end{tblr}
+            Kombiniert    & 0.38 & 0.29 \\
+        \end{tblr}
     }
 \end{table}
 

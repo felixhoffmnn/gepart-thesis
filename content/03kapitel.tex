@@ -14,23 +14,23 @@ Mittels \autoref{fig:dataFlow_1} wird illustriert, dass die Datensätze in diese
 
 \section{Auswahl und Sichtung der Datenquellen} \label{sec:dataUnderstanding}
 
-Bevor näher auf die genutzten Datensätze eingegangen wird, wird umrissen, welche Anforderungen an die Auswahl dieser gelten. Im Rahmen dieser Arbeit werden ausschließlich Daten verwendet, die eindeutig Politikern aus einer der untersuchten Parteien zugeordnet werden können. Es werden alle Parteien, die wie in \autoref{subsec:btw17} beschrieben in der \num{19}. Wahlperiode im Bundestag vertreten waren, berücksichtigt. Dabei werden \ac{CDU} und \ac{CSU}, die auch eine gemeinsame Fraktion bilden, zusammen als Union betrachtet. Die Parteizuordnung ermöglicht das Trainieren von Modellen mittels Verfahren des überwachten Lernens (engl. Supervised Learning) in \autoref{ch:crispDm_2}. Ein weiteres Kriterium ist die Größe der Datensätze. Aus der Literaturrecherche in \autoref{sec:introductionTextanalysis} geht hervor, dass vergleichbare Arbeiten Datensätze mehreren Tausend bis Millionen Einträgen für Textklassifikation-Aufgaben verwenden. Des Weiteren ist darauf zu achten, dass sie die Datensätze aus einer vertraulichen Quelle stammen und eine gute Datenqualität aufweisen. Ferner ist es wichtig, dass die Lizenzen und Datenschutzbestimmungen die Nutzung der Datensätze im Rahmen dieser Arbeit erlauben. Auf Basis der Bedingungen werden drei Datensätze, bestehend aus unterschiedlichen Textsorten, gewählt. 
+Bevor näher auf die genutzten Datensätze eingegangen wird, wird umrissen, welche Anforderungen an die Auswahl dieser gelten. Im Rahmen dieser Arbeit werden ausschließlich Daten verwendet, die eindeutig Politikern aus einer der untersuchten Parteien zugeordnet werden können. Es werden alle Parteien, die wie in \autoref{subsec:btw17} beschrieben in der \num{19}. Wahlperiode im Bundestag vertreten waren, berücksichtigt. Dabei werden \ac{CDU} und \ac{CSU}, die auch eine gemeinsame Fraktion bilden, zusammen als Union betrachtet. Die Parteizuordnung ermöglicht das Trainieren von Modellen mittels Verfahren des überwachten Lernens (engl. Supervised Learning) in \autoref{ch:crispDm_2}. Ein weiteres Kriterium ist die Größe der Datensätze. Aus der Literaturrecherche in \autoref{sec:introductionTextanalysis} geht hervor, dass vergleichbare Arbeiten Datensätze mehreren Tausend bis Millionen Einträgen für Textklassifikation-Aufgaben verwenden. Des Weiteren ist darauf zu achten, dass sie die Datensätze aus einer vertraulichen Quelle stammen und eine gute Datenqualität aufweisen. Ferner ist es wichtig, dass die Lizenzen und Datenschutzbestimmungen die Nutzung der Datensätze im Rahmen dieser Arbeit erlauben. Auf Basis der Bedingungen werden drei Datensätze, bestehend aus unterschiedlichen Textsorten, gewählt.
 
 Bei den  gewählten Datensätzen handelt es sich um Tweets\footnote{Tweets werden von \textcite{saltzer_bundestagswahl_2022, saltzer_finding_2022, guhr_training_2020, wong_quantifying_2016} als Datensatz verwendet.}, Wahlprogramme\footnote{Wahlprogramme werden ebenfalls von \textcite{biessmann_predicting_2016} verwendet.} (Landtags-, Europa- und Bundestagswahlen) und Reden\footnote{\textcite{doan_using_2022, biessmann_predicting_2016, simoes_fine-tuned_2020} nutzen politische Reden als Datenquelle.} aus dem Deutschen Bundestag.
 
 Die Datensätze entstammen der 19. Legislaturperiode des Deutschen Bundestages oder werden auf diese beschränkt. Das hat den Hintergrund, dass die vorkommenden Themen und Debatten in allen Datensätzen übereinstimmen sollen, damit es zu keinen Störfaktoren beim Trainieren von Klassifikatoren auf dem zusammengefügten Datensatz kommt. Die Arbeit von \textcite{richter_open_2021} legt nahe, dass Parteien über einen längeren Zeitraum ihren politischen Schwerpunkt ändern. Das führt dazu, dass die Erkennung von Strukturen in Texten erschwert wird. Diese These soll in \autoref{subsec:furtherExperiments} überprüft werden.
 
-{\footnotesize
-\begin{longtblr}[caption={Anzahl an Einträgen pro Datensatz und pro Partei vor Bereinigen und Filtern}, label={tab:countPerDataset}, note{1} = {Tweets von den aufgeführten Parteien, exklusive parteilose Politiker}, note{2} = {Reden von den aufgeführten Parteien in dem Zeitraum der 19. Legislaturperiode.},]{rowhead=1, rowfoot=1, hline{1-2, Y-Z} = {0.75pt}, colspec={l*{7}{Q[si={table-format=6},c]}}, row{1}={guard,font=\bfseries}, row{5}={font=\bfseries}}
-    Datensatz & AfD & Grüne & SPD & Union & Linke & FDP & Gesamt\-anzahl \\ 
+    {\footnotesize
+        \begin{longtblr}[caption={Anzahl an Einträgen pro Datensatz und pro Partei vor Bereinigen und Filtern}, label={tab:countPerDataset}, note{1} = {Tweets von den aufgeführten Parteien, exklusive parteilose Politiker}, note{2} = {Reden von den aufgeführten Parteien in dem Zeitraum der 19. Legislaturperiode.},]{rowhead=1, rowfoot=1, hline{1-2, Y-Z} = {0.75pt}, colspec={l*{7}{Q[si={table-format=6},c]}}, row{1}={guard,font=\bfseries}, row{5}={font=\bfseries}}
+            Datensatz          & AfD    & Grüne  & SPD    & Union  & Linke  & FDP    & Gesamt\-anzahl \\
 
-    Tweets\TblrNote{1} & 126132 & 167060 & 167647 & 157035 & 141738 & 112067 & 871679 \\
-    Reden\TblrNote{2} & 4437 & 3857 & 5249 & 8007 & 3403 & 3888 & 28841 \\
-    Wahlpro\-gramme & 2619 & 6399 & 4552 & 4564 & 5204 & 4376 & 27714 \\
+            Tweets\TblrNote{1} & 126132 & 167060 & 167647 & 157035 & 141738 & 112067 & 871679         \\
+            Reden\TblrNote{2}  & 4437   & 3857   & 5249   & 8007   & 3403   & 3888   & 28841          \\
+            Wahlpro\-gramme    & 2619   & 6399   & 4552   & 4564   & 5204   & 4376   & 27714          \\
 
-    Summe & 133188 & 176861 & 177448 & 170246 & 150345 & 120331 & 928234 \\
-\end{longtblr}
-}
+            Summe              & 133188 & 176861 & 177448 & 170246 & 150345 & 120331 & 928234         \\
+        \end{longtblr}
+    }
 
 Die vorliegende \autoref{tab:countPerDataset} enthält statistische Informationen zu den verschiedenen Datensätzen. Insgesamt werden \num{928234} Einträge erfasst, wobei die \ac{AfD} \num{133188} Einträge, die Grünen \num{176861} Einträge, die \ac{SPD} \num{177448} Einträge, die Union \num{170246} Einträge, die Linke \num{150345} Einträge und die \ac{FDP} \num{120331} Einträge aufweisen. Der Tweet-Datensatz ist mit parteiübergreifend \num{871679} Datenpunkten mit Abstand der größte Datensatz. Der Datensatz zu den Reden enthält \num{28841} und der zu den Wahlprogrammen \num{27714} Einträge.
 
@@ -92,7 +92,7 @@ Neben dem Text des jeweiligen Paragraphen liegen als weitere Informationen, die 
     \caption{Anzahl an Wörtern für Wahlprogramm-Paragraphen vor Bereinigung} \label{fig:wordCoundPartyPrograms}
 \end{figure}
 
-\autoref{fig:wordCoundPartyPrograms} zeigt die Verteilung der Anzahl an Wörtern der gewonnenen Wahlprogramm-Paragraphen pro Partei. Anders als bei den Reden zeigt sich hier eine rechtsschiefe Dichtefunktion mit nur einem Maximum bei -- je nach Partei -- etwa \num{30} bis \num{70} Wörtern pro Paragraph. Die Absätze aus Wahlprogrammen sind durchschnittlich länger als die Tweets, jedoch deutlich kürzer als die Transkripte der Bundestagsreden. 
+\autoref{fig:wordCoundPartyPrograms} zeigt die Verteilung der Anzahl an Wörtern der gewonnenen Wahlprogramm-Paragraphen pro Partei. Anders als bei den Reden zeigt sich hier eine rechtsschiefe Dichtefunktion mit nur einem Maximum bei -- je nach Partei -- etwa \num{30} bis \num{70} Wörtern pro Paragraph. Die Absätze aus Wahlprogrammen sind durchschnittlich länger als die Tweets, jedoch deutlich kürzer als die Transkripte der Bundestagsreden.
 
 \section{Datenaufbereitung} \label{sec:dataPreparation}
 
@@ -100,7 +100,7 @@ Im nächsten Schritt nach \ac{CRISP-DM} werden die Datensätze aufbereitet. Im F
 
 \subsection{Datenbereinigungs-Pipeline} \label{subsec:cleaningPipeline}
 
-Stopwörter, Links, Symbole und weitere Unregelmäßigkeiten (Rauschen, zu Englisch \textit{Noise}) beeinflussen die Performance von \ac{ML}-Modellen stark \autocite[4]{kowsari_text_2019}. Daher ist es notwendig Texte mittels regelbasierten Verfahren, als auch mit \ac{ML}-Verfahren zu bereinigen. 
+Stopwörter, Links, Symbole und weitere Unregelmäßigkeiten (Rauschen, zu Englisch \textit{Noise}) beeinflussen die Performance von \ac{ML}-Modellen stark \autocite[4]{kowsari_text_2019}. Daher ist es notwendig Texte mittels regelbasierten Verfahren, als auch mit \ac{ML}-Verfahren zu bereinigen.
 
 \begin{figure}[H]
     \centering
@@ -108,7 +108,7 @@ Stopwörter, Links, Symbole und weitere Unregelmäßigkeiten (Rauschen, zu Engli
     \caption{Datenbereinigungsprozess} \label{fig:cleaningPipeline}
 \end{figure}
 
-Wie \autoref{fig:cleaningPipeline} zeigt, besteht der Prozess zur Datenbereinigung aus drei Abschnitten. Zuerst die regelbasierte Bereinigung, die mittels regulären Ausdrücken und Patterns eine erste Umformung vornimmt. Im nächsten Schritt werden die Wörter auf ihren Wortstamm zurückgeführt. Im letzten Schritt werden Stopwörter entfernt. All diese Schritte verfolgen das Ziel, die Menge an Rauschen zu verringern. 
+Wie \autoref{fig:cleaningPipeline} zeigt, besteht der Prozess zur Datenbereinigung aus drei Abschnitten. Zuerst die regelbasierte Bereinigung, die mittels regulären Ausdrücken und Patterns eine erste Umformung vornimmt. Im nächsten Schritt werden die Wörter auf ihren Wortstamm zurückgeführt. Im letzten Schritt werden Stopwörter entfernt. All diese Schritte verfolgen das Ziel, die Menge an Rauschen zu verringern.
 
 \subsubsection{Regelbasierte Verfahren}
 
@@ -124,14 +124,14 @@ Nach der groben Bereinigung der Texte werden letztlich noch Satzzeichen, Sonderz
 
 \begin{example}[H]
     {\footnotesize
-    \begin{subexample}{0.45\textwidth}
-        \textcolor{orange}{Ehemalige} \textcolor{red}{@AfD-Vorsitzende} \textcolor{orange}{\#Petry} muss wegen \textcolor{orange}{Meineid} vor \textcolor{orange}{Gericht}\textcolor{red}{.} \textcolor{orange}{Kein Einzelfall}\textcolor{red}{:} gegen circa \textcolor{orange}{\SI{10}{\percent}} aller \textcolor{orange}{AfD-Abgeordneten} bundesweit laufen oder liefen \textcolor{orange}{Strafverfahren}\textcolor{red}{.} \textcolor{orange}{Kriminelle Asylbewerber}\textcolor{red}{?} \textcolor{orange}{Fehlanzeige}\textcolor{red}{.} \textcolor{orange}{Kriminelle AfD-Hetzer} trifft den \textcolor{orange}{Nagel} eher auf den \textcolor{orange}{Kopf} \textcolor{red}{<U+0001F602>} \textcolor{orange}{\#AfD}
-        \caption{Tweet vor jeglicher Bereinigung \parencite{saltzer_finding_2022}}
-    \end{subexample}\hfill
-    \begin{subexample}{0.45\textwidth}
-        ehemalige petry muss wegen meineid vor gericht kein einzelfall gegen circa zehn prozent aller afd abgeordneten bundesweit laufen oder liefen strafverfahren kriminelle asylbewerber fehlanzeige kriminelle afd hetzer trifft den nagel eher auf den kopf afd
-        \caption{Tweet nach regelbasierter Bereinigung}
-    \end{subexample}\hfill
+        \begin{subexample}{0.45\textwidth}
+            \textcolor{orange}{Ehemalige} \textcolor{red}{@AfD-Vorsitzende} \textcolor{orange}{\#Petry} muss wegen \textcolor{orange}{Meineid} vor \textcolor{orange}{Gericht}\textcolor{red}{.} \textcolor{orange}{Kein Einzelfall}\textcolor{red}{:} gegen circa \textcolor{orange}{\SI{10}{\percent}} aller \textcolor{orange}{AfD-Abgeordneten} bundesweit laufen oder liefen \textcolor{orange}{Strafverfahren}\textcolor{red}{.} \textcolor{orange}{Kriminelle Asylbewerber}\textcolor{red}{?} \textcolor{orange}{Fehlanzeige}\textcolor{red}{.} \textcolor{orange}{Kriminelle AfD-Hetzer} trifft den \textcolor{orange}{Nagel} eher auf den \textcolor{orange}{Kopf} \textcolor{red}{<U+0001F602>} \textcolor{orange}{\#AfD}
+            \caption{Tweet vor jeglicher Bereinigung \parencite{saltzer_finding_2022}}
+        \end{subexample}\hfill
+        \begin{subexample}{0.45\textwidth}
+            ehemalige petry muss wegen meineid vor gericht kein einzelfall gegen circa zehn prozent aller afd abgeordneten bundesweit laufen oder liefen strafverfahren kriminelle asylbewerber fehlanzeige kriminelle afd hetzer trifft den nagel eher auf den kopf afd
+            \caption{Tweet nach regelbasierter Bereinigung}
+        \end{subexample}\hfill
     }
     \caption[Beispiel -- Regelbasierte Bereinigung]{Beispiel für regelbasierte Bereinigung eines Tweets von \textit{victorperli} \autocite{saltzer_finding_2022}} \label{list:rulebasedCleaning}
 \end{example}
@@ -148,14 +148,14 @@ Der nächste Schritt dient dazu, die Wörter zu vereinheitlichen. Hierfür werde
 
 \begin{example}[H]
     {\footnotesize
-    \begin{subexample}{0.45\textwidth}
-        \textcolor{orange}{ehemalige} petry muss wegen meineid vor gericht kein einzelfall gegen circa zehn prozent aller afd \textcolor{orange}{abgeordneten} bundesweit laufen oder liefen \textcolor{orange}{strafverfahren} \textcolor{orange}{kriminelle} asylbewerber \textcolor{orange}{fehlanzeige} \textcolor{orange}{kriminelle} afd hetzer \textcolor{orange}{trifft} \textcolor{orange}{den} nagel eher auf den kopf afd
-        \caption{Tweet nach regelbasierter Bereinigung}
-    \end{subexample}\hfill
-    \begin{subexample}{0.45\textwidth}
-        ehemalig petry muss wegen meineid vor gericht kein einzelfall gegen circa zehn prozent aller afd abgeordneter bundesweit laufen oder laufen strafverfahr kriminell asylbewerber fehlanzeig kriminell afd hetzer treffen der nagel eher auf der kopf afd
-        \caption{Tweet nach dem Bilden der Wortstämme}
-    \end{subexample}\hfill
+        \begin{subexample}{0.45\textwidth}
+            \textcolor{orange}{ehemalige} petry muss wegen meineid vor gericht kein einzelfall gegen circa zehn prozent aller afd \textcolor{orange}{abgeordneten} bundesweit laufen oder liefen \textcolor{orange}{strafverfahren} \textcolor{orange}{kriminelle} asylbewerber \textcolor{orange}{fehlanzeige} \textcolor{orange}{kriminelle} afd hetzer \textcolor{orange}{trifft} \textcolor{orange}{den} nagel eher auf den kopf afd
+            \caption{Tweet nach regelbasierter Bereinigung}
+        \end{subexample}\hfill
+        \begin{subexample}{0.45\textwidth}
+            ehemalig petry muss wegen meineid vor gericht kein einzelfall gegen circa zehn prozent aller afd abgeordneter bundesweit laufen oder laufen strafverfahr kriminell asylbewerber fehlanzeig kriminell afd hetzer treffen der nagel eher auf der kopf afd
+            \caption{Tweet nach dem Bilden der Wortstämme}
+        \end{subexample}\hfill
     }
     \caption[Bildung von Wortstämmen]{Beispiel für die Bildung von Wortstämmen eines Tweets von \textit{victorperli} \autocite{saltzer_finding_2022}} \label{list:lemma}
 \end{example}
@@ -168,14 +168,14 @@ Stopwörter sind Füllwörter, die keine starke Relevanz für die Bedeutung eine
 
 \begin{example}[H]
     {\footnotesize
-    \begin{subexample}{0.45\textwidth}
-        ehemalig petry \textcolor{red}{muss wegen} meineid \textcolor{red}{vor} gericht \textcolor{red}{kein} einzelfall \textcolor{red}{gegen} circa zehn prozent \textcolor{red}{aller} afd abgeordneter bundesweit laufen \textcolor{red}{oder} laufen strafverfahr kriminell asylbewerber fehlanzeig kriminell afd hetzer treffen \textcolor{red}{der} nagel eher \textcolor{red}{auf der} kopf afd
-        \caption{Tweet nach dem Bilden der Wortstämme}
-    \end{subexample}\hfill
-    \begin{subexample}{0.45\textwidth}
-        ehemalig petry wegen meineid gericht einzelfall circa zehn prozent afd abgeordneter bundesweit laufen laufen strafverfahr kriminell asylbewerber fehlanzeig kriminell afd hetzer treffen nagel eher kopf afd
-        \caption{Tweet nach dem Entfernen von Stopwörtern}
-    \end{subexample}\hfill
+        \begin{subexample}{0.45\textwidth}
+            ehemalig petry \textcolor{red}{muss wegen} meineid \textcolor{red}{vor} gericht \textcolor{red}{kein} einzelfall \textcolor{red}{gegen} circa zehn prozent \textcolor{red}{aller} afd abgeordneter bundesweit laufen \textcolor{red}{oder} laufen strafverfahr kriminell asylbewerber fehlanzeig kriminell afd hetzer treffen \textcolor{red}{der} nagel eher \textcolor{red}{auf der} kopf afd
+            \caption{Tweet nach dem Bilden der Wortstämme}
+        \end{subexample}\hfill
+        \begin{subexample}{0.45\textwidth}
+            ehemalig petry wegen meineid gericht einzelfall circa zehn prozent afd abgeordneter bundesweit laufen laufen strafverfahr kriminell asylbewerber fehlanzeig kriminell afd hetzer treffen nagel eher kopf afd
+            \caption{Tweet nach dem Entfernen von Stopwörtern}
+        \end{subexample}\hfill
     }
     \caption[Beispiel -- Entfernen von Stopwörtern]{Beispiel für das Entfernen von Stopwörtern eines Tweets von \textit{victorperli} \autocite{saltzer_finding_2022}} \label{list:stopwords}
 \end{example}
@@ -190,7 +190,7 @@ Auf Basis der Erkenntnisse aus \nameref{sec:dataUnderstanding} werden im Folgend
 
 Der Tweet-Datensatz \textcite{saltzer_finding_2022} weist Tweet-Duplikate auf. Diese sind jeweils von dem gleichen Politiker verfasst und weisen den gleichen Text auf. Lediglich das Erstellungsdatum (\texttt{created\_at}) des Eintrages weicht bei den Duplikaten voneinander ab. Aufgrund der Indikation eines Fehlers beim Data-Mining erfolgt die Beibehaltung lediglich der jüngsten Einträge dieser Duplikate.
 
-Des Weiteren existieren Einträge, bei denen der Tweet-Text als auch das \texttt{is\_retweet} Label, leer ist. Diese Einträge werden ebenfalls komplett entfernt, da beide Datenpunkte benötigt werden. 
+Des Weiteren existieren Einträge, bei denen der Tweet-Text als auch das \texttt{is\_retweet} Label, leer ist. Diese Einträge werden ebenfalls komplett entfernt, da beide Datenpunkte benötigt werden.
 
 Tweets, die lediglich von Politikern erneut geteilt werden, lassen sich nicht eindeutig dem Politiker selbst und seinen Ansichten zuordnen. Es könnte also sein, dass ein Politiker einen Tweet entweder retweetet, weil er der Aussage und Meinung zustimmt, oder auch falls er komplett andere Ansichten hat und seine Reichweite nutzen möchte, um Aufmerksamkeit auf den Autor und das Thema zu lenken. Aufgrund dieser Ungewissheit werden Tweets, die als Retweet gegengezeichnet werden, entfernt.
 
@@ -225,15 +225,15 @@ Nach Anwendung der Datenbereinigungs-Pipeline bleiben im Gesamt-Datensatz etwa \
     \centering\footnotesize
     \caption{Anzahl an Einträgen pro Datensatz und pro Partei nach Bereinigen und Filtern} \label{tab:countPerDatasetAfterCleaning}
     {\footnotesize
-    \begin{tblr}{width=\textwidth, hline{1-2, Y-Z} = {0.75pt}, colspec={l*{7}{Q[si={table-format=6},c]}}, row{1}={guard,font=\bfseries}, row{5}={font=\bfseries}}
-        Datensatz & AfD & Grünen & SPD & Union & Linke & FDP & Gesamt\-anzahl \\ 
+        \begin{tblr}{width=\textwidth, hline{1-2, Y-Z} = {0.75pt}, colspec={l*{7}{Q[si={table-format=6},c]}}, row{1}={guard,font=\bfseries}, row{5}={font=\bfseries}}
+            Datensatz       & AfD   & Grünen & SPD   & Union & Linke & FDP   & Gesamt\-anzahl \\
 
-        Tweets & 39840 & 60390 & 62227 & 54391 & 59473 & 50304 & 326625 \\*
-        Reden & 5750 & 4745 & 8015 & 12209 & 4558 & 4983 & 40260 \\*
-        Wahlpro\-gramme & 2618 & 6398 & 4552 & 4560 & 5203 & 4343 & 27674 \\*
+            Tweets          & 39840 & 60390  & 62227 & 54391 & 59473 & 50304 & 326625         \\*
+            Reden           & 5750  & 4745   & 8015  & 12209 & 4558  & 4983  & 40260          \\*
+            Wahlpro\-gramme & 2618  & 6398   & 4552  & 4560  & 5203  & 4343  & 27674          \\*
 
-        Summe & 48208 & 71533 & 74794 & 71160 & 69234 & 59630 & 394559 \\
-    \end{tblr}
+            Summe           & 48208 & 71533  & 74794 & 71160 & 69234 & 59630 & 394559         \\
+        \end{tblr}
     }
 \end{table}
 
@@ -261,17 +261,17 @@ Bei den Grünen lässt sich eine leichte Zunahme in der Anzahl in der Mitte des 
     \centering
     \caption{Prozentuale Sentimentverteilung von Tweets pro Partei} \label{tab:sentimentDistributionTweet}
     {\footnotesize
-    \begin{tblr}{width=\textwidth, hline{1-2, Z} = {0.75pt}, colspec={l*{3}{Q[si={table-format=1.2},c]}}, row{1}={guard,font=\bfseries,l}} 
-        Partei & Negative & Neutral & Positive \\
-        
-        AfD & 0.28 & 0.68 & 0.04 \\
-        Die Grüne & 0.20 & 0.74 & 0.06 \\
-        Die Linke & 0.21 & 0.75 & 0.04 \\
-        FDP & 0.22 & 0.73 & 0.05 \\
-        \hline
-        SPD & 0.18 & 0.74 & 0.09 \\
-        Union & 0.16 & 0.78 & 0.07 \\
-    \end{tblr}
+        \begin{tblr}{width=\textwidth, hline{1-2, Z} = {0.75pt}, colspec={l*{3}{Q[si={table-format=1.2},c]}}, row{1}={guard,font=\bfseries,l}}
+            Partei    & Negative & Neutral & Positive \\
+
+            AfD       & 0.28     & 0.68    & 0.04     \\
+            Die Grüne & 0.20     & 0.74    & 0.06     \\
+            Die Linke & 0.21     & 0.75    & 0.04     \\
+            FDP       & 0.22     & 0.73    & 0.05     \\
+            \hline
+            SPD       & 0.18     & 0.74    & 0.09     \\
+            Union     & 0.16     & 0.78    & 0.07     \\
+        \end{tblr}
     }
 \end{table}
 
@@ -327,17 +327,17 @@ Bei Betrachtung der meistgenutzten Wörter pro Partei, wie in \autoref{fig:speec
     \centering
     \caption{Prozentuale Sentimentverteilung von Reden pro Partei} \label{tab:sentimentDistributionSpeeches}
     {\footnotesize
-    \begin{tblr}{width=\textwidth, hline{1-2, Z} = {0.75pt}, colspec={l*{3}{Q[si={table-format=1.2},c]}}, row{1}={guard,font=\bfseries,l}} 
-        Partei & Negativ & Neutral & Positiv \\
-        
-        AfD & 0.45 & 0.54 & 0.01 \\
-        Grüne & 0.48 & 0.50 & 0.02 \\
-        Linke & 0.48 & 0.51 & 0.01 \\
-        FDP & 0.41 & 0.57 & 0.02 \\
-        \hline
-        SPD & 0.22 & 0.75 & 0.03 \\
-        Union & 0.19 & 0.78 & 0.02 \\
-    \end{tblr}
+        \begin{tblr}{width=\textwidth, hline{1-2, Z} = {0.75pt}, colspec={l*{3}{Q[si={table-format=1.2},c]}}, row{1}={guard,font=\bfseries,l}}
+            Partei & Negativ & Neutral & Positiv \\
+
+            AfD    & 0.45    & 0.54    & 0.01    \\
+            Grüne  & 0.48    & 0.50    & 0.02    \\
+            Linke  & 0.48    & 0.51    & 0.01    \\
+            FDP    & 0.41    & 0.57    & 0.02    \\
+            \hline
+            SPD    & 0.22    & 0.75    & 0.03    \\
+            Union  & 0.19    & 0.78    & 0.02    \\
+        \end{tblr}
     }
 \end{table}
 
@@ -375,17 +375,17 @@ Auch bei den Wahlprogrammen lassen sich einige Erkenntnisse anhand der Wortwolke
     \centering
     \caption{Prozentuale Sentimentverteilung von Wahlprogrammen pro Partei} \label{tab:sentimentDistributionPartyPrograms}
     {\footnotesize
-    \begin{tblr}{width=\textwidth, hline{1-2, Z} = {0.75pt}, colspec={l*{3}{Q[si={table-format=1.2},c]}}, row{1}={guard,font=\bfseries,l}} 
-        Partei & Negativ & Neutral & Positiv \\
-        
-        AfD & 0.03 & 0.97 & 0.00 \\
-        Grüne & 0.03 & 0.96 & 0.01 \\
-        Linke & 0.05 & 0.95 & 0.00 \\
-        FDP & 0.02 & 0.97 & 0.01 \\
-        \hline
-        SPD & 0.01 & 0.98 & 0.01 \\
-        Union & 0.01 & 0.98 & 0.01 \\
-    \end{tblr}
+        \begin{tblr}{width=\textwidth, hline{1-2, Z} = {0.75pt}, colspec={l*{3}{Q[si={table-format=1.2},c]}}, row{1}={guard,font=\bfseries,l}}
+            Partei & Negativ & Neutral & Positiv \\
+
+            AfD    & 0.03    & 0.97    & 0.00    \\
+            Grüne  & 0.03    & 0.96    & 0.01    \\
+            Linke  & 0.05    & 0.95    & 0.00    \\
+            FDP    & 0.02    & 0.97    & 0.01    \\
+            \hline
+            SPD    & 0.01    & 0.98    & 0.01    \\
+            Union  & 0.01    & 0.98    & 0.01    \\
+        \end{tblr}
     }
 \end{table}
 

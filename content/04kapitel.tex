@@ -4,7 +4,7 @@
 
 Auf Basis der bereinigten Datensätze werden im folgenden Abschnitt diverse Klassifikationsmodelle trainiert. Dies umfasst Baseline-Modelle mit \ac{BoW} und \ac{TF-IDF}, als auch neuronale Netze, die zusätzlich auf komprimierten Worteinbettungen trainiert werden. Ferner wird mit \ft und \ac{BERT} Modellen trainiert.
 
-Grundlegend wird jedes Modell separat auf jedem Datensatz (Tweets, Reden, Wahlprogramme) trainiert. Im Folgenden wird diese Methode als \textit{in-domain} referenziert. Modelle, die es durch ihren Ressourcenbedarf (Speicher und Rechenkapazität) zulassen, werden ebenfalls auf dem kombinierten Datensatz trainiert. 
+Grundlegend wird jedes Modell separat auf jedem Datensatz (Tweets, Reden, Wahlprogramme) trainiert. Im Folgenden wird diese Methode als \textit{in-domain} referenziert. Modelle, die es durch ihren Ressourcenbedarf (Speicher und Rechenkapazität) zulassen, werden ebenfalls auf dem kombinierten Datensatz trainiert.
 
 Aus der \autoref{tab:countPerDatasetAfterCleaning} geht hervor, dass die Klassen innerhalb der einzelnen Datensätze nicht ausgeglichen sind. Das kann zu einem Bias hin zur am stärksten vertretenen Klasse führen. Zusätzlich zu den unbalancierten Daten werden die Klassen der Datensätze ebenfalls mit Unterabtastung (engl. undersampling) angeglichen. Als Metrik wird der Makro \(F_1\) Score verwendet. Dieser ergibt sich aus dem ungewichteten Durchschnitt der \(F_1\) Werte aller Klassen. Diese Metrik wird gewählt, um die Performance für jede Partei gleich zu gewichten, unabhängig von der Anzahl an Einträgen pro Partei.
 
@@ -21,18 +21,18 @@ Bei der Umwandlung von Text zu Vektoren werden nur Wörter miteinbezogen, die in
 \sk~bietet eine Reihe von Klassifikations-Algorithmen, die zusätzlich zur binären Klassifikation ebenfalls mehrere Klassen unterstützt \autocite{noauthor_112_nodate}. Hervorgehend aus den Experimenten erreichen Multinomial \ac{NB} sowie Lineare \ac{SVC} die beste Performance. Andere Modelle erreichen einen deutlich geringeren \(F_1\) Score\footnote{\texttt{KNeighborsClassifier}, \texttt{DecisionTreeClassifier} und \texttt{ExtraTreeClassifier}} oder trainieren wesentlich länger\footnote{\texttt{LogisticRegression}, \texttt{GradientBoostingClassifier} und \texttt{RandomForestClassifier}}.
 
 Für die beiden gewählten Modelle sowie die Vektorisierung durch \ac{BoW} und \ac{TF-IDF} wird eine Hyperparameteroptimierung durch eine Rastersuche in \sk~ausgehend von den Standardparametern durchgeführt. Dadurch ergibt sich eine Erhöhung der maximal durchzuführenden Iterationen bei der Linearen \ac{SVC} (\(max\_iter = \num{2000}\)) sowie die bereits dargestellte Konfiguration der Vektorisierung. Als Eingabetext wird jeweils der auf die Wortstämme reduzierte und tokenisierte Text verwendet.
-    
-{\footnotesize
-\begin{longtblr}[caption={Macro \(F_1\) Score für Lineare \acs{SVC}}, label={tab:overviewScoresBaselineSvc}, note{$\dag$}={Aufgrund von beschränkten Rechenressourcen zum Training wird der Datensatz auf \num{125000} zufällig ausgewählte Einträge beschränkt.}, remark{Parameter} = {\(max\_df = \num{0.2}\), \(ngram\_range = (\num{1}, \num{1})\), \(max\_iter = \num{2000}\)}]{hline{1, 3, Z} = {0.75pt}, rowhead = 2, colspec={l*{4}{Q[si={table-format=1.2},c]}}, row{1-2}={guard,font=\bfseries,l}}
-     & \SetCell[c=2]{c} BoW & & \SetCell[c=2]{c} TF-IDF & \\
-    \cline{2-5}
-    Datensatz & Unbalanced & Balanced & Unbalanced & Balanced \\
 
-    Tweets\TblrNote{$\dag$} & 0.50 & 0.49 & \textbf{\num{0.54}} & 0.52 \\*
-    Wahlprogramme & 0.50 & 0.47 & \textbf{\num{0.55}} & 0.51 \\*
-    Reden & 0.62 & 0.59 & \textbf{\num{0.66}} & 0.63 \\
-\end{longtblr}
-}
+  {\footnotesize
+    \begin{longtblr}[caption={Macro \(F_1\) Score für Lineare \acs{SVC}}, label={tab:overviewScoresBaselineSvc}, note{$\dag$}={Aufgrund von beschränkten Rechenressourcen zum Training wird der Datensatz auf \num{125000} zufällig ausgewählte Einträge beschränkt.}, remark{Parameter} = {\(max\_df = \num{0.2}\), \(ngram\_range = (\num{1}, \num{1})\), \(max\_iter = \num{2000}\)}]{hline{1, 3, Z} = {0.75pt}, rowhead = 2, colspec={l*{4}{Q[si={table-format=1.2},c]}}, row{1-2}={guard,font=\bfseries,l}}
+                              & \SetCell[c=2]{c} BoW &          & \SetCell[c=2]{c} TF-IDF &          \\
+      \cline{2-5}
+      Datensatz               & Unbalanced           & Balanced & Unbalanced              & Balanced \\
+
+      Tweets\TblrNote{$\dag$} & 0.50                 & 0.49     & \textbf{\num{0.54}}     & 0.52     \\*
+      Wahlprogramme           & 0.50                 & 0.47     & \textbf{\num{0.55}}     & 0.51     \\*
+      Reden                   & 0.62                 & 0.59     & \textbf{\num{0.66}}     & 0.63     \\
+    \end{longtblr}
+  }
 
 Lineare \acp{SVC} lassen sich sehr schnell trainieren. Je nach Datensatz beträgt die Dauer \SI{20}{\second} bis \SI{3}{\minute}.
 
@@ -42,13 +42,13 @@ Auf jedem Datensatz erreicht \ac{TF-IDF} den höchsten \(F_1\) Score. Der Tweet-
 
 {\footnotesize
 \begin{longtblr}[caption={Makro \(F_1\) Score für Multinomial \acs{NB}}, label={tab:overviewScoresBaselineNb}, note{$\dag$}={Aufgrund von beschränkten Rechenressourcen zum Training wird der Datensatz auf \num{125000} zufällig ausgewählte Einträge beschränkt.}, remark{Parameter} = {\(max\_df = \num{0.2}\), \(ngram\_range = (\num{1}, \num{1})\)}]{hline{1, 3, Z} = {0.75pt}, rowhead = 2, colspec={l*{4}{Q[si={table-format=1.2},c]}}, row{1-2}={guard,font=\bfseries,l}}
-     & \SetCell[c=2]{c} BoW & & \SetCell[c=2]{c} TF-IDF & \\
-    \cline{2-5}
-    Datensatz & Unbalanced & Balanced & Unbalanced & Balanced \\
+                          & \SetCell[c=2]{c} BoW &          & \SetCell[c=2]{c} TF-IDF &          \\
+  \cline{2-5}
+  Datensatz               & Unbalanced           & Balanced & Unbalanced              & Balanced \\
 
-    Tweets\TblrNote{$\dag$} & \textbf{\num{0.53}} & 0.52 & 0.52 & 0.51 \\*
-    Wahlprogramme & \textbf{\num{0.51}} & 0.49 & 0.24 & 0.50 \\*
-    Reden & \textbf{\num{0.61}} & 0.60 & 0.14 & 0.60 \\
+  Tweets\TblrNote{$\dag$} & \textbf{\num{0.53}}  & 0.52     & 0.52                    & 0.51     \\*
+  Wahlprogramme           & \textbf{\num{0.51}}  & 0.49     & 0.24                    & 0.50     \\*
+  Reden                   & \textbf{\num{0.61}}  & 0.60     & 0.14                    & 0.60     \\
 \end{longtblr}
 }
 
@@ -59,32 +59,32 @@ Die gleichen Trainings werden zudem mit Multinomial \ac{NB} durchgeführt. Dazu 
 Die in \autoref{tab:overviewScoresBaselineSvc} und \autoref{tab:overviewScoresBaselineNb} dargestellten Ergebnisse betrachten jeweils mit dem Makro \(F_1\) Score einen gewichteten Durchschnitt zwischen den Ergebnissen für die einzelnen klassifizierten Parteien. Im Folgenden soll anhand der in \autoref{fig:confusionMatrixBaseline} dargestellten Konfusionsmatrizen genauer untersucht werden, welche Parteien besonders gut erkannt werden können und zwischen welchen Parteien viele Verwechslungen auftreten. Dabei wird auf die Ergebnisse des besten Baseline-Modells, der Linearen \ac{SVC} mit \ac{TF-IDF}, zurückgegriffen.
 
 \begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.49\textwidth}
-        \includegraphics[width=\textwidth]{data/images/modeling/baseline/under/tweets_confusion_matrix.png}
-        \caption{Tweets}
-        \label{sfig:confusionMatrixBaselineTweets}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.49\textwidth}
-        \includegraphics[width=\textwidth]{data/images/modeling/baseline/under/party_programs_confusion_matrix.png}
-        \caption{Wahlprogramme}
-        \label{sfig:confusionMatrixBaselineManifest}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.49\textwidth}
-        \includegraphics[width=\textwidth]{data/images/modeling/baseline/under/speeches_confusion_matrix.png}
-        \caption{Reden}
-        \label{sfig:confusionMatrixBaselineSpeeches}
-    \end{subfigure}
-    \caption{Konfusionsmatrizen für Lineare \acs{SVC} mit \acs{TF-IDF} auf ausgeglichenen Datensätzen} \label{fig:confusionMatrixBaseline}
+  \centering
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{data/images/modeling/baseline/under/tweets_confusion_matrix.png}
+    \caption{Tweets}
+    \label{sfig:confusionMatrixBaselineTweets}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{data/images/modeling/baseline/under/party_programs_confusion_matrix.png}
+    \caption{Wahlprogramme}
+    \label{sfig:confusionMatrixBaselineManifest}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{data/images/modeling/baseline/under/speeches_confusion_matrix.png}
+    \caption{Reden}
+    \label{sfig:confusionMatrixBaselineSpeeches}
+  \end{subfigure}
+  \caption{Konfusionsmatrizen für Lineare \acs{SVC} mit \acs{TF-IDF} auf ausgeglichenen Datensätzen} \label{fig:confusionMatrixBaseline}
 \end{figure}
 
 Bei den Tweets (\autoref{sfig:confusionMatrixBaselineTweets}) lässt sich die \ac{AfD} am besten klassifizieren. Unter allen Tweets, die als \ac{AfD} klassifiziert werden, sind \SI{69}{\percent} korrekt klassifiziert. Die Matrix zeigt keine Partei, die besonders häufig mit der \ac{AfD} verwechselt wird. Am zweitbesten, mit \SI{55}{\percent}, erkennt das Modell Tweets der Linken. Am häufigsten wird die Linke mit den anderen beiden Parteien im linken Spektrum verwechselt. So werden zu \SI{13}{\percent} Tweets der Linken den Grünen und \SI{10}{\percent} der \ac{SPD} zugeordnet. Bei den Grünen treten viele Verwechslungen zu allen Parteien außer der \ac{AfD} auf. Bei den Tweets der \ac{SPD} kommt zu Grünen und Linken die Union hinzu. Die Tweets der Union selbst werden zu \SI{13}{\percent} als \ac{SPD} klassifiziert. Tweets der \ac{FDP} werden zu jeweils \SI{11}{\percent} den Grünen und der Union zugeordnet. Allgemein ist festzuhalten, dass Tweets einer politischen Partei häufig als politisch nahestehende Partei klassifiziert werden. Weiterhin ist festzustellen, dass die Falsch-Positiv- und Falsch-Negativ-Raten in \autoref{sfig:confusionMatrixBaselineTweets} symmetrisch entlang Richtig-Positiv Achse auftreten.
 
 Die \autoref{sfig:confusionMatrixBaselineManifest} zeigt die Konfusionsmatrix für die Wahlprogramme. Parteien, die sich politisch nahe stehen, weisen ebenfalls wie bei den Tweets eine höhere Falsch-Negativ-Rate auf. Auffällig ist, dass die Falsch-Negativ-Rate bei der \ac{SPD} und der Union deutlich höher ist als bei den anderen Parteien. Die beiden Regierungsparteien erreichen eine Richtig-Positiv-Rate von \SIrange{39}{46}{\percent}, während die Oppositionsparteien bei \SIrange{51}{69}{\percent} liegen. Die Konfusionsmatrix weist ebenfalls wie \autoref{sfig:confusionMatrixBaselineTweets} eine Symmetrie entlang der Richtig-Positiv Achse auf.
 
-Der Datensatz der Reden führt insgesamt zu der höchsten Genauigkeit. Die Konfusionsmatrix \autoref{sfig:confusionMatrixBaselineSpeeches} zeigt, dass die Reden der \ac{AfD} mit \SI{80}{\percent} und der Linken mit \SI{72}{\percent} am besten klassifiziert werden. Die Reden der anderen Parteien erreichen für die Richtig-Positiv-Rate lediglich zwischen \SIrange{54}{62}{\percent}. Grundsätzlich weist die Konfusionsmatrix für die Reden wenige Übereinstimmungen mit den anderen beiden Matrizen im allgemeinen Muster auf. Die stärkste Verwechslung über alle Datensätze hinweg tritt bei Reden der \ac{SPD} auf. Diese werden zu \SI{19}{\percent} als Reden der Union klassifiziert. Die Reden der Union werden ebenfalls zu \SI{17}{\percent} der \ac{SPD} zugeordnet. 
+Der Datensatz der Reden führt insgesamt zu der höchsten Genauigkeit. Die Konfusionsmatrix \autoref{sfig:confusionMatrixBaselineSpeeches} zeigt, dass die Reden der \ac{AfD} mit \SI{80}{\percent} und der Linken mit \SI{72}{\percent} am besten klassifiziert werden. Die Reden der anderen Parteien erreichen für die Richtig-Positiv-Rate lediglich zwischen \SIrange{54}{62}{\percent}. Grundsätzlich weist die Konfusionsmatrix für die Reden wenige Übereinstimmungen mit den anderen beiden Matrizen im allgemeinen Muster auf. Die stärkste Verwechslung über alle Datensätze hinweg tritt bei Reden der \ac{SPD} auf. Diese werden zu \SI{19}{\percent} als Reden der Union klassifiziert. Die Reden der Union werden ebenfalls zu \SI{17}{\percent} der \ac{SPD} zugeordnet.
 
 Bei allen drei Konfusionsmatrizen weisen die \ac{SPD} und \ac{CDU} eine starke gegenseitige Verwechselung auf. Ein weiterer Faktor, neben der politischen Nähe, könnte sein, dass die beiden Parteien im Untersuchungszeitraum zusammen die Regierung gebildet haben.
 
@@ -96,19 +96,19 @@ Für das folgende Training wird die \texttt{fastText}\footnote{\href{https://pyp
 
 Für das Training werden die Hyperparameter von \textcite{guhr_training_2020} übernommen. Demnach wird mit allen Einträgen pro Datensatz für \num{20} Epochen und einer Lernrate von \num{0.1} trainiert. Für das Training werden einerseits wie bei \citeauthor{guhr_training_2020} Bigramme und andererseits zusätzlich auch Trigramme verwendet. Im Gegensatz zu \textcite{guhr_training_2020} kommen im Folgenden die zuvor beschriebenen, vortrainierte Worteinbettungen mit einer Vektorgröße von \num{300} zum Einsatz.
 
-{\footnotesize
-\begin{longtblr}[caption={Makro \(F_1\) Score für \ft}, label={tab:overviewScoresFastText}, remark{Parameter} = {\(E = \num{20}\), \(LR_{init} = \num{0.1}\)}]{hline{1, 3, Y-Z} = {0.75pt}, rowhead = 2, colspec={l*{4}{Q[si={table-format=1.2},c]}}, row{1-2}={guard,font=\bfseries,l}}
-     & \SetCell[c=2]{c} Bigramme (\(n = \num{2}\)) & & \SetCell[c=2]{c} Trigramme (\(n = \num{3}\)) & \\ 
-    \cline{2-5}
-    Datensatz & Unbalanced & Balanced & Unbalanced & Balanced \\ 
+  {\footnotesize
+    \begin{longtblr}[caption={Makro \(F_1\) Score für \ft}, label={tab:overviewScoresFastText}, remark{Parameter} = {\(E = \num{20}\), \(LR_{init} = \num{0.1}\)}]{hline{1, 3, Y-Z} = {0.75pt}, rowhead = 2, colspec={l*{4}{Q[si={table-format=1.2},c]}}, row{1-2}={guard,font=\bfseries,l}}
+                   & \SetCell[c=2]{c} Bigramme (\(n = \num{2}\)) &          & \SetCell[c=2]{c} Trigramme (\(n = \num{3}\)) &          \\
+      \cline{2-5}
+      Datensatz    & Unbalanced                                  & Balanced & Unbalanced                                   & Balanced \\
 
-    Tweets & \textbf{\num{0.59}} & 0.58 & \textbf{\num{0.59}} & 0.57 \\*
-    Wahlprogramm & \textbf{\num{0.58}} & 0.54 & 0.57 & 0.54 \\*
-    Reden & \textbf{\num{0.69}} & 0.65 & 0.67 & 0.66 \\*
-    
-    Kombiniert & \textbf{\num{0.59}} & 0.57 & 0.58 & 0.57 \\
-\end{longtblr}
-}
+      Tweets       & \textbf{\num{0.59}}                         & 0.58     & \textbf{\num{0.59}}                          & 0.57     \\*
+      Wahlprogramm & \textbf{\num{0.58}}                         & 0.54     & 0.57                                         & 0.54     \\*
+      Reden        & \textbf{\num{0.69}}                         & 0.65     & 0.67                                         & 0.66     \\*
+
+      Kombiniert   & \textbf{\num{0.59}}                         & 0.57     & 0.58                                         & 0.57     \\
+    \end{longtblr}
+  }
 
 \ft benötigt wenig Zeit für das Training. Insgesamt, mit dem Laden der Daten, dauert der Prozess circa \SI{2}{\minute}, wovon das reine Training knapp \SI{30}{\second} einnimmt.
 
@@ -119,27 +119,27 @@ Auf den kombinierten, unbalancierten Daten erreichen die Bigramme einen Makro \(
 Um einen Bias durch unbalancierte Daten zu vermeiden, wird das \ft Modell auf Bigrammen und den balancierten Daten präferiert.
 
 \begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.49\textwidth}
-      \includegraphics[width=\textwidth]{data/images/modeling/fasttext/under/tweets_confusion_matrix.png}
-      \caption{Tweets} \label{sfig:confusionMatrixFastTextTweets}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.49\textwidth}
-      \includegraphics[width=\textwidth]{data/images/modeling/fasttext/under/party_programs_confusion_matrix.png}
-      \caption{Wahlprogramme} \label{sfig:confusionMatrixFastTextManifest}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.49\textwidth}
-      \includegraphics[width=\textwidth]{data/images/modeling/fasttext/under/speeches_confusion_matrix.png}
-      \caption{Reden} \label{sfig:confusionMatrixFastTextSpeeches}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.49\textwidth}
-      \includegraphics[width=\textwidth]{data/images/modeling/fasttext/under/all_confusion_matrix.png}
-      \caption{Kombiniert} \label{sfig:confusionMatrixFastTextAll}
-    \end{subfigure}
-    \caption{Konfusionsmatrizen für \ft mit Bigrammen (\(n = \num{2}\)) auf ausgeglichenen Datensätzen} \label{fig:confusionMatrixFastText}
+  \centering
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{data/images/modeling/fasttext/under/tweets_confusion_matrix.png}
+    \caption{Tweets} \label{sfig:confusionMatrixFastTextTweets}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{data/images/modeling/fasttext/under/party_programs_confusion_matrix.png}
+    \caption{Wahlprogramme} \label{sfig:confusionMatrixFastTextManifest}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{data/images/modeling/fasttext/under/speeches_confusion_matrix.png}
+    \caption{Reden} \label{sfig:confusionMatrixFastTextSpeeches}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{data/images/modeling/fasttext/under/all_confusion_matrix.png}
+    \caption{Kombiniert} \label{sfig:confusionMatrixFastTextAll}
+  \end{subfigure}
+  \caption{Konfusionsmatrizen für \ft mit Bigrammen (\(n = \num{2}\)) auf ausgeglichenen Datensätzen} \label{fig:confusionMatrixFastText}
 \end{figure}
 
 \autoref{sfig:confusionMatrixFastTextTweets} zeigt die Konfusionsmatrix für \ft auf dem Tweet-Datensatz. Die \ac{AfD} erzielt mit \SI{73}{\percent} die höchste Trefferquote. An zweiter Stelle liegen \ac{FDP} und Linke mit jeweils rund \SI{60}{\percent}. Am schlechtesten schneiden die Grünen, die \ac{SPD} und die Union mit einer Trefferquote zwischen \SIrange{48}{54}{\percent} ab. Identisch zu \autoref{sfig:confusionMatrixBaselineTweets} ist festzustellen, dass besonders die linken Parteien (Linke, Grüne und \ac{SPD}) häufig miteinander verwechselt werden. Ähnliche Verwechslungen sind auch zwischen der \ac{FDP} und der Union zu beobachten. Des Weiteren fällt eine hohe Falsch-Negativ-Rate von \SIrange{13}{14}{\percent} zwischen der \ac{SPD} und der Union auf. Im Gegensatz dazu weist die \ac{AfD} konsequent niedrige Verwechselungsraten von maximal \SI{6}{\percent} auf, was darauf hindeutet, dass das Modell diese Partei am zuverlässigsten identifizieren kann.
@@ -156,42 +156,42 @@ Abschließend kann festgestellt werden, dass das Training des Klassifikationsmod
 
 Eine Hyperparameteroptimierung durch eine Rastersuche liefert als beste Architektur ein Netz mit einer Zwischenschicht bestehend aus \num{100} Neuronen (\(hidden\_layer\_sizes=(\num{100},)\)) sowie der Verwendung der \ac{ReLU}-Aktivierungsfunktion (\(activation=relu\)). Die Lernrate wird initial auf \num{7e-4} gesetzt und nach jeder Iteration graduell verringert (\(learning\_rate=invscaling\)). Das Training in jeder Konfiguration läuft maximal \num{50} Iterationen lang (\(iter\_max=\num{50}\)). Als Eingabetext wird der auf die Wortstämme reduzierte und tokenisierte Text verwendet.
 
-{\footnotesize
-\begin{longtblr}[caption={Makro \(F_1\) Score für \acs{MLP}-Modell}, label={tab:overviewScoresMlp}, note{$\dag$}={Aufgrund von beschränkten Rechenressourcen zum Training wird der Datensatz auf \num{125000} zufällig ausgewählte Einträge beschränkt.}, remark{Parameter} = {\(activation=relu\), \(hidden\_layer\_sizes=(\num{100},)\), \(learning\_rate=invscaling\), \(learning\_rate\_init=\num{7e-4}\), \(iter\_max=\num{50}\), \(df\_max = \num{0.2}\), \(ngram\_range = (\num{1}, \num{1})\)}]{hline{1, 3, Z} = {0.75pt}, rowhead = 2, colspec={l*{4}{Q[si={table-format=1.2},c]}}, row{1-2}={guard,font=\bfseries,l}}
-     & \SetCell[c=2]{c} BoW & & \SetCell[c=2]{c} TF-IDF & \\
-    \cline{2-5}
-    Datensatz & Unbalanced & Balanced & Unbalanced & Balanced \\
+  {\footnotesize
+    \begin{longtblr}[caption={Makro \(F_1\) Score für \acs{MLP}-Modell}, label={tab:overviewScoresMlp}, note{$\dag$}={Aufgrund von beschränkten Rechenressourcen zum Training wird der Datensatz auf \num{125000} zufällig ausgewählte Einträge beschränkt.}, remark{Parameter} = {\(activation=relu\), \(hidden\_layer\_sizes=(\num{100},)\), \(learning\_rate=invscaling\), \(learning\_rate\_init=\num{7e-4}\), \(iter\_max=\num{50}\), \(df\_max = \num{0.2}\), \(ngram\_range = (\num{1}, \num{1})\)}]{hline{1, 3, Z} = {0.75pt}, rowhead = 2, colspec={l*{4}{Q[si={table-format=1.2},c]}}, row{1-2}={guard,font=\bfseries,l}}
+                              & \SetCell[c=2]{c} BoW &          & \SetCell[c=2]{c} TF-IDF &          \\
+      \cline{2-5}
+      Datensatz               & Unbalanced           & Balanced & Unbalanced              & Balanced \\
 
-    Tweets\TblrNote{$\dag$} & \textbf{\num{0.50}} & 0.47 & 0.49 & 0.45 \\
-    Wahlpro\-gramme & 0.52 & 0.51 & \textbf{\num{0.54}} & 0.51 \\
-    Reden & \textbf{\num{0.66}} & 0.65 & 0.64 & 0.64 \\
-\end{longtblr}
-}
+      Tweets\TblrNote{$\dag$} & \textbf{\num{0.50}}  & 0.47     & 0.49                    & 0.45     \\
+      Wahlpro\-gramme         & 0.52                 & 0.51     & \textbf{\num{0.54}}     & 0.51     \\
+      Reden                   & \textbf{\num{0.66}}  & 0.65     & 0.64                    & 0.64     \\
+    \end{longtblr}
+  }
 
 Das \ac{MLP}-Training dauert mit \SIrange{11}{112}{\minute} deutlich länger als die zuvor dargestellten Ansätze.
 
 In \autoref{tab:overviewScoresMlp} ist der \(F_1\) Score für jede Trainingskombination mit dem \ac{MLP} dargestellt. Für den Tweet- (\num{0.50}) und den Reden-Datensatz (\num{0.66}) kommt die \ac{BoW}-gestützte Variante auf den höchsten Score; bei den Wahlprogrammen jene mit \ac{TF-IDF} (\num{0.54}). Es wird dabei jeweils der unbalancierte Datensatz verwendet. Für jede Repräsentationsform und sowohl auf dem unausgeglichenen als auch auf dem ausgeglichenen Datensätzen erreichen die Wahlprogramme ein besserer Wert als die Tweets und Reden. Das Ergebnis auf dem ausgeglichenen Datensatz liegt stets bis zu \num{0.03} unter dem des unausgeglichenen.
 
 \begin{figure}[H]
-\centering
-\begin{subfigure}{0.49\textwidth}
+  \centering
+  \begin{subfigure}{0.49\textwidth}
     \includegraphics[width=\textwidth]{data/images/modeling/mlp/under/tweets_confusion_matrix.png}
     \caption{Tweets, \ac{BoW}}
     \label{sfig:confusionMatrixMlpTweets}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.49\textwidth}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.49\textwidth}
     \includegraphics[width=\textwidth]{data/images/modeling/mlp/under/party_programs_confusion_matrix.png}
     \caption{Wahlprogramme, \ac{TF-IDF}}
     \label{sfig:confusionMatrixMlpManifest}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.49\textwidth}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.49\textwidth}
     \includegraphics[width=\textwidth]{data/images/modeling/mlp/under/speeches_confusion_matrix.png}
     \caption{Reden, \ac{BoW}}
     \label{sfig:confusionMatrixMlpSpeeches}
-\end{subfigure}
-\caption{Konfusionsmatrizen für das \acs{MLP}-Modell auf ausgeglichenen Datensätzen} \label{fig:confusionMatrixMlp}
+  \end{subfigure}
+  \caption{Konfusionsmatrizen für das \acs{MLP}-Modell auf ausgeglichenen Datensätzen} \label{fig:confusionMatrixMlp}
 \end{figure}
 
 \autoref{sfig:confusionMatrixMlpTweets} zeigt die Konfusionsmatrix des \ac{MLP}-Modells für den Tweet-Datensatz. Die mit Abstand beste Richtig-Positiv-Rate erreicht die \ac{AfD} (\SI{61}{\percent}). Die Falsch-Negativen-Anteile der \ac{AfD}-Tweets sind relativ gleich auf die anderen Parteien verteilt. Das zweitbeste Ergebnis erreicht die \ac{FDP}, deren Tweets zu \SI{54}{\percent} korrekt erkannt und hauptsächlich nur mit der Union verwechselt werden. Bei den Grünen ergeben sich die höchsten Falsch-Negativ-Werte bei der Linken und \ac{SPD}, wobei auch \ac{FDP} und Union mit je \SI{11}{\percent} häufig vertreten sind. Auffällig ist, dass Grüne und \ac{SPD} insgesamt oft -- bei allen Parteien außer der \ac{AfD} -- falsch-positiv klassifiziert werden. Die Parteien mit den meisten Falsch-Negativ-Werten sind bei der \ac{SPD} Union, Grüne und Linke und bei der Union \ac{SPD} und \ac{FDP}. Die Konfusionsmatrix der Tweets ist annähernd symmetrisch entlang der Richtig-Positiv-Achse.
@@ -214,13 +214,13 @@ In die Eingabeschicht wird der Text übergeben und transformiert. Die maximale A
 
 {\footnotesize
 \begin{longtblr}[caption={Makro \(F_1\) Score für \acs{CNN}-Modell}, label={tab:overviewScoresCNN}, remark{Parameter} = {\(E = \num{20}\), \(LR_{init} = \num{7.5e-4}\), \(B = \num{64}\)}]{width=\textwidth, hline{1-2, Y-Z} = {0.75pt}, colspec={l*{2}{Q[si={table-format=1.2},c]}}, row{1}={guard,font=\bfseries,l}}
-    Datensatz & Unbalanced & Balanced \\ 
+  Datensatz     & Unbalanced          & Balanced \\
 
-    Tweets & \textbf{\num{0.46}} & 0.44 \\*
-    Wahlprogramme & \textbf{\num{0.48}} & 0.44 \\*
-    Reden & \textbf{\num{0.58}} & 0.53 \\*
-    
-    Kombiniert & \textbf{\num{0.48}} & 0.47 \\ 
+  Tweets        & \textbf{\num{0.46}} & 0.44     \\*
+  Wahlprogramme & \textbf{\num{0.48}} & 0.44     \\*
+  Reden         & \textbf{\num{0.58}} & 0.53     \\*
+
+  Kombiniert    & \textbf{\num{0.48}} & 0.47     \\
 \end{longtblr}
 }
 
@@ -229,31 +229,31 @@ Die Trainingsdauer des \ac{CNN} beträgt \SIrange{2}{19}{\minute}. Das Modell l�
 \autoref{tab:overviewScoresCNN} stellt die Trainingsergebnisse des \ac{CNN} auf unausgeglichenen und ausgeglichenen Daten dar. Für jeden Datensatz liefert der unausgeglichene Datensatz einen höheren \(F_1\) Score als der ausgeglichenen. Die Tweets zeigen mit \num{0.46} den niedrigsten Score für unausgeglichene Daten auf (ausgeglichen: \num{0.44}), gefolgt von den Wahlprogrammen mit \num{0.48} (ausgeglichen: \num{0.44}). Die mit Abstand beste Performance lässt sich -- wie auch bei den vorangegangenen Modellen -- durch den Reden-Datensatz erzielen (\num{0.58}; ausgeglichen: \num{0.53}). Das Training auf dem kombinierten Datensatz liefert einen \(F_1\) Wert von \num{0.48} auf dem unbalancierten und \num{0.47} auf dem balancierten Datensatz.
 
 \begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.49\textwidth}
-        \includegraphics[width=\textwidth]{data/images/modeling/cnn/under/tweets_confusion_matrix.png}
-        \caption{Tweets}
-        \label{sfig:confusionMatrixCnnTweets}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.49\textwidth}
-        \includegraphics[width=\textwidth]{data/images/modeling/cnn/under/party_programs_confusion_matrix.png}
-        \caption{Wahlprogramme}
-        \label{sfig:confusionMatrixCnnManifest}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.49\textwidth}
-        \includegraphics[width=\textwidth]{data/images/modeling/cnn/under/speeches_confusion_matrix.png}
-        \caption{Reden}
-        \label{sfig:confusionMatrixCnnSpeeches}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.49\textwidth}
-        \includegraphics[width=\textwidth]{data/images/modeling/cnn/under/all_confusion_matrix.png}
-        \caption{Kombiniert}
-        \label{sfig:confusionMatrixCnnAll}
-    \end{subfigure}
-    \caption{Konfusionsmatrizen für das \acs{CNN}-Modell auf ausgeglichenen Datensätzen} \label{fig:confusionMatrixCnn}
+  \centering
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{data/images/modeling/cnn/under/tweets_confusion_matrix.png}
+    \caption{Tweets}
+    \label{sfig:confusionMatrixCnnTweets}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{data/images/modeling/cnn/under/party_programs_confusion_matrix.png}
+    \caption{Wahlprogramme}
+    \label{sfig:confusionMatrixCnnManifest}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{data/images/modeling/cnn/under/speeches_confusion_matrix.png}
+    \caption{Reden}
+    \label{sfig:confusionMatrixCnnSpeeches}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{data/images/modeling/cnn/under/all_confusion_matrix.png}
+    \caption{Kombiniert}
+    \label{sfig:confusionMatrixCnnAll}
+  \end{subfigure}
+  \caption{Konfusionsmatrizen für das \acs{CNN}-Modell auf ausgeglichenen Datensätzen} \label{fig:confusionMatrixCnn}
 \end{figure}
 
 Die Konfusionsmatrix der Tweets in \autoref{sfig:confusionMatrixCnnTweets} zeigt, dass es zwischen bei den Parteien starke Unterschiede in der Falsch-Positiv-Rate gibt. Vor allem die Einträge der Grünen, als auch die der \ac{AfD} werden häufig falsch klassifiziert. Dabei lässt sich dieses Phänomen nicht auf einzelne Parteien reduzieren, da sich die falsch-positiven Werte auf jeweils alle anderen Parteien verteilen. Ähnlich wie bei den anderen Modellen und Datensätzen lassen sich auch hier hohe Falsch-Negativ-Raten zwischen \ac{SPD} und Union feststellen.
@@ -270,46 +270,46 @@ Für das auf dem kombinierten Datensatz trainierte Modell (\autoref{sfig:confusi
 
 Für die Learning-Rate wird der gleiche Wert von \num{2e-5} wie bei \textcite{guhr_training_2020} angenommen. Die Batch-Size wird abhängig vom Datensatz und Modell variiert, um eine Balance zwischen Ressourcenbedarf und Trainingsgeschwindigkeit zu erreichen. Identisch zu \citeauthor{guhr_training_2020} werden beide Modelle für \num{3} Epochen trainiert. Wie bei dem \ac{CNN}-Ansatz wird lediglich mit den bereinigten, aber nicht tokenisierten Daten trainiert.
 
-{\footnotesize
-\begin{longtblr}[caption={Makro \(F_1\) Score für \acs{BERT} und DistilBERT}, label={tab:overviewScoresBert}, remark{Parameter} = {\(E = \num{3}\), \(LR = \num{2e-5}\), \(8 \leq B \leq 32\)}, note{$\dag$}={\ac{GDDR5} Speicher reicht nicht für das Training.}]{hline{1, 3, Y-Z} = {0.75pt}, rowhead = 2, colspec={l*{4}{Q[si={table-format=1.2},c]}}, row{1-2}={guard,font=\bfseries,l}}
-     & \SetCell[c=2]{c} BERT & & \SetCell[c=2]{c} DistilBERT & \\ 
-    \cline{2-5}
-    Datensatz & Unbalanced & Balanced & Unbalanced & Balanced \\ 
+  {\footnotesize
+    \begin{longtblr}[caption={Makro \(F_1\) Score für \acs{BERT} und DistilBERT}, label={tab:overviewScoresBert}, remark{Parameter} = {\(E = \num{3}\), \(LR = \num{2e-5}\), \(8 \leq B \leq 32\)}, note{$\dag$}={\ac{GDDR5} Speicher reicht nicht für das Training.}]{hline{1, 3, Y-Z} = {0.75pt}, rowhead = 2, colspec={l*{4}{Q[si={table-format=1.2},c]}}, row{1-2}={guard,font=\bfseries,l}}
+                   & \SetCell[c=2]{c} BERT      &                            & \SetCell[c=2]{c} DistilBERT &          \\
+      \cline{2-5}
+      Datensatz    & Unbalanced                 & Balanced                   & Unbalanced                  & Balanced \\
 
-    Tweets & \textbf{\num{0.62}} & 0.59 & 0.58 & 0.56 \\*
-    Wahlprogramm & \textbf{\num{0.66}} & 0.61 & 0.62 & 0.58 \\*
-    Reden & \textbf{\num{0.72}} & 0.66 & 0.67 & 0.65 \\*
+      Tweets       & \textbf{\num{0.62}}        & 0.59                       & 0.58                        & 0.56     \\*
+      Wahlprogramm & \textbf{\num{0.66}}        & 0.61                       & 0.62                        & 0.58     \\*
+      Reden        & \textbf{\num{0.72}}        & 0.66                       & 0.67                        & 0.65     \\*
 
-    Kombiniert & \text{NA}\TblrNote{$\dag$} & \text{NA}\TblrNote{$\dag$} & \textbf{\num{0.60}} & 0.58 \\
-\end{longtblr}
-}
+      Kombiniert   & \text{NA}\TblrNote{$\dag$} & \text{NA}\TblrNote{$\dag$} & \textbf{\num{0.60}}         & 0.58     \\
+    \end{longtblr}
+  }
 
 Aufgrund von der Komplexität von \ac{BERT} und DistilBERT benötigen beide Modelle mehr Zeit als die bisherigen Ansätze. Das Training des DistilBERT Modell benötigt zwischen \SIrange{10}{118}{\minute} abhängig vom Datensatz und ob Unterabtastung angewendet wird. Das \ac{BERT} Modell benötigt sogar zwischen \SIrange{24}{175}{\minute}, weil \ac{BERT} im Vergleich zu DistilBERT größer ist und zusätzliche Berechnungen durchführt \autocite{sanh_distilbert_2020}. Die Zeiten beinhalten ebenfalls die Zeit zum Speichern und Validieren nach jeder einzelnen Epoche. Neben der Laufzeit benötigt das \ac{BERT} Modell nahezu immer die vollen \SI{8}{\giga\byte} \ac{GDDR5} Speicher, wohingegen DistilBERT mit knapp der Hälfte auskommt.
 
 Aus \autoref{tab:overviewScoresBert} geht hervor, dass das \ac{BERT} Modell grundsätzlich bessere Makro \(F_1\) Scores erreicht. Unabhängig vom Modell und ob Unterabtastung angewendet wird, lassen sich die Reden am besten klassifizieren, gefolgt von den Wahlprogrammen. Am schlechtesten lassen sich Tweets klassifizieren. Wie zu erwarten scheidet \ac{BERT} in jeder Trainingskombination zwischen \numrange{0.01}{0.05} besser ab. Um \ac{BERT} auf dem kombinierten Datensatz trainieren zu lassen, werden mehr als \SI{8}{\giga\byte} \ac{GDDR5} Speicher benötigt. DistilBERT erreicht auf dem kombinierten Datensatz und den unbalancierten Daten einen Wert von \num{0.60} und \num{0.58} auf dem balancierten Datensatz.
 
 \begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.49\textwidth}
-      \includegraphics[width=\textwidth]{data/images/modeling/bert/under/tweets_confusion_matrix.png}
-      \caption{Tweets} \label{sfig:confusionMatrixBertTweets}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.49\textwidth}
-      \includegraphics[width=\textwidth]{data/images/modeling/bert/under/party_programs_confusion_matrix.png}
-      \caption{Wahlprogramme} \label{sfig:confusionMatrixBertManifest}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.49\textwidth}
-      \includegraphics[width=\textwidth]{data/images/modeling/bert/under/speeches_confusion_matrix.png}
-      \caption{Reden} \label{sfig:confusionMatrixBertSpeeches}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.49\textwidth}
-      \includegraphics[width=\textwidth]{data/images/modeling/bert/under/all_confusion_matrix.png}
-      \caption{Kombiniert} \label{sfig:confusionMatrixBertAll}
-    \end{subfigure}
-    \caption{Konfusionsmatrizen für DistilBERT auf ausgeglichenen Datensätzen} \label{fig:confusionMatrixDistilbert}
+  \centering
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{data/images/modeling/bert/under/tweets_confusion_matrix.png}
+    \caption{Tweets} \label{sfig:confusionMatrixBertTweets}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{data/images/modeling/bert/under/party_programs_confusion_matrix.png}
+    \caption{Wahlprogramme} \label{sfig:confusionMatrixBertManifest}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{data/images/modeling/bert/under/speeches_confusion_matrix.png}
+    \caption{Reden} \label{sfig:confusionMatrixBertSpeeches}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{data/images/modeling/bert/under/all_confusion_matrix.png}
+    \caption{Kombiniert} \label{sfig:confusionMatrixBertAll}
+  \end{subfigure}
+  \caption{Konfusionsmatrizen für DistilBERT auf ausgeglichenen Datensätzen} \label{fig:confusionMatrixDistilbert}
 \end{figure}
 
 \texttt{dbmdz/bert-base-german-uncased} lässt sich aufgrund von mangelnden Ressourcen nicht auf dem gesamten Datensatz trainieren. Im Vergleich zwischen DistilBERT auf den balancierten (\autoref{fig:confusionMatrixDistilbert}) und unbalancierten Daten (\autoref{fig:confusionMatrixDistilbertUnbalanced}) wird ersichtlich, dass das Modell auf den unbalancierten Daten einen starken Bias hin zur \ac{SPD} und Union besitzt. Das lässt sich daran erklären, dass nach \autoref{tab:countPerDatasetAfterCleaning} beide Parteien mit am meisten Einträge besitzen. Aus den genannten Gründen wird das \texttt{distilbert-base-german-cased} Modell auf den balancierten Daten gewählt.

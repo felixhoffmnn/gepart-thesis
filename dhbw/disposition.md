@@ -26,11 +26,22 @@ Zielsetzungen gibt es in dieser Arbeit? Welche methodische Vorgehensweise wird
 gewählt? Dies soll möglichst in einem Fließtext dokumentiert werden. Idealerweise
 abschließend mit sehr konkreten Zielbeschreibungen, die auch validierbar sind. -->
 
-Ereignisse wie die Wahl von Donald Trump zum US-Präsidenten, das Brexit-Referendum, als auch der Krieg in der Ukraine werfen die Frage auf, welchen Einfluss die Neuen Medien auf die politische Meinungsbildung haben [@brandon_russia_2022; @lee_how_2020]. Plattformen wie Twitter, Facebook und Instagram haben in den letzten Jahren die Art und Weise, wie Nachrichten erstellt und verbreitet werden, stark verändert. Unter anderem die Möglichkeit eines Nutzers, seine Meinung zu Themen schnell und direkt zu äußern, rückt den konkreten sprachlichen Ausdruck sowie polarisierende Meinungen von Politikern deutlich stärker in den Fokus.
+Ereignisse wie die Wahl von Donald Trump zum US-Präsidenten, das Brexit-Referendum, als auch der Krieg in der Ukraine
+werfen die Frage auf, welchen Einfluss die Neuen Medien auf die politische Meinungsbildung haben [@brandon_russia_2022;
+@lee_how_2020]. Plattformen wie Twitter, Facebook und Instagram haben in den letzten Jahren die Art und Weise, wie
+Nachrichten erstellt und verbreitet werden, stark verändert. Unter anderem die Möglichkeit eines Nutzers, seine Meinung
+zu Themen schnell und direkt zu äußern, rückt den konkreten sprachlichen Ausdruck sowie polarisierende Meinungen von
+Politikern deutlich stärker in den Fokus.
 
-Bisherige Arbeiten beschäftigen sich meist mit englischsprachigen Daten aus den USA oder Großbritannien. Außerdem umfassen Arbeiten wie die von Sältzer und Stier über die Bundestagswahl 2021 lediglich Tweets von Twitter [@saltzer_bundestagswahl_2022]. Dennoch wird in der Arbeit von Sältzer und Stier gezeigt, dass es möglich ist, Trends zu analysieren und die Parteizugehörigkeit eines Politikers anhand seiner Tweets zu klassifizieren.
+Bisherige Arbeiten beschäftigen sich meist mit englischsprachigen Daten aus den USA oder Großbritannien. Außerdem
+umfassen Arbeiten wie die von Sältzer und Stier über die Bundestagswahl 2021 lediglich Tweets von Twitter
+[@saltzer_bundestagswahl_2022]. Dennoch wird in der Arbeit von Sältzer und Stier gezeigt, dass es möglich ist, Trends zu
+analysieren und die Parteizugehörigkeit eines Politikers anhand seiner Tweets zu klassifizieren.
 
-Ziel dieser Arbeit ist es, mittels Natural Language Processing und Machine Learning die Meinung der Bevölkerung zu einem einzelnen Politiker oder Parteien in Deutschland zu analysieren und ein besseres Verständnis in die Reaktionen und Meinungen der Bevölkerung zu bekommen. Dafür sollen im Vergleich zu bisherigen Arbeiten Daten aus mehreren Quellen einbezogen werden.
+Ziel dieser Arbeit ist es, mittels Natural Language Processing und Machine Learning die Meinung der Bevölkerung zu einem
+einzelnen Politiker oder Parteien in Deutschland zu analysieren und ein besseres Verständnis in die Reaktionen und
+Meinungen der Bevölkerung zu bekommen. Dafür sollen im Vergleich zu bisherigen Arbeiten Daten aus mehreren Quellen
+einbezogen werden.
 
 Mögliche Fragestellungen sind für diese Arbeit sind:
 
@@ -81,9 +92,13 @@ Als erste Gliederung der Arbeit kann die folgende Struktur angenommen werden:
   - Zusammenfassung
   - Ausblick
 
-Der Hauptteil der Arbeit wird nach dem CRISP-DM Prozessmodell aufgebaut. Die einzelnen Schritte stellen dabei die wesentlichen Meilensteine dar, die während des Projekts erreicht werden sollen.
+Der Hauptteil der Arbeit wird nach dem CRISP-DM Prozessmodell aufgebaut. Die einzelnen Schritte stellen dabei die
+wesentlichen Meilensteine dar, die während des Projekts erreicht werden sollen.
 
-In den kommenden drei Monaten soll die praktische Implementierung des Projekts abgeschlossen werden. Dabei sollen auch parallel die wesentlichen Inhalte, die praktisch umgesetzt werden, in der schriftlichen Arbeit dokumentiert werden. Nach Abschluss der praktischen Arbeit soll bis zum Ende der Gesamt-Projektlaufzeit die Vollendung und Optimierung der schriftlichen Arbeit erfolgen.
+In den kommenden drei Monaten soll die praktische Implementierung des Projekts abgeschlossen werden. Dabei sollen auch
+parallel die wesentlichen Inhalte, die praktisch umgesetzt werden, in der schriftlichen Arbeit dokumentiert werden. Nach
+Abschluss der praktischen Arbeit soll bis zum Ende der Gesamt-Projektlaufzeit die Vollendung und Optimierung der
+schriftlichen Arbeit erfolgen.
 
 # Grundlegende Literatur
 
@@ -92,23 +107,36 @@ gearbeitet? Wie passt die Studienarbeit in die aktuelle wissenschaftliche
 Landschaft und was ist neu (dies wird oben dargelegt und hier belegt). Was wird
 durch die erstellte Lösung verbessert und wie wird dies nachgewiesen? -->
 
-Eine gute Übersicht über die notwendigen politikwissenschaftlichen Hintergründe bieten Bukow et al., die die Organisation und Funktion der deutschen Parteien beschreiben [@bukow_innerparteiliche_2013].
+Eine gute Übersicht über die notwendigen politikwissenschaftlichen Hintergründe bieten Bukow et al., die die
+Organisation und Funktion der deutschen Parteien beschreiben [@bukow_innerparteiliche_2013].
 
-Kalyanam et al. untersuchen die Auswirkungen von Events in der realen Wert auf die Social Media Aktivität [@kalyanam_prediction_2016]. Ebenso untersuchen Tsytsarau et al. diesen Zusammenhang, mit einem Fokus auf die Verbindung der medialen Berichterstattung und dem Sentiment, der durch die Social Media Aktivitäten dargestellt wird [@tsytsarau_dynamics_2014].
-Gimpel et al. nähern sich der Thematik der Social Media Nutzung durch eine Cluster-Analyse zu verschiedenen Rollen in Twitter-Diskussionen [@gimpel_user_2018].
-Zudem untersucht Sältzer die Positionen von Bundestagskandidaten auf Twitter und betrachtet diese einerseits im Vergleich innerhalb der Parteien sowie andererseits auf einem allgemeinen politischen Koordinatensystem [@saltzer_bundestagswahl_2022; @saltzer_finding_2022].
+Kalyanam et al. untersuchen die Auswirkungen von Events in der realen Wert auf die Social Media Aktivität
+[@kalyanam_prediction_2016]. Ebenso untersuchen Tsytsarau et al. diesen Zusammenhang, mit einem Fokus auf die Verbindung
+der medialen Berichterstattung und dem Sentiment, der durch die Social Media Aktivitäten dargestellt wird
+[@tsytsarau_dynamics_2014]. Gimpel et al. nähern sich der Thematik der Social Media Nutzung durch eine Cluster-Analyse
+zu verschiedenen Rollen in Twitter-Diskussionen [@gimpel_user_2018]. Zudem untersucht Sältzer die Positionen von
+Bundestagskandidaten auf Twitter und betrachtet diese einerseits im Vergleich innerhalb der Parteien sowie andererseits
+auf einem allgemeinen politischen Koordinatensystem [@saltzer_bundestagswahl_2022; @saltzer_finding_2022].
 
-Li et al. sowie Kowsari et al. bieten je einen umfassenden Überblick sowie Vor- und Nachteile verschiedener Arten von Text-Klassifikation und gehen dabei sowohl auf traditionelle als auch auf Deep-Learning-Ansätze ein [@li_survey_2021; @kowsari_kk7nctext_classification_2023].
-Minaee et al. untersuchen und vergleichen die Verwendung von Deep-Learning-Modellen für die Aufgabe der Text-Klassifikation [@minaee_deep_2022].
+Li et al. sowie Kowsari et al. bieten je einen umfassenden Überblick sowie Vor- und Nachteile verschiedener Arten von
+Text-Klassifikation und gehen dabei sowohl auf traditionelle als auch auf Deep-Learning-Ansätze ein [@li_survey_2021;
+@kowsari_kk7nctext_classification_2023]. Minaee et al. untersuchen und vergleichen die Verwendung von
+Deep-Learning-Modellen für die Aufgabe der Text-Klassifikation [@minaee_deep_2022].
 
-Wong et al. bestimmen die politische Ausrichtung aufgrund des Verhaltens von Personen auf Twitter durch die Betrachtung, welche Accounts ähnliche andere Accounts retweeten [@wong_quantifying_2016].
-Zudem vergleichen Doan et al. verschiedene Sprachmodelle zur Klassifizierung von Reden nach Parteien und führen dies für verschiedene Länder bzw. Sprachen durch [@doan_using_2022].
-Auch Biessmann et al. klassifizieren Reden nach Parteien und nutzen zum Trainieren Parlaments-Debatten des Bundestages. Zudem wenden sie den Klassifikator auf andere Arten von Texten wie Social Media Posts an [@biessmann_predicting_2016].
+Wong et al. bestimmen die politische Ausrichtung aufgrund des Verhaltens von Personen auf Twitter durch die Betrachtung,
+welche Accounts ähnliche andere Accounts retweeten [@wong_quantifying_2016]. Zudem vergleichen Doan et al. verschiedene
+Sprachmodelle zur Klassifizierung von Reden nach Parteien und führen dies für verschiedene Länder bzw. Sprachen durch
+[@doan_using_2022]. Auch Biessmann et al. klassifizieren Reden nach Parteien und nutzen zum Trainieren
+Parlaments-Debatten des Bundestages. Zudem wenden sie den Klassifikator auf andere Arten von Texten wie Social Media
+Posts an [@biessmann_predicting_2016].
 
-Die Darstellung der Literatur zeigt, dass sich bereits einige Arbeiten mit der Analyse von Social Media Aktivitäten im Zusammenhang mit realen Events sowie mit dem Problem, Texte nach Parteizugehörigkeit zu klassifizieren, beschäftigen.
-In unserer Studienarbeit wollen wir neue Klassifikationsverfahren nutzen und vergleichen, um eine höhere Performance als vergangene Arbeiten zu erreichen.
-Zudem wollen wir nicht nur die Texte von Reden nutzen, sondern auch Social Media Posts und Parteiprogramme als Trainingsdaten für den Klassifikator einbeziehen.
-Für die darauf aufbauenden Analysen wollen wir zusätzlich zu den Social Media Aktivitäten, die mit bestimmten Ereignissen in Verbindung stehen, auch die jeweilige politische Einstellung der Nutzer, bestimmt durch den trainierten Klassifikator, nutzen.
+Die Darstellung der Literatur zeigt, dass sich bereits einige Arbeiten mit der Analyse von Social Media Aktivitäten im
+Zusammenhang mit realen Events sowie mit dem Problem, Texte nach Parteizugehörigkeit zu klassifizieren, beschäftigen. In
+unserer Studienarbeit wollen wir neue Klassifikationsverfahren nutzen und vergleichen, um eine höhere Performance als
+vergangene Arbeiten zu erreichen. Zudem wollen wir nicht nur die Texte von Reden nutzen, sondern auch Social Media Posts
+und Parteiprogramme als Trainingsdaten für den Klassifikator einbeziehen. Für die darauf aufbauenden Analysen wollen wir
+zusätzlich zu den Social Media Aktivitäten, die mit bestimmten Ereignissen in Verbindung stehen, auch die jeweilige
+politische Einstellung der Nutzer, bestimmt durch den trainierten Klassifikator, nutzen.
 
 # Literaturverzeichnis
 
